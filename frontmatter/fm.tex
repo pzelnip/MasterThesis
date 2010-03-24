@@ -1,0 +1,53 @@
+\newcommand\thesistitle{Educational Gems: An Exploration and Evaluation of A Visual Functional Programming Environment}
+% Make adjustments for a Master
+\newcommand\nameanddegrees{%
+Adam Robert Parkin\\
+B.Sc., University of Victoria, 2005}
+\newcommand\panel{%
+\panelist{Dr. Y.\ Coady}{Supervisor}{Department of Computer Science}
+\panelist{Dr. G.\ Tzanetakis}{Supervisor}{Department of Computer Science}
+\panelist{Dr. M.\ Zastre}{Departmental Member}{Department of Computer Science}
+\panelist{Dr. Outside Member}{Outside Member}{Department of Not Same As Candidate}}
+%\panelist{Dr. \Ans{Current Unknown}}{Additional Member}{Department of \Ans{Current Unknown Department}}}
+% Titlepage break
+\newcommand\tpbreak{\\[\baselineskip]}
+
+\newpage
+% Suppress numbers on the first page
+\thispagestyle{empty}
+
+% Header Footer Setup (for Front matter)
+\pagestyle{myheadings}
+\pagenumbering{roman}
+% We use this in addition to the default \LaTeX page configuration routines
+% because we have no way of saying \thispagestyle after the glossary and bibliography starts.
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+% Front Matter
+\input frontmatter/tp
+\input frontmatter/sc
+\input frontmatter/abs
+\TOCadd{Table of Contents}\tableofcontents
+\TOCadd{List of Tables}\listoftables
+\setcounter{lofdepth}{2}
+\TOCadd{List of Figures}\listoffigures
+\input frontmatter/ack
+\input frontmatter/ded
+
+% Header Footer Setup
+\newpage
+\pagestyle{myheadings}
+\pagenumbering{arabic}
+% We use this in addition to the default LaTeX page configuration routines
+% because we have no way of saying \thispagestyle after the bibliography starts.
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyhead[R]{\ifnum\thepage=1\relax\else\thepage\fi}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+}

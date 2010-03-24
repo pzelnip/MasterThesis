@@ -1,0 +1,37 @@
+\documentclass[12pt,oneside]{book}
+
+
+\include{macros/style}
+\include{macros/use_packages}
+\include{macros/initial_commands}
+
+
+\begin{document}
+
+% Front Matter
+\input frontmatter/fm
+
+\newpage
+
+	\include{chapters/intro/chapter_intro}
+	\include{chapters/curMethods/chapter_problem}
+%	\include{chapters/background/chapter_background}
+	\include{chapters/wordGame/chapter_wordGame}
+	%\include{chapters/observation/chapter_observation}
+	\include{chapters/evaluation/chapter_evaluation}
+	\include{chapters/conclusion/chapter_conclusion}
+	\appendix
+	\include{chapters/appendix/chapter_app}
+
+% The style of bibliography exemplified here is the IEEE,
+% normally used in engineering theses. This is shown
+% by the entry {ieeetr} below. Substitute the
+% appropriate bibliography style. See also the 
+% PDF file "InformationOnBibliographyStyles" in this % directory.
+	\TOCadd{Bibliography}
+	\bibliographystyle{ieeetr}
+	\bibliography{UvicThesis}
+
+
+
+\end{document}

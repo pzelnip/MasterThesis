@@ -1,0 +1,144 @@
+\startfirstchapter{Introduction}
+\label{chapter:introduction}
+
+Computer programming is hard.  So hard that oftentimes Computer Science students new to computer programming struggle
+very early on in their studies, become discouraged, and move on to other disciplines before reaching the true ``science'' of Computer Science \cite{Beaubouef05}.  Most programming environments used in academic institutions are based upon ``real-world'' software development tools, designed for software development experts who are already well-versed and trained in the fundamental ideas of computer programming.  New students thus face an uphill battle: they both have to learn and understand the abstract principles, theories, and practices that instructors try to convey in early Computer Science courses, while at the same time needing to learn obscure syntactic details that are largely independent and irrelevant with respect to the learning objectives of the course.
+
+Additionally, independent of the language, the tools and environments used play a role as well.  In a traditional textual programming environment when students make a mistake in their program that mistake is not discovered until they finally compile their code.  And once they compile their code, they are oftentimes met with cryptic error messages which discourage them at a very early stage.  
+
+Many of the difficulties associated with learning to program are explored and summarized in \cite{jenkins02,Hundhausen09,Kelleher05}
+
+The implication of these difficulties are revealed in the declining enrollment numbers we have seen in recent years in Computer Science \cite{Manaris07,Vesgo07,Ward08,Bayliss09}.  As such, there is considerable effort being undertaken to try and alleviate some of the common hurdles that students encounter in early CS1/CS2 style courses so as to avoid the high attrition rates seen in these courses.
+
+One approach has been to try and remove (or diminish) the impact from issues of syntax.  In this vein, many visual programming environments (VPE's) such as Alice\cite{alice} and Scratch\cite{scratch} have been produced as part of an effort to try to help alleviate some of the common syntactic errors that can cause difficulties for students new to programming and thereby allow the key concepts instructors are trying to convey to be more readily apparent.  However most of the previously designed VPE's (and all of the VPE's that are in widespread use) are based upon the imperative and/or object-orientated programming paradigms; very few are based upon the functional programming paradigm.  This is peculiar, as the importance of the functional paradigm is increasing as time progresses, and it has been hypothesized that one of the major difficulties that students face in early CS1-style classes is learning the subtleties of the object-orientated paradigm\cite{Manaris07,Mahmoud04,Benander04}. Furthermore, there have been efforts such as the ``Teach Scheme, Reach Java'' initiative \cite{Bloch08} that indicate that perhaps the jump from a functional programming background to a object-orientated one is less of an intellectual ``leap'' than the other way around\cite{Huch05}.
+
+Additionally it has been suggested that one possible way to ``combat'' the declining enrollment in CS is to make CS courses more ``fun'' and engaging\cite{Carter06}.  One possible way for this to be done is to incorporate computer games into CS curricula, and this has been done in various circumstances as a way of encouraging student involvement, motivation, and enjoyment\cite{Barnes08,Gooch08,Curtis05,Overmars05,Sweedyk05}.
+
+As a result of these observations, this thesis has been written to explore one VPE based upon the functional paradigm, the Gem Cutter, from a pedagogical perspective by evaluating the environment as well as outline a framework written in the VPE for creating simple, turn-based games.  That is, we make two main contributions in this thesis: an evaluation of a fully fledged visual programming environment for the purpose of aiding educators in determining if the Gem Cutter environment fits their needs, as well as some ready-made ``cookbook-style'' exercises that instructors may use in their classrooms and learning environments that make use of the game framework written in Gem Cutter.
+
+\section{Thesis Overview}
+
+This thesis is divided into five chapters:
+
+%\vspace{5mm}
+
+%\begin{hangparas}{0.5in}{1}
+\textbf{Chapter 1 Introduction} explains the motivation behind the problem of learning to program, the challenges presented in this work, a discussion of the approach taken in this thesis to address these challenges.  Also included is a brief introduction and overview of the Gem Cutter, the CAL language that underlies it, and how they both relate to the OpenQuark framework as a whole.
+%\end{hangparas}
+
+%\vspace{5mm}
+
+%\begin{hangparas}{0.5in}{1}
+\textbf{Chapter 2 Background Research} explores and summarizes much of the related work to this thesis.  In particular, past and current methods of instruction are summarized, as well the examination and evaluation of some newer approaches such as the incorporation of games into computer science courses as well as the use of visual programming environments.
+%\end{hangparas}
+
+%\vspace{5mm}
+	
+%\begin{hangparas}{0.5in}{1}
+\textbf{Chapter 3 The Word Game Framework} outlines the Word Game Framework developed using the Gem Cutter for allowing the creation of game-related assignments.  An overview of the framework is provided, along with a discussion of the implementation of it.  Some potential uses of the framework are explored, as well as some full, concrete, exercises that make use of the framework.
+%\end{hangparas}
+
+%\vspace{5mm}
+
+%\begin{hangparas}{0.5in}{1}
+\textbf{Chapter 4 Evaluation of the Gem Cutter Environment} evaluates the Gem Cutter environment by use of the Cognitive Dimensions Framework developed by Green.  An overview of the Cognitive Dimensions Framework is given, along with a discussion of each dimension, and then the framework is applied to the Gem Cutter.  To provide a point of comparision the application of the Cognitive Dimensions to other programming environments is summarized.  Lastly, the Gem Cutter is compared and contrasted with some other common VPE's.
+%\end{hangparas}
+
+%\vspace{5mm}	
+
+%\begin{hangparas}{0.5in}{1}
+\textbf{Chapter 5 Conclusion} contains a summary of the thesis and proposes some related future work.
+%\end{hangparas}
+
+\section{Challenges Presented}
+
+What criteria needs to be met for the thesis to have met its goal?  Ie - the learning environment must have the following characteristics:
+
+\begin{itemize}
+	\item Easy to learn and use
+	\item Allows new programmers to grasp fundamental programming concepts
+	\item etc etc etc
+\end{itemize}
+
+\section{Approach}
+
+\begin{itemize}
+	\item Evaluation of GC via CG framework
+	\item Development of Word game framework and exercises
+\end{itemize}
+
+\section{The Quark Framework}
+
+The Quark framework, also known as Open Quark, is a framework developed originally in the late 1990's at Business Objects.
+It embodies a non-strict (lazy), strongly-typed functional language and runtime for the Java platform.  The main motivation behind the design of Quark was to create a system which allowed dual language development in which a functional language could be used to define declarative business models and these models could then be assembled by Java client programs responsible for user interfaces, communications protocols, interfacing to databases, security, legacy applications, and other applications for which Java proper was well-suited.  Thus it would allow a sort of ``meta-programming'', in a sense combining the best of both worlds (functional and object orientated).\cite{evans07}  Quark itself consists of two main components:
+
+\begin{itemize}
+	\item CAL - a text-based functional language very much like Haskell
+	\item The Gem Cutter - a visual programming environment based upon the CAL language
+\end{itemize}
+
+This thesis focuses on the latter of those two, the visual programming environment known as the Gem Cutter, however a cursory understanding of CAL will be helpful in understanding how the Gem Cutter works.  A brief overview of both follows, readers more interested in the details of the Quark, CAL, and the Gem Cutter are referred to \cite{evans06, evans07}.
+
+\subsection{CAL}
+
+CAL is a non-strict (lazy), strongly-typed functional language, which targets the Java runtime.  That is, CAL source is compiled down to Java bytecode, and is it is thus possible to intermix components developed in CAL with components developed in Java proper.  In this sense it is very similar to the Scala programming language\cite{scala}.  It is even possible to call Java methods directly within CAL \cite{javaMeetsQuark}, however, obviously if one imports a functionally impure (ie - not referentially transparent) Java method, this compromises the purity of CAL as a whole (though in a very controlled way).  
+
+Syntactically, CAL is very similar (and heavily inspired by) the Haskell programming language.  Like Haskell it makes full use of a Hindley-Milner type inference scheme, and implements essentially all the non-syntactic sugar features of Haskell 98. \cite{evans07, Ilic07}.  An example of some CAL source can be seen in \pref{prog:calmap} which shows the implementation of the functional programming staple function commonly called \code{map()} which given a function and a list of items, applies that function to each item in the list, returning the transformed list as a result.  
+
+%That is, given a function \code{f()}, and a list L with items numbered from 0 through n, \code{map()} returns \code{f(L_0), f(L_1), ..., f(L_n)}.
+
+\begin{program}
+\begin{verbatim}
+map :: (a -> b) -> [a] -> [b]; 
+public map mapFunction !list = 
+    case list of 
+    []     -> []; 
+    listHead : listTail ->  
+        mapFunction listHead : map mapFunction listTail; 
+    ; 
+\end{verbatim}
+\caption{The CAL Source Version of the map Gem}
+\label{prog:calmap}
+\end{program}
+
+\subsection{The Gem Cutter}
+
+Talk about GC here.  Give an overview.  Recap the Evans paper.
+
+
+
+\section{Misc Notes}
+
+Some ideas about why creativity is important can be found in \cite{Farooq06}.
+
+Use of Game Maker in educational setting at UVic can be found in \cite{Gooch08}.
+
+Games as a motivational tool: see ``International Conference on Game Development in Computer Science Education''.
+
+Falling enrollment numbers and motivation for using games to motivate interest in CS can be found in \cite{Barnes08}
+
+Arguments for and against the adoption of games into CS curricula are summarized in \cite{Walker03}, additional concerns over how motivating games can be can be found in \cite{DiSalvo09}
+
+An excellent outline of how games can be used successfully in CS curricula as well as how not only should we shoehorn games but also focus on fundamentals is summarized in \cite{Bayliss09}.  It also discusses what considerations should be made when incorporating games into courses.
+
+``On the Difficulty of Learning to Program'' Tony Jenkins, http://www.psy.gla.ac.uk/~steve/localed/jenkins.html, cited in another paper as:
+Jenkins, T. On the Difficulty of Learning to Program. 3rd Annual LTSN-ICS Conference, Loughborough University, Leicestershire, UK, 2002, 53-58 -- discusses some of the difficulties associated with learning to program, as well as ``what should change'' (many points of which are completely violated by the status quo)  Great quote: ``The language used is no more than a vehicle whereby the main objective is to be achieved. It is hard for students to make this separation. While they grapple with the idiosyncrasies of whatever language they are being taught, it is very difficult to think about higher level abstract concepts.''
+
+\cite{Mahmoud04} mentions 
+
+\cite{Hundhausen09} shows some support for the claim that a visual environment (or direct manipulation as he puts it) can provide positive ``transfer of training'' to a textual environment.  Draws a distinction between making programming easier to learn in a general sense and being able to transfer knowledge and understanding to a textual environment.
+
+
+
+----
+
+Why is this thesis useful?
+
+Programming is hard, students new to programming often struggle to cope with the complexities of software development.
+
+Declining enrollment, syntax errors discourage students early and thus they leave computer science before they've
+gotten anywhere in the discipline...
+
+It has been theorized that visual programming environments (VPE's) help to alleviate some of the early frustrations
+associated with learning to program.  Many examples include Alice, Scratch, FIXME more...., however, very few have
+been proposed that fall into the functional programming paradigm.  Why FP?

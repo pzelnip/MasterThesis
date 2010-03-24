@@ -1,0 +1,377 @@
+\startchapter{The Word Game Framework}
+\label{chapter:eval}
+
+In this section we outline the implementation of a ``word game'' game engine designed using the Gem Cutter.  This engine provides a means for instructors to design a variety of exercises of varying difficulties and to be able to tailor the exercises to their specific needs.  From the perspective of students, the game engine represents an interesting and engaging framework within which they can explore various functional programming concepts such as higher order functions, recursion, and list processing.  A number of sample exercises are given in FIXME - reference chapter with exercises.
+
+The inspiration for the framework came from \cite{Curtis05} where a similar framework written in Haskell was outlined.  However, ours is an extension to this work in that \begin{inparaenum}[\itshape a\upshape)]\item it exists in both a visual programming environment (The Gem Cutter) as well as a text-based form (in CAL), and \item it is more general and flexible allowing for a greater variety of games to be expressed, without sacrificing pedagogical value.\end{inparaenum}
+
+In \sref{wordGameDefn} we define what we mean by a word game, in \sref{gameImplement} we outline the main API to the framework, in \sref{wordGameHelper} we outline some other implementation details, in \sref{hangmanImplDetails} we outline an sample game implementation (the ``Hangman'' word game) using the framework, in \sref{potentialGames} we outline some possible other approaches to implementing games using the framework, and finally in \sref{pedagogicalUses} we outline some of the pedagogical applications of the framework.
+
+
+\section{Motivation}
+\label{wordGameMotivation}
+
+FIXME - discussion of how games are being incorporated into CS courses as a method of motivating students to become more active learners.  Perhaps discussion of pros/cons, etc  Creativity discussion (ie creating games is a creative process thus it encourages students to be creative).  Overmars and Game Maker: \cite{Overmars04, Overmars05}
+
+Popularity of games as assignments for students, increased motivation and enjoyment, perhaps no increase in abilities: \cite{Cliburn06, Cliburn08}
+
+Summary of how games have been used in CS education is found in \cite{Cliburn06}
+
+\section{Word Games}
+\label{wordGameDefn}
+
+For our purposes a word game is a turn-based, text-based game in which the player will make ``moves'' that will transition the game from one current state to a (same or different) new state.  A game's state may include such details as the number of ``lives'' a player has remaining, or what previously made moves a player has made.  For a more concrete example, a given state of the popular word game Hangman may include details such as the word being guessed, how many guesses have been made, and what those guesses were.  For the popular Sudoku puzzle game, the state may include details such as the layout of the board (ie - which squares are blank and which are filled in), as well as the solution to the puzzle.  At the very least, a given game state should provide enough information that one can deduce all possible currently valid moves and whether or not the game is over (that is, whether or not the player has won or lost).
+
+The name ``word game'' is perhaps misleading, as any turn-based game for which a string-based representation can be produced is possible.  Other examples of possibilities would include games like chess, checkers, othello/reversi, etc.  So long as the current ``state'' of the game can be modeled, and the game itself is played by transitioning from state to state (or turn to turn), the word game framework can be used.
+
+Of course, while general, there are certainly limitations to where the framework can be used.  As mentioned, everything in the game is text-based, thus it is not particularly well-suited to a graphics programming course.  As well, all interactions in the game take the form of textual commands the player types, there is no facilities for other user interfaces to be used.  And lastly, any games that make use of the framework must be turn-based, thus ``real-time'' games would not be well-suited to the framework.
+
+In any case, all the possible examples given follow the same set of mechanics: prompt the user to make a move, analyze that move, and change the state based upon it.  This is the general underlying computational pattern throughout all games that the Word Game Framework implements.  The way in which this is interesting from a functional programming perspective is that the framework is parameterized by a few \emph{functions} which are passed as arguments to the framework.  That is, it inherently makes use of, and provides an interesting exercise in, the development and use of higher order functions.
+
+\section{The Word Game Framework Interface - The Game Gem}
+\label{gameImplement}
+
+For our implementation, we have designed a main \(game()\) function which game designers interact with.  By supplying all the parameters to \(game()\), game designers create a complete interactive game which can be played via the Gem Cutter interface.  
+
+\subsection{Parameters to the Game Gem}
+
+Our implementation of the \(game()\) function takes six arguments: a state changing function, an initial state, a prompt string, a title string, a predicate for testing if the end of game has occurred, and a routine for converting a state into a string-based representation.  Or more formally (using CAL type notation):
+
+\code{
+\begin{tabbing}
+game\=::\\
+\>stateChangingFunction :: a -> String -> (String, a)\\
+\>initialState :: a\\
+\>userPrompt :: String\\
+\>title :: String\\
+\>gameOverTest :: (String, a) -> Boolean\\
+\>stateToString :: a -> String\\
+\>returns (String, a)\\
+\end{tabbing}
+}
+
+Note that the type variable ``a'' represents our ``state'' type.  Thus, states are completely arbitrary in our implementation, they can be as simple or as complex as one wishes or needs.  No part of the Word Game Framework makes any kind of assumptions about the structure of game states.  The return value of \(game()\) is a tuple consisting of the last message displayed to the player, and the final game state.
+
+Each parameter of the \(game()\) function is outlined in detail below:
+
+\begin{itemize}
+	\item \code{stateChangingFunction :: State -> String -> (String, State)} - a function which encapsulates the state changing rules of the specific game.  One can think of this function as being the underlying logic of the game as it is responsible for enforcing the rules of the game at hand.  Given a current state and a string which represents the input from the player, this function produces a string response (to be displayed to the player) and a new state (which may or may not be different from the previous state).
+	\item \code{initialState :: State} - the initial state the game starts in.
+	\item \code{userPrompt :: String} - the string to use as a prompt to the player (for example, ``Enter your choice:'')
+	\item \code{title :: String} - the string to use as the title of the game.  This is displayed to the player once when the game begins.
+	\item \code{gameOverTest :: (String, State) -> Boolean} - a predicate function which given the last displayed message to the player and a current game state, returns true if the game is now over (for example if the player has won).
+	\item \code{stateToString :: State -> String} - a function which given a game state, returns a string represenation of that state to be displayed to the player.
+\end{itemize}
+
+A screenshot of the implementation of \(game()\) is shown in \fref{gameImplementation}.
+
+\insertFigure{4.5}{gameImplementation}{Implementation of the game() gem}
+
+\section{Helper Routines}
+\label{wordGameHelper}
+In creating \(game()\) we also devised a set of routines to handle the various I/O tasks.  Each is outlined in detail in the subsequent sections.
+
+\subsection{session}
+
+\(session()\) is a routine which encapsulates the basic gameplay session.  That is, it tests if the game has ended using the supplied gameOverTest predicate, and if so returns the final string displayed to the player and the final game state as a tuple.  More formally session is defined as:
+
+\code{
+\begin{tabbing}
+session\=::\\
+\>stateChangingFunction :: a -> String -> (String, a)\\
+\>stateToStringFunction :: a -> String\\
+\>initialState :: a\\
+\>userPrompt :: String\\
+\>gameOverTest :: (String, a) -> Boolean\\
+\>returns (String, a)\\
+\end{tabbing}
+}
+
+Each parameter corresponds to one of the arguments passed to the main \(game()\) routine.  A screenshot of the implementation of \(session()\) is shown in \fref{sessionImplementation}.  Note that this function also has a local function called \(endGameTest()\) defined within it.  This function is simply the logical or of the two possible ways of a game ending: either by the gameOverTest predicate returning true, or by the player entering the ``quit'' command.
+
+\insertFigure{4.5}{sessionImplementation}{Implementation of the session() gem}
+
+\subsection{processLine}
+
+\(processLine()\) is a routine which encapsulates a single ``move'' of the game.  That is, it represents one single application of the state transition function, and returns a tuple consisting of a message to display to the player and the new game state.  More formally, processLine is defined as:
+
+\code{
+\begin{tabbing}
+processLine\=::\\
+\>stateChangingFunction :: a -> String -> (String, a)\\
+\>stateToStringFunction :: a -> String\\
+\>previousState :: (String, a)\\
+\>userPrompt :: String\\
+\>returns (String, a)\\
+\end{tabbing}
+}
+
+Where \code{previousState} is a tuple consisting of a String\footnote{Which is ignored, and only appears to be type compatible with the return type of \code{session}} and the state which is transitioned from, and all other parameters correspond to those passed to the main \(game()\) routine.  A screenshot of the implementation of \(processLine()\) is shown in \fref{processLineImplementation}.  Note that this function also has a local function called \(printMsg()\) defined within it which is simply for the side effect of printing the resulting string message to STDOUT.
+
+\insertFigure{5}{processLineImplementation}{Implementation of the processLine() gem}
+
+\subsection{answer}
+
+\(answer()\) is a routine which applies the state transition function to the current state and current input from the player.  Additionally, answer determines if the user has prematurely quit the game by entering the special ``quit'' command.\footnote{The ``quit'' command is the only specific hard-coded command in the Word Game Framework, all others are passed to the state transition function.}  Like \(processLine()\), it returns a tuple consisting of a message to display to the player and the new game state.  More formally, answer is defined as:
+
+\code{
+\begin{tabbing}
+answer\=::\\
+\>stateChangingFunction :: a -> String -> (String, a)\\
+\>stateToStringFunction :: a -> String\\
+\>previousState :: a\\
+\>userResponse :: String\\
+\>returns (String, a)\\
+\end{tabbing}
+}
+
+Where \code{previousState} is the state which is transitioned from, \code{userResponse} is the response read from the player, and all other parameters correspond to those passed to the main \(game()\) routine.  A screenshot of the implementation of \(answer()\) is shown in \fref{answerImplementation}.  The \code{joinStrings} code gem consists of the single line of CAL code:
+
+\begin{verbatim}
+"\n\n" ++ s ++ "\n\n" ++ stateString ++ "\n"
+\end{verbatim}
+
+which simply serves the purpose of concatenating the two output strings together with a few newlines between them.
+
+\insertFigure{5.5}{answerImplementation}{Implementation of the answer() gem}
+
+\subsection{goodbyeMessage}
+
+\(goodbyeMessage()\) is a routine which simply returns the string to be displayed to the player when the game is over.  It is used to determine if and when the player prematurely ended the game by entering the ``quit'' command.  More formally, goodbyeMessage is defined as:
+
+\code{
+\begin{tabbing}
+goodbyeMessage\=::\\
+\>returns String\\
+\end{tabbing}
+}
+
+A screenshot of the implementation of \(goodbyeMessage()\) is shown in \fref{goodbyeMessageImplementation}.
+
+\insertFigure{3}{goodbyeMessageImplementation}{Implementation of the goodbyeMessage() gem}
+
+\subsection{readLine}
+
+\(readLine()\) prints a supplied prompt message to STDOUT, and then reads a line of text (using newline as a delimiter) from STDIN and returns it as a String.  More formally, readLine is defined as:
+
+\code{
+\begin{tabbing}
+readLine\=::\\
+\>prompt :: String\\
+\>returns String\\
+\end{tabbing}
+}
+
+A screenshot of the implementation of \(readLine()\) is shown in \fref{readLineImplementation}, which makes use of the Cal.Console.IO routines for reading from STDIN and printing to STDOUT.
+
+\insertFigure{5}{readLineImplementation}{Implementation of the readLine() gem}
+
+\subsection{quitting}
+
+\(quitting\) is a predicate function which returns true if the supplied string is equal to ``quit'', which is the special command a player can issue to terminate a game prematurely.  More formally, quitting is defined as:
+
+\code{
+\begin{tabbing}
+quitting\=::\\
+\>s :: String\\
+\>returns Boolean\\
+\end{tabbing}
+}
+
+A screenshot of the implementation of \(quitting()\) is shown in \fref{quittingImplementation}.
+
+\insertFigure{4}{quittingImplementation}{Implementation of the quitting() gem}
+
+\section{Example Game - Hangman}
+\label{hangmanImplDetails}
+
+As a concrete example of the use of the Word Game Framework, we now will outline an implementation of the popular Hangman game which uses the Word Game Framework as the game engine.
+
+\subsection{Hangman}
+
+Hangman is a game where players are given a hidden word, and a set number of guesses.  On each turn of the game, a player can make a single guess as to a letter they think appears in the word.  If they are correct, all occurrences of that letter in the word are revealed to the player.  If they are incorrect, then the number of remaining guesses is decreased by 1 (there is no penalty for guessing a previously-guessed letter).  The game ends when the player has successfully guessed all letters in the word (in which case they win), or when they have no more remaining guesses (in which case they lose).
+
+\subsection{Implementation}
+
+For our implementation of the game, each state of the game consists of a 3-tuple of the word to be guessed, the number of guesses remaining, and a list of previously guessed letters.  Or in CAL type notation a game state is of type \code{(String, Int, [Char])}.  A screenshot showing the implementation of the main \code{hangman()} routine is shown in \fref{hangmanImplementation}.
+
+\insertFigure{6}{hangmanImplementation}{Implementation of the hangman() gem}
+
+Our state changing function was named \code{makeAGuess}, following the pattern outlined in \cite{Curtis05}.
+
+Our initial state consists of a word selected at random from a supplied text file, the user-supplied number of guesses to allow before the game is over, and the empty list (since no guesses had been previously made).  Or in CAL: \code{initState = (getRandomWord wordFile, numLives, [])}
+
+We used two string literals in the form of value gems for the prompt and title.
+
+Our game over test was defined locally and is seen in \fref{hangmanImplementation}.  We define the end of game to occur when the number of guesses remaining falls below 1 (our state changing function \code{makeAGuess} sets the number of lives to be 0 when the player successfully guesses the word).
+
+Our state to string function was named \code{displaySt}, again following the pattern outlined in \cite{Curtis05}.  Given a state, it produces a string which contains the target word with unguessed letters blanked out (the implementation of which is an excellent exercise in using \code{map()} and \code{filter()}), the number of remaining guesses, and the letters not yet guessed.
+
+\subsection{Hypothetical Session}
+
+Below we illustrate a simple gameplay session where the chosen word was ``file'' and the player had 10 guesses to find the word.
+
+\begin{verbatim}
+--**HANGMAN**--
+("quit" to quit)
+
+
+     _ _ _ _
+
+Characters not guessed yet: abcdefghijklmnopqrstuvwxyz
+Lives left: 10
+
+Enter a letter or "quit" to end:
+e
+
+     _ _ _ e
+
+Characters not guessed yet: abcd fghijklmnopqrstuvwxyz
+Lives left: 10
+
+Enter a letter or "quit" to end:
+k
+
+
+ ** Character not in word **
+
+
+     _ _ _ e
+
+Characters not guessed yet: abcd fghij lmnopqrstuvwxyz
+Lives left: 9
+
+Enter a letter or "quit" to end:
+m
+
+
+ ** Character not in word **
+
+
+     _ _ _ e
+
+Characters not guessed yet: abcd fghij l nopqrstuvwxyz
+Lives left: 8
+
+Enter a letter or "quit" to end:
+s
+
+
+ ** Character not in word **
+
+
+     _ _ _ e
+
+Characters not guessed yet: abcd fghij l nopqr tuvwxyz
+Lives left: 7
+
+Enter a letter or "quit" to end:
+l
+
+     _ _ l e
+
+Characters not guessed yet: abcd fghij   nopqr tuvwxyz
+Lives left: 7
+
+Enter a letter or "quit" to end:
+o
+
+
+ ** Character not in word **
+
+
+     _ _ l e
+
+Characters not guessed yet: abcd fghij   n pqr tuvwxyz
+Lives left: 6
+
+Enter a letter or "quit" to end:
+i
+
+     _ i l e
+
+Characters not guessed yet: abcd fgh j   n pqr tuvwxyz
+Lives left: 6
+
+Enter a letter or "quit" to end:
+f
+
+     f i l e
+
+Characters not guessed yet: abcd  gh j   n pqr tuvwxyz
+Lives left: 6
+ ** Well done, you got it! **
+
+ Good Bye!
+\end{verbatim}
+
+
+\section{Other Potential Games}
+\label{potentialGames}
+
+As mentioned the framework is general, and could be applied to a number of games.  In this section, we will sketch an outline of how some games could possibly be implemented using the framework.
+
+\subsection{Sudoku}
+
+The Sudoku puzzle game has become increasingly popular in recent years \cite{sudoku08}.  The ``typical'' sudoku puzzle consists of a 9x9 grid in which one has to place the digits 1 through 9 in such a way that each row, column, and 3x3 subgrid contain each digit exactly once.
+
+From the perspective of our Word Game Framework, there are a number of ways a Sudoku grid could be modeled.  Probably the simplest approach would be as a list of lists of cells, with each inner list representing a row of the Sudoku grid.  The drawback to this approach however is that looking up a particular column or sub-grid would not be particularly intuitive.
+
+Another possibility (since the size of the puzzle does not change while the game is being played) would be to make use of CAL's Array data type, model the 9x9 grid as a 81 element array, and provide a function to convert a $(row, col)$ index into the grid into a single-digit index into the array.  This would make accessing the grid in arbitrary ways more natural, as it would simply involve a \code{filter()} over the array based upon the row or column index supplied.  The biggest upside to this approach would be that finding a particular element of the list would be extremely fast ($O(1)$ time).  However, converting a $(row, col)$ into an index for non-symmetric sized puzzles would be less straightforward (although certainly doable).
+
+Perhaps the most robust way would be to use an associative array, mapping $(row, col)$ pairs as keys to cell values.  Finding the set of cells which are ``free'' or unassigned would be a simple filter over the map.  CAL provides the \code{Map} module as an API to associative arrays which could be used for this purpose.  This approach would be extremely general, allowing for puzzles of any size and shape.  A slight downside is that accessing elements of the Map would be slightly slower than the Array version.  The Map.find function runs in $O(log\:n)$ time where $n$ is the number of elements in the map, thus generating a given row would mean $O(m \cdot log\:n)$ time, where $m$ is the length of the row/column/subgrid (\ie the number of digits allowed in the puzzle).
+
+In any case, each of these approaches would provide an excellent starting point for discussions about data structures, and the trade-offs involved in using one particular data structure versus another.
+
+\insertFigure{4}{sudokuGetRow}{Implementation of a getRow gem for a Sudoku game}
+
+In terms of the data type of each cell, one could simply use Ints, with a special designated value to indicate that the cell is currently empty (perhaps 0).  Alternatively, one could be more sophisticated and model the pattern outlined in \cite{sudokuHaskell} and construct a new data type for each element which is of type \code{DataCell a = Known a | Unknown a | Impossible}.  That is, a cell can be a known (fixed) value, an unknown cell (parameterized with the value 0 to indicate empty, or non-zero to indicate a guessed value), or Impossible to indicate that no value can legally be stored at that location (which would indicate that a guess to an unknown cell is incorrect).  To verify a puzzle would require one to implement routines for accessing a single row, column, or sub-grid of the board, each of which would be excellent exercises in the use of common functional programming constructs such as \code{fold()}, \code{map()}, and/or \code{filter()}. \fref{sudokuGetRow} shows an implementation of a function for getting the row of a Sudoku puzzle modeled using the Map data structure.  Note that this implementation makes use of \code{map()} and \code{zip()}.  Additionally, the use of the \code{repeat()} gem takes advantage of the lazy evaluation semantics of the CAL language (and provides an opportunity for educators to discuss eager vs lazy evaluation in programming languages).
+
+Thus, each state in our Sudoko game would simply consist of the data structure which models the board.  Our initial state would be a given puzzle with all fixed values being of ``Known'' type, and each blank cell initialized to ``Unknown 0''.
+
+Our state changing function would take a given board layout and string indicating a $(row,col)$ index into the board and a value to place, and then try to assign that value to the board.  Again, there is a great deal of flexibility here, one could create this routine for students but have the state-changing function allow assignments which are invalid (\ie ones which lead to cells of type ``Impossible''), then give as an exercise the task of modifying the state changing function so that only valid assignments are allowed.
+
+Our string to state function would take a given board layout and produce a string-representation of the board.  One possible output would be:
+
+\begin{center}
+\begin{verbatim}
+-------------------------------
+| 5  3    |    7  8 | 9  1  2 |
+| 6  7  2 | 1  9  5 | 3  4  8 |
+| 1  9  8 | 3  4    |    6  7 |
+-------------------------------
+| 8  5    |    6  1 |       3 |
+| 4  2    | 8     3 |       1 |
+| 7  1    |    2    |       6 |
+-------------------------------
+|    6    |         | 2  8    |
+|         | 4  1  9 |       5 |
+|         |    8    |    7  9 |
+-------------------------------
+\end{verbatim}
+\end{center}
+
+Producing each row of the above layout would be a natural application of the \code{map()} function, and if using the \code{DataCell} data type, would also be a very nice exercise in learning about parameterized types.
+
+%\subsection{Checkers}
+
+%Checkers is a popular 2 player game in which FIXME finish....
+
+%To model checkers using the Word Game Framework, a given state would need only keep track of the current layout of the board.  In classic checkers, a %board is simply an 8x8 grid.  Thus we could model the board as a list of lists, with each entry in the list keeping track of a single square on the %board.  Each entry in the list could be a tuple of values containing information about if the FIXME finish....
+
+%The state transition function would embody the rules of the game, thus would provide a nice opportunity FIXME finish....
+
+
+\section{Possible Pedagogical Uses}
+\label{pedagogicalUses}
+
+The Word Game Framework as outlined is quite general, and there are a number of potential ways it could be used.  Some possibilities include:
+
+\begin{itemize}
+	\item One could provide all of the required parameters to \(game()\), but leave out a few smaller parts of the state transition function as exercises. Depending on how the state transition function was structured each small portion could be targeted to a particular learning objective (perhaps learning about list processing, or higher order functions).  This allows one to target extremely narrow and precise learning objectives.
+	\item One could give the framework as is, give the students a specification of what structure the game states will be and what the rules of the game are, and leave the implementation of the state changing function, the end of game test, and the state to string parameters as the task to complete, thus giving a wide range of freedom for students to apply previously-learned concepts in a more general setting.
+	\item One could supply everything except the end of game test, and ask students to implement that function.  Since the end of game test is a function which is passed to \(game()\), this is a relatively simple task which naturally illustrates the use of higher order functions.
+	\item One could supply some of the auxiliary routines needed for the state-changing logic, leaving it up to students to connect the pieces together in the correct way.  This encourages students to think of the supplied parts as being opaque, enforcing the concepts of encapsulation and function composition.
+\end{itemize}
+
+In all cases, because of the strict type checking semantics of the Quark framework, students will be able to be particularly confident that when their project works, that it is correct in the general case.\footnote{This however does not remove the need for appropriate testing, but merely means that testing will be less time-consuming than in less strongly typed languages (such as C)}

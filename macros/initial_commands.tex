@@ -1,0 +1,76 @@
+% These commands are used
+% immediate after \begin{document}
+
+% Setup old style numerals macro
+\newcommand\osn[1]{\oldstylenums{#1}\xspace}
+
+% Setup a definition style macro
+\newcommand\defn[1]{\textbf{#1}}
+
+\newcommand{\gt}{\(>\)}		% less than sign shorthand
+\newcommand{\lt}{\(<\)}		% greater than sign shorthand
+\newcommand{\vbar}{\(|\)}	% vertical bar shorthand
+\newcommand{\code}[1]{{\tt #1}}
+\newcommand{\ie}{i.e.\ }
+
+\newcommand{\fref}[1]{Figure~\ref{#1}}
+\newcommand{\pref}[1]{Program~\ref{#1}}
+\newcommand{\tref}[1]{Table~\ref{#1}}
+\newcommand{\sref}[1]{Section~\ref{#1}}
+\newcommand{\filepath}[1]{{\tt #1}}
+
+\newcommand{\insertFigureLoc}[4]{
+\begin{figure}[#1]
+\begin{center}
+\includegraphics[width=#2in]{Figures/#3}
+\end{center}
+\caption{#4}
+\label{#3}
+\end{figure}
+}	
+
+\newcommand{\insertFigure}[3]{
+	\insertFigureLoc{ht}{#1}{#2}{#3}
+}
+
+
+\newcommand{\labExer}[6]{
+	\section{#1}
+	
+	\subsection*{Learning Objectives}
+
+	By the end of this lesson, participants will be able to:
+
+	#2
+
+	\subsection*{Task Type (Self-Directed or Guided)}
+
+	#3
+
+	\subsection*{Pre-Requisite Knowledge/Skills Needed}
+
+	Participants must already know/be able to:
+
+	#4
+	
+	\subsection*{Extra Environment Assumptions}
+
+	#5
+
+	\subsection*{Outline of Tasks}
+
+	#6
+}
+
+\newcommand{\labExerWithStudent}[7]{
+	\labExer{#1}{#2}{#3}{#4}{#5}{#6}
+	
+	#7
+}
+
+
+% the following 3 lines are for the "program" float type which is used for source
+% code listings.  It requires the ``float'' package.
+\floatstyle{ruled}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Program}
