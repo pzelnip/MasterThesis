@@ -150,7 +150,7 @@ Diffuseness is also sometimes referred to as terseness.  That is, it tries to me
 
 Traditionally functional languages have been quite terse, and scored well in that regard\footnote{Some even criticize functional languages for being \emph{too} terse, further illustrating that this dimension represents a trade-off.}.  Visual languages also tend to require a small number of syntactic elements to express a meaning, so one would think that a visual functional programming environment would be the most terse of all environments, and Kelso found this to be true of his VFPE\cite{Kelso02}.
 
-Measuring diffuseness/terseness is done by counting the number of syntactic lexemes that comprise a program.  To give a meaningful comparison, Green uses a sample yardstick problem taken from a paper by FIXME Curtis he calls the ``rocket trajectory problem'' which is summarized in \fref{fig:rocketTrajectoryProblem}.  He then goes on to give solutions to the problem in each of the environments he looked at, and Kelso did the same for Haskell and his VFPE.  The unfortunate flaw in this approach is that it does not account for individual skill or familiarity with a language -- the more familiar one is with a programming environment, the more likely it will be that one can use the ``right'' constructs and thus produce a solution which is the most terse.  Conversely, if one is unfamiliar with an environment\footnote{And particularly if the environment suffers from poor consistency} one will likely try to use a subset of the full set of constructs available, and end up producing a solution which is overly ``cluttered''.
+Measuring diffuseness/terseness is done by counting the number of syntactic lexemes that comprise a program.  To give a meaningful comparison, Green uses a sample yardstick problem taken from \cite{curtis89} that he calls the ``rocket trajectory problem'' which is summarized in \fref{fig:rocketTrajectoryProblem}.  He then goes on to give solutions to the problem in each of the environments he looked at, and Kelso did the same for Haskell and his VFPE.  The unfortunate flaw in this approach is that it does not account for individual skill or familiarity with a language -- the more familiar one is with a programming environment, the more likely it will be that one can use the ``right'' constructs and thus produce a solution which is the most terse.  Conversely, if one is unfamiliar with an environment\footnote{And particularly if the environment suffers from poor consistency} one will likely try to use a subset of the full set of constructs available, and end up producing a solution which is overly ``cluttered''.
 
 As well, as noted by Kelso in \cite{Kelso02} it can be difficult to measure diffuseness in visual environments which have dynamic layout schemes.  Oftentimes visual environments allow one to ``collapse'' code blocks into single elements.  Or as Kelso puts it: ``The level of diffuseness can in effect be dynamically traded off against the level of detail''.
 
@@ -163,15 +163,23 @@ The rocket program computes the vertical and horizontal trajectory of a rocket o
 \subsection{Error-Proneness}
 \label{errorpronenessoutline}
 
-The fundamental question that the error-proneness dimension tries to answer is ``does the design of the notation induce `careless mistakes'?''  Green draws a distinction between `mistakes' and `slips', where the former refers to the parts of program design which are deeply difficult irregardless of the notation\footnote{For example, design issues such as how to decompose a larger problem into smaller ones would be an example of a ``deeply difficult'' design problem.}, and the latter refers to those errors that one did not mean to do, where you somehow made a simple little ``slip-up''.  Error-proneness tries to measure whether or not the notation itself oftentimes leads to or encourages these ``slips''.
+The fundamental question that the error-proneness dimension tries to answer is ``does the design of the notation induce `careless mistakes'?''  Green draws a distinction between `mistakes' and `slips', where the former refers to the parts of program design which are deeply difficult irregardless of the notation\footnote{For example, design issues such as how to decompose a larger problem into smaller ones would be an example of a ``deeply difficult'' design problem.}, and the latter refers to those errors that one did not mean to do, where you knew better, but still somehow made a simple little ``slip-up''.  Error-proneness tries to measure whether or not the notation itself oftentimes leads to or encourages these ``slips''.
 
-An example from the world of textual languages is the use of textual identifiers, particularly in languages which are case-sensitive.  It is very easy to accidentally misspell an identifier in languages which do not require identifiers to be declared before they are used, can lead to subtle and difficult to debug errors in the program.  Visual environments avoid this particular example of error-proneness, but can 
+An example from the world of textual languages is the use of textual identifiers, particularly in languages which are case-sensitive.  It is very easy to accidentally misspell an identifier in languages which do not require identifiers to be declared before they are used, which can lead to subtle and difficult to debug errors in the program.  The paired-delimiter system (braces in C/C++/Java, parenthesis in languages such as Lisp and Scheme, or the begin/end pair in languages like Pascal) can also lead to trivial errors which cause the code to fail to compile.  Note that all of these are \emph{syntax} errors which are all but avoided in visual programming languages.  Thus, not surprisingly visual environments tend to avoid some of these common ``slips'', however, it would not be fair to say that visual languages are inherently less error-prone than textual languages.
 
-languages which do not require variables to be declared before they are used.  For example in fixme reference, we three implementations of the well known quadratic equation, one in Java, one in Python, and the last in Gem Cutter.  The two textual versions contain the same error in both: the identifier ``disc'' is misspelled on its second use, and thus does not refer to the value desired (the discriminant).  However, in SML, because identifiers must be declared via a val-binding before they are used this error is caught at compile time, whereas in Python (which does not require variables be declared before use), this results in a runtime error the programmer must debug.  Thus one could argue that SML is less error-prone than Python.  However, the Gem Cutter version completely avoids the possibility of the error, as one cannot add an emitter gem unless there is already a corresponding collector gem on the tabletop.
+\begin{comment}
+Languages such as Pascal which use semicolons as separators rather than statement terminators can cause confusion as well, as often times novices will write: 
 
+\code{if A then B; else C;}
 
+rather than 
 
-Visual languages tend to fare better than textual languages 
+\code{if A then B else C;}
+
+The functional language SML has a similar issue in regards to its ``let expression'' syntax.  FIXME - perhaps reference SML reference manual with explanation of how val bindings in lets do not need to end with semicolons.
+\end{comment}
+
+Kelso in \cite{Kelso02} also notes that issues related to data types can play a role here.  That is, languages which have strong type checks that are enforced throughout a program will likely be less error-prone than languages which do not enforce such strong and rigorous type checking.
 
 \subsection{Hard Mental Operations}
 \label{hardmentalopsoutline}
@@ -216,6 +224,9 @@ Talk about Visibility.
 \subsection{Applying the Cognitive Dimensions Framework to the Gem Cutter}
 
 Apply cg framework to Gem Cutter....
+
+languages which do not require variables to be declared before they are used.  For example in fixme reference, we three implementations of the well known quadratic equation, one in Java, one in Python, and the last in Gem Cutter.  The two textual versions contain the same error in both: the identifier ``disc'' is misspelled on its second use, and thus does not refer to the value desired (the discriminant).  However, in SML, because identifiers must be declared via a val-binding before they are used this error is caught at compile time, whereas in Python (which does not require variables be declared before use), this results in a runtime error the programmer must debug.  Thus one could argue that SML is less error-prone than Python.  However, the Gem Cutter version completely avoids the possibility of the error, as one cannot add an emitter gem unless there is already a corresponding collector gem on the tabletop.
+
 
 \subsection{Comparing Gem Cutter to Other Environments}
 
