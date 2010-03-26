@@ -67,44 +67,6 @@ What criteria needs to be met for the thesis to have met its goal?  Ie - the lea
 	\item Development of Word game framework and exercises
 \end{itemize}
 
-\section{The Quark Framework}
-
-The Quark framework, also known as Open Quark, is a framework developed originally in the late 1990's at Business Objects.
-It embodies a non-strict (lazy), strongly-typed functional language and runtime for the Java platform.  The main motivation behind the design of Quark was to create a system which allowed dual language development in which a functional language could be used to define declarative business models and these models could then be assembled by Java client programs responsible for user interfaces, communications protocols, interfacing to databases, security, legacy applications, and other applications for which Java proper was well-suited.  Thus it would allow a sort of ``meta-programming'', in a sense combining the best of both worlds (functional and object orientated).\cite{evans07}  Quark itself consists of two main components:
-
-\begin{itemize}
-	\item CAL - a text-based functional language very much like Haskell
-	\item The Gem Cutter - a visual programming environment based upon the CAL language
-\end{itemize}
-
-This thesis focuses on the latter of those two, the visual programming environment known as the Gem Cutter, however a cursory understanding of CAL will be helpful in understanding how the Gem Cutter works.  A brief overview of both follows, readers more interested in the details of the Quark, CAL, and the Gem Cutter are referred to \cite{evans06, evans07}.
-
-\subsection{CAL}
-
-CAL is a non-strict (lazy), strongly-typed functional language, which targets the Java runtime.  That is, CAL source is compiled down to Java bytecode, and is it is thus possible to intermix components developed in CAL with components developed in Java proper.  In this sense it is very similar to the Scala programming language\cite{scala}.  It is even possible to call Java methods directly within CAL \cite{javaMeetsQuark}, however, obviously if one imports a functionally impure (ie - not referentially transparent) Java method, this compromises the purity of CAL as a whole (though in a very controlled way).  
-
-Syntactically, CAL is very similar (and heavily inspired by) the Haskell programming language.  Like Haskell it makes full use of a Hindley-Milner type inference scheme, and implements essentially all the non-syntactic sugar features of Haskell 98. \cite{evans07, Ilic07}.  An example of some CAL source can be seen in \pref{prog:calmap} which shows the implementation of the functional programming staple function commonly called \code{map()} which given a function and a list of items, applies that function to each item in the list, returning the transformed list as a result.  
-
-%That is, given a function \code{f()}, and a list L with items numbered from 0 through n, \code{map()} returns \code{f(L_0), f(L_1), ..., f(L_n)}.
-
-\begin{program}
-\begin{verbatim}
-map :: (a -> b) -> [a] -> [b]; 
-public map mapFunction !list = 
-    case list of 
-    []     -> []; 
-    listHead : listTail ->  
-        mapFunction listHead : map mapFunction listTail; 
-    ; 
-\end{verbatim}
-\caption{The CAL Source Version of the map Gem}
-\label{prog:calmap}
-\end{program}
-
-\subsection{The Gem Cutter}
-
-Talk about GC here.  Give an overview.  Recap the Evans paper.
-
 
 
 \section{Misc Notes}

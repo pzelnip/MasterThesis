@@ -90,7 +90,7 @@ The example Green gives of an abstraction-hungry language is Smalltalk, as it ha
 and requires one to modify the class hierarchy in order to create new programs.  That is, every program written in the
 language \textbf{requires} the introduction of new abstractions.
 
-From the perspective of learning to program, it has been shown that oftentimes (FIXME - reference?)
+From the perspective of learning to program, it has been shown that oftentimes
 students new to computer programming struggle with languages which force one to learn and master several 
 abstractions at once, giving them ``a `rubber hamburger' which has to be swallowed because it cannot be chewed''\cite{green96}.
 As such it is difficult to find the right balance here, requiring too many abstractions to be learned can negatively
@@ -135,11 +135,11 @@ String s3 = s1.concat (s2); // create "Hello World"
 \label{prog:javamethod}
 \end{program}
 
-Typically visual languages tend to score well in consistency, largely due to a simpler syntax.  Many textual-based languages have struggled in regards to consistency for two primary reasons: FIXME numbering F1) most ``real-world'' textual languages have grammars of substantial size, and generally speaking the larger the grammar, the more complex the syntax (and thus the more likely there will be inconsistencies that arise), and F2) many textual ``real-world'' languages are the brainchild of a particular person, but have many features added by other parties over time (for example Java/James Gosling and C++/Bjarne Stroustrup are both examples of this, and both have been criticized for a lack of consistency).
+Typically visual languages tend to score well in consistency, largely due to a simpler syntax.  Many textual-based languages have struggled in regards to consistency as most ``real-world'' textual languages have grammars of substantial size, and generally speaking the larger the grammar, the more complex the syntax (and thus the more likely there will be inconsistencies that arise).
  
 Additionally, as noted by \cite{Kelso02} an issue related to consistency is that of library regularity.  For example, Haskell generally keeps naming and argument ordering in libraries in regular order (thus scoring well in terms of consistency).  C libraries however tend to not score so well, largely due to the fact that they have been developed over a long period of time by a large number of authors\footnote{As well, it could be argued that the fact that all functions in C reside in the same namespace negatively impacts consistency as well as it means that library designers must come up with their own unique naming schemes for functions to avoid naming conflicts.}.
 
-It has also been noted by fixme reference to Reisner in Green 96 paper that consistency can be viewed from two different perspectives: the learner and the designer.  Ideally these two perspectives should be the same, but in practice they often are not.  The distinction in Java between object types and primitive types is an example of this.  From the designers perspective this is perfectly consistent -- there are two fundamental categories of data types, and within the Java Virtual Machine (JVM) they are handled completely differently and separately.  From a learner's perspective however, this distinction can create confusion.  From a learner (or user of the language) it is all just data so the distinction is not as apparent and, for many new to the language, seems rather arbitrary.
+It has also been noted that consistency can be viewed from two different perspectives: the learner and the designer. \cite{Reisner93} Ideally these two perspectives should be the same, but in practice they often are not.  The distinction in Java between object types and primitive types is an example of this.  From the designers perspective this is perfectly consistent -- there are two fundamental categories of data types, and within the Java Virtual Machine (JVM) they are handled completely differently and separately.  From a learner's perspective however, this distinction can create confusion.  From a learner (or user of the language) it is all just data so the distinction is not as apparent and, for many new to the language, seems rather arbitrary.
 
 At any rate, given that the Cognitive Dimensions framework was designed by Green to be used by designers of a language one might think that his intention was that consistency was to be applied from the designers perspective, however this is not explicitly stated.  From our perspective as evaluators of a VPE from a pedagogical standpoint we are however more interested in the learners perspective, and our application of this dimension in evaluating the Gem Cutter will reflect this.
 
@@ -184,7 +184,44 @@ Kelso in \cite{Kelso02} also notes that issues related to data types can play a 
 \subsection{Hard Mental Operations}
 \label{hardmentalopsoutline}
 
-Talk about hard mental ops.
+A programmer must already juggle a number of different ideas and concepts while implementing the solution to a task.  What data structure should I use?  How efficient is this algorithm?  Can I access this piece of data within this context?  The 
+
+Ideally we would like our programming environments to reduce the cognitive load imposed upon the programmer.  That is, a programmer's job is hard enough, without having the tools in use add to the amount of things he or she must juggle.  Consider the declaration in fixme reference, written in the C programming language, taken from \cite{Giguere87}, which declares a pointer to a function called b which returns a pointer to an array of 10 elements, each of which are pointers to functions which return pointers to ints.
+
+int *(*(*(*b)())[10])();
+
+\begin{comment}
+int *(*list[ MAX ])();
+
+which declares an array called list with MAX elements, each of which are pointers to functions which return pointers to ints.  Giguere explains how one can mentally parse this declaration as:
+
+%\begin{quote}
+Step 1, the identifier is list (MAX is the array size), write ``declare list as''. Step 2, array on the right. Step 3, write ``array MAX of''. Step 4, pointer on the left. Step 5, write ``pointer to''. Step 6, parenthesized expression, goto step 2. Step 2, function on the right. Step 3, write ``function returning''. Step 4, pointer on the left. Step 5, write ``pointer to''. Step 6, complete declarator. Step 7, write ``int''. Stop.
+
+The declaration is: ``declare list as array MAX of pointer to function returning pointer to int''.
+%\end{quote}
+\end{comment}
+
+Green defines a hard mental operation as having two properties:
+
+\begin{enumerate}
+	\item it must lie at the notational level, rather than the semantic level, as the dimension is trying to measure shortcomings in the programming environment, rather than discover meanings which are inherently difficult to express irregardless of the notation
+	\item combining multiple hard mental operations vastly increases the difficulty
+\end{enumerate}
+
+As such, this allows him to outline a ``broad-brush'' test for hard mental operations by asking the following two questions: 
+
+\begin{enumerate}
+	\item if I fit two or three of these constructs together, does it get incomprehensible?
+	\item is there a way in some other language of making it comprehensible? (Or is it just a really hard idea to grasp?)
+\end{enumerate}
+
+If the answer to both is yes, then we have a hard mental operation.  As an example application of this, again consider the declaration in fixme reference.  If we examine ``function pointers in C'' as a construct, we would ask the question ``if I fit two or three function pointers together, does it get incomprehensible?''  It would appear that the answer to this is yes, a pointer to a function is difficult to mentally parse to begin with, but if we have pointers to functions of pointers to functions, they are even more difficult to decompose.  Next we ask the question ``is there a way in some other language of making function pointers comprehensible?''  Again, given the relative simplicity and clarity of the CAL array of functions example, it would appear that this is the case.  
+
+Cognitive load theory tells us that we should minimize the 
+Hard mental operations in particular is an important dimension for environments designed for learning, as presumably students learning a language already have to mentally process the new language or notation that they are learning, in addition to any 
+
+Essentially hmo's add to the cognitive load of students.
 
 \subsection{Hidden Dependencies}
 \label{hiddendependenciesoutline}
