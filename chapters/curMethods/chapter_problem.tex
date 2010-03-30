@@ -30,9 +30,6 @@ Use of Python in CS1 and/or CS2:
 \cite{Pears07} has an excellent survey of various research questions in regards to the instruction of computer programming, and the design of the first year course.
 
 
-There has been a move towards ``design-first'' instructional style for the introductory course.  Traditionally introductory programming courses are taught by example.  The instructor introduces a new syntactic construct from the language being used, shows a number of examples using this construct, then exercises or assignments are given where students have to take the given code from the instructor and modify it to a new problem.  Some people feel that this approach emphasizes the language more than design, and given that the specific language in use is not the primary goal of the course, it has been argued that this creates courses whereby students walk away feeling as though programming is all about learning syntax, and not about designing creative solutions to interesting problems.  The consequence of this is that this approach makes the teaching of syntax explicit, and the teaching of design implicit, potentially causing courses to create student who can take existing code in Java or C++ (whichever language is used) and modify it to a new problem, but cannot design a solution to a problem from scratch.  \cite{Flatt04} outlines a course whereby design is made much more explicit to students, and has reported success in their approach.
-
-There has also been research done which would indicate that perhaps beginning in the object-orientated paradigm is a less desirable choice than beginning in the functional paradigm\cite{Flatt04,Huch05}.  This has significant repercussions in terms of language choice, as (for example) Java is a heavily object-orientated language, and as such it has been argued is not the ideal choice for a first year course\cite{Bos98,Huch05}.  The TeachScheme/ReachJava project shows that ``functional first'' does not imply that object-orientation must be avoided in the first year of study\cite{Bloch08,teachScheme,Felleisen04}.
 
 
 
@@ -46,9 +43,36 @@ In this section we explore how computer programming has been, currently is, and 
 
 \subsection{Pedagogy}
 
+Objects-first vs Imperative first vs functional first.  Contrast with design-first.  Difficulty of OO early.  FP early discussion.
+
+Support that OO first is controversial is in \cite{Astrachan05}.  More heavy criticism of OO first is in \cite{Hu04}
+
+There has been a move towards a ``design-first'' instructional style for the introductory course.  Traditionally introductory programming courses are taught by example.  The instructor introduces a new syntactic construct from the language being used, shows a number of examples using this construct, then exercises or assignments are given where students have to take the given code from the instructor and modify it to a new problem.  Some people feel that this approach emphasizes the language more than design, and given that the specific language in use is not the primary goal of the course, it has been argued that this creates courses whereby students walk away feeling as though programming is all about learning syntax, and not about designing creative solutions to interesting problems.  The consequence of this is that this approach makes the teaching of syntax explicit, and the teaching of design implicit, potentially causing courses to create student who can take existing code in Java or C++ (whichever language is used) and modify it to a new problem, but cannot design a solution to a problem from scratch.  \cite{Flatt04} outlines a course whereby design is made much more explicit to students, and has reported success in their approach.
+
+There has also been research done which would indicate that perhaps beginning in the object-orientated paradigm is a less desirable choice than beginning in the functional paradigm\cite{Flatt04,Huch05}.  This has significant repercussions in terms of language choice, as (for example) Java is a heavily object-orientated language, and as such it has been argued is not the ideal choice for a first year course\cite{Bos98,Huch05}.  The TeachScheme/ReachJava project shows that ``functional first'' does not imply that object-orientation must be avoided in the first year of study\cite{Bloch08,teachScheme,Felleisen04}.
+
+
 \subsection{Language Choice}
 
-The choice of programming language is a critical one, though perhaps an overstated one.  
+The choice of programming language is a critical one, though perhaps an overstated one.  Ideally the introductory programming course should be a course which teaches systematic thinking and problem solving, not ``how to write Java''.  Thus, while by necessity the introductory programming courses must make use of a programming language and environment, the primary goal of the introductory course is to teach programming in the abstract sense rather than specific syntax.
 
-In the history of the field, computer science has seen a variety of languages employed at one time or another as being ``the teaching language of choice''.  For our pu
+In the history of the field, computer science has seen a variety of languages employed at one time or another as being ``the teaching language of choice''.  For our purposes we shall outline three time-frames and list some of the languages most commonly in use during those times as well as summarize findings in regards to the successes and failures of those languages from a pedagogical standpoint.
+
+\subsubsection{The Past}
+
+FORTRAN, Scheme, Pascal
+
+\subsubsection{Present Day}
+
+C/C++, Java
+
+\subsubsection{The Future}
+
+As the result of the difficulties associated with the use of C/C++ and Java in the introductory programming course, many institutions are now switching from C/C++ and/or Java to other languages with the most common choice being the Python programming language\cite{python}.  Python has the advantage of being a scripted, interpreted language, thus students can ``try-out'' small expressions or snippets of code without having to get a complete source file free from errors.  It also has a relatively ``clean'' and simple syntax compared to the relatively verbose Java.  The use of whitespace for program structure encourages good indentation habits early as well.  With all these benefits it is not surprising to see some institutions beginning to adopt Python as the language for their introductory programming courses.  Perhaps the most notable adoption of Python happened at MIT, whose CS department had long been a strong proponent of the use of Scheme in introductory programming courses due to the adoption of \cite{SICPbook} as the introductory text.  Other examples of using Python in CS1/CS2 style courses and the possible benefits and drawbacks of doing so can be found in \cite{Radenski06,Shannon03,Agarwal05,Agarwal08}.
+
+\section{Visual Programming Environments}
+
+Alice, Scratch, Gamemaker, VFPE, Prograph
+
+\section{Games and Computer Science Curricula}
 
