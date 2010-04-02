@@ -21,9 +21,7 @@ Discussion of \cite{SICPbook} and it's influence is described in \cite{Flatt04}.
 \cite{Benander04} has great numbers and figures on how various institutions have moved to Java.  Also provides very strong evidence to support the claim that Java is much easier to learn if you already know OO.  Also has support for the claim that Java is easy to learn if you are already experienced as a programmer, thus possibly lend more support to the notion of ``functional first'' (though be careful, it says Java is easy to learn if you know how to program, it doesn't say Java is easy to learn if you know FP).
 
 
-Use of Python in CS1 and/or CS2:
-
-\cite{Radenski06,Shannon03,Agarwal05,Agarwal08}.  MIT move from Scheme to Python: http://tech.mit.edu/V125/N65/coursevi.html
+MIT move from Scheme to Python: http://tech.mit.edu/V125/N65/coursevi.html
 
 \cite{Necaise08} indicates that the popularity of python is the removal of syntax issues -- possible motivation for VPE's?
 
@@ -65,6 +63,12 @@ There has also been research done which would indicate that perhaps beginning in
 
 \subsection{Language Choice}
 
+\begin{flushright}
+\textit{The limits of my language mean the limits of my world.}
+\\
+Ludwig Wittgenstein \cite{Wittgenstein22} \\
+\end{flushright}
+
 The choice of programming language is a critical one, though perhaps an overstated one.  Ideally the introductory programming course should be a course which teaches systematic thinking and problem solving, not ``how to write Java''.  Thus, while by necessity the introductory programming courses must make use of a programming language and environment, the primary goal of the introductory course is to teach programming in the abstract sense rather than specific syntax.
 
 In the history of the field, computer science has seen a variety of languages employed at one time or another as being ``the teaching language of choice''.  For our purposes we shall outline three time-frames and list some of the languages most commonly in use during those times as well as summarize findings in regards to the successes and failures of those languages from a pedagogical standpoint.
@@ -81,11 +85,35 @@ Problems with Java: \cite{Bos98,Benander04}
 
 \subsubsection{The Future}
 
-As the result of the difficulties associated with the use of C/C++ and Java in the introductory programming course, many institutions are now switching from C/C++ and/or Java to other languages with the most common choice being the Python programming language\cite{python}.  Python has the advantage of being a scripted, interpreted language, thus students can ``try-out'' small expressions or snippets of code without having to get a complete source file free from errors.  It also has a relatively ``clean'' and simple syntax compared to the relatively verbose Java.  The use of whitespace for program structure encourages good indentation habits early as well.  With all these benefits it is not surprising to see some institutions beginning to adopt Python as the language for their introductory programming courses.  Perhaps the most notable adoption of Python happened at MIT, whose CS department had long been a strong proponent of the use of Scheme in introductory programming courses due to the adoption of \cite{SICPbook} as the introductory text.  Other examples of using Python in CS1/CS2 style courses and the possible benefits and drawbacks of doing so can be found in \cite{Radenski06,Shannon03,Agarwal05,Agarwal08}.
+As the result of the difficulties associated with the use of C/C++ and Java in the introductory programming course, many institutions are now switching from C/C++ and/or Java to other languages with the most common choice being the Python programming language\cite{python}.  Python has the advantage of being a scripted, interpreted language, thus students can ``try-out'' small expressions or snippets of code without having to get a complete source file free from errors.  It also has a relatively ``clean'' and simple syntax compared to the relatively verbose Java.  The use of whitespace for program structure encourages good indentation habits early as well.  With all these benefits it is not surprising to see some institutions beginning to adopt Python as the language for their introductory programming courses.  Perhaps the most notable adoption of Python happened at MIT, whose CS department had long been a strong proponent of the use of Scheme in introductory programming courses due to the adoption of \cite{SICPbook} as the introductory text\cite{Thetech06}.  Other examples of using Python in CS1/CS2 style courses and the possible benefits and drawbacks of doing so can be found in \cite{Radenski06,Shannon03,Agarwal05,Agarwal08}.
 
 \section{Visual Programming Environments}
 
 Alice, Scratch, Gamemaker, VFPE, Prograph
 
-\section{Games and Computer Science Curricula}
+\cite{Hundhausen09} shows some support for the claim that a visual environment (or direct manipulation as he puts it) can provide positive ``transfer of training'' to a textual environment.  Draws a distinction between making programming easier to learn in a general sense and being able to transfer knowledge and understanding to a textual environment.
 
+Use of Game Maker in educational setting at UVic can be found in \cite{Gooch08}.
+
+
+\section{Games and Computer Science Curricula}
+\label{chapter:problemSec:games}
+
+In recent years there has been a notable decline in enrollment in Computer Science courses in recent years\cite{Manaris07,Vesgo07,Ward08,Bayliss09}.  As a result of this decline, many institutions are seeking out interesting and new ways to ``entice'' students to enroll in Computer Science courses and to rekindle interest in the discipline.  One such method that has been proposed is to incorporate computer games into Computer Science curricula.  \cite{Cliburn06} provides a summary of how games have been used in this fashion.
+
+The rationale behind this move is that since video games are an exciting and compelling application of computer programming, that perhaps that interest in games can be leveraged by instructors in their introductory programming courses (and beyond)\cite{Overmars04,Sweedyk05,Barnes08}.  Furthermore, video games are a multi-billion dollar industry\cite{Wallace06}, and a common motivation for students in choosing a discipline are the employment opportunities a degree in the field would entail.  Since electronic entertainment is so prosperous, having curricula that targets students specifically for this field can be a compelling factor in one choosing a degree in Computer Science.
+
+Some institutions have even taken this move a step further and are now offering gaming themes and concentrations in their degrees.  Recently, the University of Victoria added a ``Graphics and Gaming'' option to their Computer Science major program.  Other attempts at this are explored in \cite{Leutenegger07,Murray06,Zyda06}.  Most institutions that incorporate games into their courses or degrees have reported an increase in student enjoyment.  It has been shown that students prefer assignments based around games than ``traditional'' or ``story-telling'' assignments\cite{Cliburn08}.
+
+%\cite{Cliburn08} provides strong evidence that in a general, aggregate study, students prefer assignments based around games than ``traditional'' or ``story-telling'' assignments.
+
+While there have been successes reported surrounding the use of games, it is very much a controversial choice, as there are a number of concerns that have been raised in regards to gaming-centered curricula.  There is strong evidence to indicate that while gaming may spark initial interest in computing, that it does not follow that this initial interest will translate into increases in students undertaking Computer Science majors.  A survey of 1,872 students conducted at a ``highly selective public technical university'' found that while 43\% of students indicated that games influenced their interest in computing, only 6.9\% realized that interest by becoming Computer Scientists\cite{DiSalvo09}.  Furthermore, while student interest generally seems to increase with assignments making use of games, few institutions have reported any noticible improvement in student performance.  Cliburn reported findings of a study he performed in the introductory programming course at Hanover College and found that students had a higher overall average score (95.1\% on average) on traditional assignments than on game-based assignments (89.1\% on average)\cite{Cliburn06}.  Interestingly, he also found that in spite of this, most students (78.9\%) still preferred game-based assignments over ``traditional'' assignments, perhaps a further testament to the motivating power of games as assignments.
+
+Concerns have also been raised surrounding issues of gender and race.  One such concern suggests that games appeal more to male students than female, and that incorporation of games may alienate females further from the discipline.  Specifically, there has been evidence to show that females tend to prefer games which are cooperative in nature rather than competitive, and that the latter can deter interest of women in games\cite{Camp02}.  As such it has been argued that games can be a successful motivational tool for educators even with female students, so long as the assignments are designed with this concern in mind\cite{Carmichael08}.  Other works have adopted ``story-telling'' rather than games as being the vehicle of motivation, and have specifically explored this avenue with middle-school girls with great success\cite{Kelleher06}.
+
+\begin{comment}
+\cite{Natvig04,Barnes08} example of games being used
+Some ideas about why creativity is important can be found in \cite{Farooq06}.
+Games as a motivational tool: see ``International Conference on Game Development in Computer Science Education''.
+An excellent outline of how games can be used successfully in CS curricula as well as how not only should we shoehorn games but also focus on fundamentals is summarized in \cite{Bayliss09}.  It also discusses what considerations should be made when incorporating games into courses.
+\end{comment}
