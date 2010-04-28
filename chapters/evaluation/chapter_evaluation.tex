@@ -1,262 +1,11 @@
 \startchapter{Evaluation of The Gem Cutter Environment}
 \label{chapter:Exp}
 
-One of the challenges faced in evaluating a programming environment is that programming is such a \textit{subjective}
-task.  Different programmers have different preferences, and value certain features over others.  While one
-programmer may find one aspect of the environment very useful, another may find that aspect counterintuitive.  
-Programmers are famous for being extremely opinionated about the tools and environments they use, developing almost
-dogmatic devotion to one approach at the expense of others.  It can be difficult to find a formal method to
-use to discuss the merits of one language design over another that can be agreed upon.
-
-Oftentimes when computer scientists and software engineers try to evaluate the usability of a system, they turn
-to human computer interaction (HCI) principles to do so.  However, as pointed out in \cite{green96}, this is 
-problematic for the evaluation of programming environments as typically HCI tends to focus on interactive situations
-rather than notational design.  That is, HCI tends to focus more on ``micro-tasks'' and the finished product, rather
-than the processes and activities which produce that task.  As an example, in evaluating a programming environment it is less important
-to know that the ``compile'' option is easy to find than it is to know that the environment does not allow for new 
-abstractions to be created.  Moreover, oftentimes programmers are not HCI experts, and
-vice-versa.  Thus while the vocabulary of HCI may be second nature to those in the field, it is less so for the
-average computer programmer or software engineer.  Similarly, it is not uncommon for programmers to use terminology
-that is unfamiliar to those who are not software developers.  For our purposes, we shall use the ``cognitive dimensions 
-framework'' outlined by Green in \cite{green96} for evaluating differing visual programming environments.  
-
-In this section we will outline the cognitive dimensions framework, and then apply it to the Gem Cutter environment.  
-In \cite{green96} Green applied the framework to analyze one textual (BASIC) and two visual (LabView and Prograph) 
-languages.  Additionally, \cite{Kelso02} applies the framework to his Visual Functional Programming Environment.  To 
-provide a meaningful comparison we will briefly recap both their findings as well.
-
-\section{Outline of the Cognitive Dimensions Framework}
-\label{cgframeoutline}
-
-The Cognitive Dimensions Framework consists of 13 different ``dimensions'' to easily evaluate and critically examine a programming
-environment.  The purpose of the framework is to provide a set of 
-dimensions which capture much of the psychology and HCI of programming, and give a vocabulary for which VPL
-designers and users can use to examine different visual programming environments.  It is less of a framework
-for stating that ``language X is better than language Y'', but more for statements like ``language X can have
-better Y by changing Z'' (where Y is one dimension of the framework, and Z is some aspect of the VPE that
-impacts Y).  Furthermore, the language used in the framework is more accessible to the average software developer, 
-not requiring one to be an HCI expert to use it.
-
-One very important aspect of the framework is that (not surprisingly) different dimensions can represent trade-offs.  In fact, 
-this is intentional --- there are always trade-offs in designing any system of moderate complexity, and until there is a 
-vocabulary for discussing those trade-offs it is difficult to reason about how one can improve the initial design.  The cognitive 
-dimensions framework is intended as being able to fill this void, allowing designers to coherently and critically examine 
-and \textit{converse} about their designs so that they may find the best compromise given the objective(s) of the system 
-being designed.  As Green himself puts it ``Like other forms of engineering, design is a matter of compromise''. \cite{green96}
-
-Below is a recap of the listing of the thirteen dimensions of the Cognitive Dimensions Framework described by Green in \cite{green96}. 
-
-\begin{itemize}
-	\item Abstraction Gradient - What are the minimum and maximum levels of abstraction?
-	\item Closeness of Mapping - What programming ``games''	need to be learned?
-	\item Consistency - When some of the language has been learned, how much of the remaining parts of the language can be inferred?
-	\item Diffuseness - How many symbols or graphic entities are required to express a meaning?
-	\item Error-proneness - Does the design of the notation induce ``careless mistakes''?
-	\item Hard Mental Operations - Are there places where the user needs to resort to fingers or penciled annotation to keep track of what's happening?
-	\item Hidden Dependencies - Is every dependency overtly indicated in both directions? Is the indication perceptual or only symbolic?
-	\item Premature Commitment - Do programmers have to make decisions before they have the information they need?
-	\item Progressive Evaluation - Can a partially-complete program be executed to obtain feedback on ``How am I doing?''
-	\item Role-expressiveness - Can the reader see how each component of a program relates to the whole?
-	\item Secondary notation - Can programmers use layout, colour, or other cues to convey extra meaning, above and beyond the 'official' semantics of the language?
-	\item Viscosity - How much effort is required to perform a single change?
-	\item Visibility - Is every part of the code simultaneously visible (assuming a large enough display), or is it possible to juxtapose any two parts side-by-side at will?
-\end{itemize}
-
-A more detailed description of each is given in the sections that follow.
-
-\subsection{Abstraction Gradient}
-\label{absgradientoutline}
-
-\cite{green96} describes the Abstraction Gradient as ``What are the minimum and maximum levels of abstraction?  Can 
-fragments be encapsulated?''  Furthermore, Green classifies languages based upon three categories: abstraction-hating, 
-abstraction-tolerant, or abstraction-hungry depending upon the languages minimum starting level of abstraction and their 
-readiness or desire to accept further abstraction.
-
-That is, this dimension asks the questions: how much needs to be constructed and learned in order to begin making the programming
-environment perform a task?  And how easy is it to add new abstractions?  
-
-The example Green gives of an abstraction-hating formalism is that of flowcharts, as they only allow decision boxes 
-and action boxes.  There is no way to ``add'' additional constructs or group related ideas within a flowchart.  While they 
-have a low minimum level of abstraction (there is not much to learn to begin using them), they have no readiness to accept
-further abstractions.  Turing 
-machines would be another example of a notation which is abstraction hating --- each instruction can only have a current 
-state, current symbol, next state, next symbol, and a direction to move on the tape.
-
-The classic example of an abstraction-tolerant language would be C, as it has a higher minimum level of abstraction (one must
-learn some of the various keywords in the language, as well as how to write a \code{main()} routine for example), and it allows
-for new abstractions of various kinds to be created (for example, one can create new types with \code{typedef} and \code{struct}).
-
-The example Green gives of an abstraction-hungry language is Smalltalk, as it has a high starting level of abstraction, 
-and requires one to modify the class hierarchy in order to create new programs.  That is, every program written in the
-language \textbf{requires} the introduction of new abstractions.
-
-From the perspective of learning to program, it has been shown that oftentimes
-students new to computer programming struggle with languages which force one to learn and master several 
-abstractions at once, giving them ``a `rubber hamburger' which has to be swallowed because it cannot be chewed''\cite{green96}.
-As such it is difficult to find the right balance here, requiring too many abstractions to be learned can negatively
-impact learning, but having limited abstraction mechanisms can make programs difficult to modify (see the section on Viscosity
-later).  Green seems to indicate that abstraction-tolerant languages are the best fit for learning environments, but admits
-that more research needs to be done in this area.
-
-\subsection{Closeness of Mapping}
-\label{closenessoutline}
-
-One could argue that programming is all about problem solving.  Put another way, given a problem expressed in one particular domain (the problem domain) the role of the programmer is to come up with a mapping of this problem into the domain of the programming environment in use (the program domain).  Closeness of mapping tries to measure the gap between the problem domain and the program domain.  That is, how much extra ``administrative stuff'' does the environment impose upon the programmer in order to translate a solution to a problem into something that can be executed in the programming environment?  Green refers to this ``administrative stuff'' as ``programming games'', or the little language/environment-specific idiosyncrasies that are imposed upon the programmer.  The classic example of a programming game which is imposed on many first year computer science students is the \code{public static void main (String [] args)} method signature that must appear in any Java program.  This line is (typically) completely absent from the problem domain, yet is a required artifact that students must produce in order to produce a solution to any problem given to them by their instructors when Java is the language of choice.
-
-Closeness of Mapping also is to a lesser degree a measure of what the environment provides in terms of standard libraries and constructs.  If a language provides a great deal of standard libraries, then intuitively it would seem that there would be less work for the programmer to do to create the mapping from problem domain to program domain.  Related to this is the notion of whether or not the language allows constructs to be built that improve the Closeness of Mapping.  That is, if functionality is not provided in the way of standard libraries, is it possible for one to add their own to better bridge the gap between
-problem and program domain.
-
-Traditionally (and not surprisingly), domain-specific languages tend to score very well in this regard \emph{when the problem lies within the target domain that the language was designed for}.  It is less clear as to how well these languages score when attempting general problems that fall outside of that targeted domain.
-
-\subsection{Consistency}
-\label{consistencyoutline}
-
-Consistency tries to measure how easy it is to infer the remaining parts of the language once one has learned part of the language.  Put another way, consistency assesses whether or not ``similar semantics are expressed in similar syntactic forms''.\cite{green98}  Green states consistency as a form of ``guessability'': ``when a person knows some of the language structure, how much of the rest can be successfully guessed?''\cite{green96}  An example that has been given for a way in which a language suffers from consistency problems is Pascal and its handling of reals and integers versus boolean variables.  In Pascal, one can read and write to reals and integers, but boolean variables may only be read from even though syntactically booleans are essentially used and treated in the same way as other variables.
-
-Another more modern example would be Java and its String data type.  Strictly speaking, \code{String}s are object types in Java, but can be treated in much the same way as primitive data types (such as \code{int}s or \code{boolean}s).  For example, one can use the concatenation operator to combine two strings together in infix notation as seen in \pref{prog:javainfix}.  This is the only time in which object types may be used in this ``operator overloaded'' way, all other object types must resort to method calls (as seen in \pref{prog:javamethod}).  ``Special cases'' such as this can greatly hurt the consistency of a language and make them harder to learn.
-
-\begin{program}
-\begin{verbatim}
-String s1 = "Hello";
-String s2 = " World";
-String s3 = s1 + s2;  // create "Hello World" 
-\end{verbatim}
-\caption{Concatenating Two Java Strings Using an Operator in Infix Notation}
-\label{prog:javainfix}
-\end{program}
-
-\begin{program}
-\begin{verbatim}
-String s1 = "Hello";
-String s2 = " World";
-String s3 = s1.concat (s2); // create "Hello World" 
-\end{verbatim}
-\caption{Concatenating Two Java Strings Using Method Calls}
-\label{prog:javamethod}
-\end{program}
-
-Typically visual languages tend to score well in consistency, largely due to a simpler syntax.  Many textual-based languages have struggled in regards to consistency as most ``real-world'' textual languages have grammars of substantial size, and generally speaking the larger the grammar, the more complex the syntax (and thus the more likely there will be inconsistencies that arise).
- 
-Additionally, as noted by \cite{Kelso02} an issue related to consistency is that of library regularity.  For example, Haskell generally keeps naming and argument ordering in libraries in regular order (thus scoring well in terms of consistency).  C libraries however tend to not score so well, largely due to the fact that they have been developed over a long period of time by a large number of authors\footnote{As well, it could be argued that the fact that all functions in C reside in the same namespace negatively impacts consistency as well as it means that library designers must come up with their own unique naming schemes for functions to avoid naming conflicts.}.
-
-It has also been noted that consistency can be viewed from two different perspectives: the learner and the designer. \cite{Reisner93} Ideally these two perspectives should be the same, but in practice they often are not.  The distinction in Java between object types and primitive types is an example of this.  From the designers perspective this is perfectly consistent -- there are two fundamental categories of data types, and within the Java Virtual Machine (JVM) they are handled completely differently and separately.  From a learner's perspective however, this distinction can create confusion.  From a learner (or user of the language) it is all just data so the distinction is not as apparent and, for many new to the language, seems rather arbitrary.
-
-At any rate, given that the Cognitive Dimensions framework was designed by Green to be used by designers of a language one might think that his intention was that consistency was to be applied from the designers perspective, however this is not explicitly stated.  From our perspective as evaluators of a VPE from a pedagogical standpoint we are however more interested in the learners perspective, and our application of this dimension in evaluating the Gem Cutter will reflect this.
-
-\subsection{Diffuseness}
-\label{diffusenessoutline}
-
-Diffuseness is also sometimes referred to as terseness.  That is, it tries to measure how many symbols (or graphic entities in the case of a VPE) are required to express a meaning.  This is, of course, a trade off -- if a language is too terse it can be hard to read, but if a language is too verbose it becomes difficult to ``keep it all in your head'' at once.
-
-Traditionally functional languages have been quite terse, and scored well in that regard\footnote{Some even criticize functional languages for being \emph{too} terse, further illustrating that this dimension represents a trade-off.}.  Visual languages also tend to require a small number of syntactic elements to express a meaning, so one would think that a visual functional programming environment would be the most terse of all environments, and Kelso found this to be true of his VFPE\cite{Kelso02}.
-
-Measuring diffuseness/terseness is done by counting the number of syntactic lexemes that comprise a program.  To give a meaningful comparison, Green uses a sample yardstick problem taken from \cite{curtis89} that he calls the ``rocket trajectory problem'' which is summarized in \fref{fig:rocketTrajectoryProblem}.  He then goes on to give solutions to the problem in each of the environments he looked at, and Kelso did the same for Haskell and his VFPE.  The unfortunate flaw in this approach is that it does not account for individual skill or familiarity with a language -- the more familiar one is with a programming environment, the more likely it will be that one can use the ``right'' constructs and thus produce a solution which is the most terse.  Conversely, if one is unfamiliar with an environment\footnote{And particularly if the environment suffers from poor consistency} one will likely try to use a subset of the full set of constructs available, and end up producing a solution which is overly ``cluttered''.
-
-As well, as noted by Kelso in \cite{Kelso02} it can be difficult to measure diffuseness in visual environments which have dynamic layout schemes.  Oftentimes visual environments allow one to ``collapse'' code blocks into single elements.  Or as Kelso puts it: ``The level of diffuseness can in effect be dynamically traded off against the level of detail''.
-
-\begin{figure}
-The rocket program computes the vertical and horizontal trajectory of a rocket on which the only forces acting are its thrust and gravity.  At time zero the rocket stands stationary and vertical on level ground, with a mass of $10^4$ pounds.  Its engine develops a thrust of $4\cdot10^5$ foot-pounds, using up a mass of 50 pounds of fuel per second, until the fuel is exhausted after 100 seconds.  It rises vertically for 10 seconds after which it adopts and retains an angle of 0.3941 radians (22.5 degrees) to the vertical.  The downwards acceleration of gravity is $32 feet/sec^2$.\cite{green96}
-  \caption{The Rocket Trajectory Problem}
-  \label{fig:rocketTrajectoryProblem}
-\end{figure}
-
-\subsection{Error-Proneness}
-\label{errorpronenessoutline}
-
-The fundamental question that the error-proneness dimension tries to answer is ``does the design of the notation induce `careless mistakes'?''  Green draws a distinction between `mistakes' and `slips', where the former refers to the parts of program design which are deeply difficult irregardless of the notation\footnote{For example, design issues such as how to decompose a larger problem into smaller ones would be an example of a ``deeply difficult'' design problem.}, and the latter refers to those errors that one did not mean to do, where you knew better, but still somehow made a simple little ``slip-up''.  Error-proneness tries to measure whether or not the notation itself oftentimes leads to or encourages these ``slips''.
-
-An example from the world of textual languages is the use of textual identifiers, particularly in languages which are case-sensitive.  It is very easy to accidentally misspell an identifier in languages which do not require identifiers to be declared before they are used, which can lead to subtle and difficult to debug errors in the program.  The paired-delimiter system (braces in C/C++/Java, parenthesis in languages such as Lisp and Scheme, or the begin/end pair in languages like Pascal) can also lead to trivial errors which cause the code to fail to compile.  Note that all of these are \emph{syntax} errors which are all but avoided in visual programming languages.  Thus, not surprisingly visual environments tend to avoid some of these common ``slips'', however, it would not be fair to say that visual languages are inherently less error-prone than textual languages.
-
-\begin{comment}
-Languages such as Pascal which use semicolons as separators rather than statement terminators can cause confusion as well, as often times novices will write: 
-
-\code{if A then B; else C;}
-
-rather than 
-
-\code{if A then B else C;}
-
-The functional language SML has a similar issue in regards to its ``let expression'' syntax.  FIXME - perhaps reference SML reference manual with explanation of how val bindings in lets do not need to end with semicolons.
-\end{comment}
-
-Kelso in \cite{Kelso02} also notes that issues related to data types can play a role here.  That is, languages which have strong type checks that are enforced throughout a program will likely be less error-prone than languages which do not enforce such strong and rigorous type checking.
-
-\subsection{Hard Mental Operations}
-\label{hardmentalopsoutline}
-
-A programmer must already juggle a number of different ideas and concepts while implementing the solution to a task.  What data structure should I use?  How efficient is this algorithm?  Can I access this piece of data within this context?  The 
-
-Ideally we would like our programming environments to reduce the cognitive load imposed upon the programmer.  That is, a programmer's job is hard enough, without having the tools in use add to the amount of things he or she must juggle.  Consider the declaration in fixme reference, written in the C programming language, taken from \cite{Giguere87}, which declares a pointer to a function called b which returns a pointer to an array of 10 elements, each of which are pointers to functions which return pointers to ints.
-
-int *(*(*(*b)())[10])();
-
-\begin{comment}
-int *(*list[ MAX ])();
-
-which declares an array called list with MAX elements, each of which are pointers to functions which return pointers to ints.  Giguere explains how one can mentally parse this declaration as:
-
-%\begin{quote}
-Step 1, the identifier is list (MAX is the array size), write ``declare list as''. Step 2, array on the right. Step 3, write ``array MAX of''. Step 4, pointer on the left. Step 5, write ``pointer to''. Step 6, parenthesized expression, goto step 2. Step 2, function on the right. Step 3, write ``function returning''. Step 4, pointer on the left. Step 5, write ``pointer to''. Step 6, complete declarator. Step 7, write ``int''. Stop.
-
-The declaration is: ``declare list as array MAX of pointer to function returning pointer to int''.
-%\end{quote}
-\end{comment}
-
-Green defines a hard mental operation as having two properties:
-
-\begin{enumerate}
-	\item it must lie at the notational level, rather than the semantic level, as the dimension is trying to measure shortcomings in the programming environment, rather than discover meanings which are inherently difficult to express irregardless of the notation
-	\item combining multiple hard mental operations vastly increases the difficulty
-\end{enumerate}
-
-As such, this allows him to outline a ``broad-brush'' test for hard mental operations by asking the following two questions: 
-
-\begin{enumerate}
-	\item if I fit two or three of these constructs together, does it get incomprehensible?
-	\item is there a way in some other language of making it comprehensible? (Or is it just a really hard idea to grasp?)
-\end{enumerate}
-
-If the answer to both is yes, then we have a hard mental operation.  As an example application of this, again consider the declaration in fixme reference.  If we examine ``function pointers in C'' as a construct, we would ask the question ``if I fit two or three function pointers together, does it get incomprehensible?''  It would appear that the answer to this is yes, a pointer to a function is difficult to mentally parse to begin with, but if we have pointers to functions of pointers to functions, they are even more difficult to decompose.  Next we ask the question ``is there a way in some other language of making function pointers comprehensible?''  Again, given the relative simplicity and clarity of the CAL array of functions example, it would appear that this is the case.  
-
-Cognitive load theory tells us that we should minimize the 
-Hard mental operations in particular is an important dimension for environments designed for learning, as presumably students learning a language already have to mentally process the new language or notation that they are learning, in addition to any 
-
-Essentially hmo's add to the cognitive load of students.
-
-\subsection{Hidden Dependencies}
-\label{hiddendependenciesoutline}
-
-Talk about Hidden Dependencies.
-
-\subsection{Premature Commitment}
-\label{prematurecommitmentoutline}
-
-Talk about Premature Commitment.
-
-\subsection{Progressive Evaluation}
-\label{progressiveevaluationoutline}
-
-Talk about Progressive Evaluation.
-
-\subsection{Role-Expressiveness}
-\label{roleexpressivenessoutline}
-
-Talk about Role-Expressiveness.
-
-\subsection{Secondary Notation}
-\label{secondarynotationoutline}
-
-Talk about Secondary Notation.
-
-\subsection{Viscosity}
-\label{viscosityoutline}
-
-Talk about Viscosity.
-
-\subsection{Visibility}
-\label{visibilityoutline}
-
-Talk about Visibility.
+\begin{flushright}
+\textit{...a scientist must also be absolutely like a child.  If he sees a thing, he must say that he sees it, whether it was what he thought he was going to see or not.  See first, think later, then test.  But always see first.  Otherwise you will only see what you were expecting.}
+\\
+Douglas Adams \cite{Adams84} \\
+\end{flushright}
 
 \section{Applying the Cognitive Dimensions Framework to the Gem Cutter}
 
@@ -264,7 +13,58 @@ Apply cg framework to Gem Cutter....
 
 languages which do not require variables to be declared before they are used.  For example in fixme reference, we three implementations of the well known quadratic equation, one in Java, one in Python, and the last in Gem Cutter.  The two textual versions contain the same error in both: the identifier ``disc'' is misspelled on its second use, and thus does not refer to the value desired (the discriminant).  However, in SML, because identifiers must be declared via a val-binding before they are used this error is caught at compile time, whereas in Python (which does not require variables be declared before use), this results in a runtime error the programmer must debug.  Thus one could argue that SML is less error-prone than Python.  However, the Gem Cutter version completely avoids the possibility of the error, as one cannot add an emitter gem unless there is already a corresponding collector gem on the tabletop.
 
+Hidden dependencies -- gem A depends on gem B, so changes to B can break A.
+Hidden dependencies -- diamond and line makes connections between gems much more visually apparent.
+Premature Commitment -- problem of not being able to save an incomplete gem (commitment to order of creation)
+Progressive Evaluation -- ability to evaluate any subexpression at any time by right-clicking and choosing ``run gem''
 
-\section{Comparing Gem Cutter to Other Environments}
+\section{Outline Of An Experiment For Evaluating The Effectiveness Of The Gem Cutter}
 
-FIXME - recap findings in Green and Kelso, and compare with discussion of gem cutter.
+In the preceding section we explored a qualitative evaluation of the Gem Cutter with a bias toward a pedagogical viewpoint.  However, a useful compliment to this would be to explore a more \emph{quantitative} evaluation of the environment.  In this section we will outline an experiment which could provide a meaningful empirical evaluation of the Gem Cutter.
+
+\subsection{Avenues of Evaluation}
+
+\cite{Kelso02} outlined an experiment for his VFPE in which he outlined two possible avenues of for empirical evaluation of the VFPE:
+
+\begin{enumerate}
+	\item Evaluating the general adequacy of the environment
+	\item Investigating Visual Programming proper
+\end{enumerate}
+
+The first is focused on conducting experiments to evaluate the general adequacy of the programming environment.  Such experiments would focus on showing quantitatively that for programmers experienced with textual languages, that the visual environment is not significantly worse than the textual alternative.  That is, that the environment is ``feature-equivalent'' to a given textual environment.
+
+The second is for the purpose of exploring the textual/visual division.  That is, experiments designed here would be for the purpose of identifying differences that are due solely to the respective modes of display and the programming environment tools.  This was the type of experiment that Kelso outlined for his VFPE.  This requires a textual environment which is roughly equivalent to the VFPE.  
+Given that the VFPE from a semantics and abstract syntax viewpoint is very similar to Haskell, Kelso believed that an experiment comparing the two would reveal differences between the visual and textual forms of representation.  Given that the Gem Cutter truly is the visual representation of CAL code, it would seem that an experiment of this form with the Gem Cutter and CAL would be more telling of the differences between the visual and the textual.
+
+In addition to these, we can foresee other avenues for empirical evaluation of the Gem Cutter, most notably that of functional versus object-orientated programming.  There have already been studies which have explored the differences between the two paradigms (FIXME - references??), but they have largely been based solely in the textual world.  Similar experiments using the Gem Cutter (a visual environment rooted in the functional paradigm) and one of the common object-orientated environments (such as Prograph, Alice, or Scratch) would be an interesting addition to the work exploring the difference between the two paradigms.
+
+For our purposes as educators however, we are more interested about how effective the Gem Cutter can be as a learning tool for students.  As such, we shall identify an experiment which explores two other avenues of exploration.  The first is to assess if the Gem Cutter can meet a typical set of learning objectives (ie - ``Does the student learn the concept?''), and the second assesses the transfer of skill to another environment (ie - ``Can the student apply what he/she learned to a different language?'').
+
+\subsection{Difficulties}
+
+Assessing which of two competing methods of instruction is more effective seems at first glance to be a simple task.  Simply teach one subject with both methods and compare the results of the two approaches.  However, as outlined by McKeachie in \cite{teachingTips} there are some difficulties or ``hidden traps'' that arise in trying to evaluate two different approaches to instruction.
+
+The first category of problems are methodological, 
+
+From Teaching Tips, \cite{teachingTips}:
+
+methodological problems:
+
+\begin{itemize}
+	\item Hawthorne effect - instructor enthusiasm can influence quality of instruction, students react differently when they know they are being taught by an experimental method -- necessitates evaluation over period of time
+	\item Finding control group -- different classes have different makeups of students, some instructors are better than others (so if method is successful how much is the method and how much the instructor)
+\end{itemize}
+
+criterion problem - you want to ``know what each group learned that the other did not.  Thus a comparison of the lecture method with a discussion method based on a common final examination from a textbook does not really compare what the two groups of students learned in their different classes, but rather what they learned from reading the text.''  ''criterion measure should sample progress on \textit{all} goals, not just a small sample chosen for a particular method.''  Student motivation -- students are motivated to get good grades, and thus may compensate for poor instruction, thereby obfuscating research results.
+
+\subsection{Preparation}
+
+
+\subsection{Group Selection}
+
+
+\subsection{Measurement}
+
+\section{Misc Notes}
+
+\cite{Bayliss09} in 3.7 talks about important points in assessing the use of games, which may be relevant to this experiment.
