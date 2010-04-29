@@ -3,35 +3,15 @@
 
 \section{Misc Notes}
 
-Description of introductory programming at University of Kiel can be found in \cite{Huch05}
-
-Look at ACM/IEEE CS0/CS1/CS2 suggestions...  CC 2001 is at \cite{cc2001} 2008 interim revision is at \cite{cs2008}
-
-Discussion of HtDP and HDMA(?)
-
-Discussion of \cite{SICPbook} and it's influence is described in \cite{Flatt04}.  Famous critique of SICP is in \cite{Wadler87}
-
 \cite{Bos98} mentions that Modula-3 is used as the first year language at the State University of New York at Stony Brook, and also has a rather lengthy discussion of why Java is a poor choice as first language.
-
-\cite{Mahmoud04} has 
-
 
 ``The MIT computer science department in 1997 replaced C++ with Java as the primary software language that students were required to learn'' \cite{Benander04}  It now looks like they are moving to Python.
 
-\cite{Benander04} has great numbers and figures on how various institutions have moved to Java.  Also provides very strong evidence to support the claim that Java is much easier to learn if you already know OO.  Also has support for the claim that Java is easy to learn if you are already experienced as a programmer, thus possibly lend more support to the notion of ``functional first'' (though be careful, it says Java is easy to learn if you know how to program, it doesn't say Java is easy to learn if you know FP).
-
-
 MIT move from Scheme to Python: http://tech.mit.edu/V125/N65/coursevi.html
 
+\cite{Benander04} has great numbers and figures on how various institutions have moved to Java.  Also provides very strong evidence to support the claim that Java is much easier to learn if you already know OO.  Also has support for the claim that Java is easy to learn if you are already experienced as a programmer, thus possibly lend more support to the notion of ``functional first'' (though be careful, it says Java is easy to learn if you know how to program, it doesn't say Java is easy to learn if you know FP).
+
 \cite{Necaise08} indicates that the popularity of python is the removal of syntax issues -- possible motivation for VPE's?
-
-\cite{Pears07} has an excellent survey of various research questions in regards to the instruction of computer programming, and the design of the first year course.
-
-
-
-
-
-Objects first?  See 3.4.3.2 of \cite{Pears07} for list of papers referring to Objects first approach
 
 \section{Practices of Teaching Introductory Programming}
 
@@ -45,7 +25,13 @@ In this section we explore how computer programming has been, currently is, and 
 
 \subsection{Curricula}
 
-Introductory programming courses should always be considered within the context of the curriculum in which it lies.  Traditionally, the introductory programming course was one of the first (or was the first) course students undertaking a degree in Computer Science would enroll, as many future Computer Science courses assume basic programming experience as a basic skill.
+\begin{flushright}
+\textit{We're not a vocational school. If someone wants to get a high-paying job, I would hope that there are easier ways to do it than working through a formal computer science curriculum.}
+\\
+Philip Greenspun \cite{Greenspun00} \\
+\end{flushright}
+
+Introductory programming courses should always be considered within the context of the curriculum in which they lie.  Traditionally, the introductory programming course was one of the first (or was the first) course students undertaking a degree in Computer Science would enroll, as many future Computer Science courses assume basic programming experience as a basic skill.
 
 In North America, many introductory computing courses follow the guidelines outlined in the Computing Curricula recommendations by the ACM and IEEE Computer Society Joint Task Force.  The latest full curriculum recommendation came in 2001 (known as CC2001), and can be found in \cite{cc2001}.  In 2008 an interim revision from the task force was submitted and is at \cite{cs2008}.  CC2001 identified 14 areas which comprised the body of knowledge for computer science at the undergraduate level.  These are listed in \tref{tab:CC2001BOK}.
 
@@ -72,22 +58,25 @@ Computational Science and Numerical Methods (CN) \\
 
 Each of these areas are subdivided into units, and each unit consists of a number of topics.  Of the various units, some are given additional \emph{weight} in the recommendation by being designated as \emph{core} units, which are intended as being fundamental to \textbf{any} student of computer science irregardless of area of emphasis.  All units which are not designated as core units are referred to as \emph{elective} units.  While the core units comprise a fundamental set of topics for computer scientists, by themselves the core units (and the topics within) do not comprise a \emph{complete} set of material for a computer scientist -- they need to be supplemented with other elective units from other areas depending on the area of emphasis, the needs and goals of the education institution, etc.
 
-For many years, this task force proposed a two-course introductory programming sequence commonly generically referred to as the CS1/CS2 sequence.  Most educational institutions in North America have followed this pattern, though the contents of the courses have evolved over time.  Roughly speaking, traditionally CS1 tends to focus on introductory programming concepts (control flow and conditional statements, variables, iteration, etc), and CS2 tends to focus more on the introduction of data structures (trees, queues, etc).  In CC2001, the importance of the Object-orientated paradigm was recognized, and it was suggested that object-orientated concepts become a central part of the introductory course sequence.  Partly as a result of this addition, CC2001 also suggested a third course to follow CS2 (typically called CS3) to ensure ``students are able to master these fundamental concepts before moving on''\cite{cc2001}.  Adoption of the three course model has been mixed, with many institutions retaining the two course sequence.
+For many years, this task force proposed a two-course introductory programming sequence commonly generically referred to as the CS1/CS2 sequence.  Most educational institutions in North America have followed this pattern, though the contents of the courses have evolved over time.  Roughly speaking, traditionally CS1 tends to focus on introductory programming concepts (control flow and conditional statements, variables, iteration, etc), and CS2 tends to focus more on the introduction of data structures (trees, queues, etc).  In CC2001, the importance of the object-orientated paradigm was recognized, and it was suggested that object-orientated concepts become a central part of the introductory course sequence.  Partly as a result of this addition, CC2001 also suggested a third course to follow CS2 (typically called CS3) to ensure ``students are able to master these fundamental concepts before moving on''\cite{cc2001}.  Adoption of the three course model has been mixed, with many institutions retaining the two course sequence.
 
 \subsection{Pedagogy}
 
-``While the curriculum defines what is to be taught, pedagogy deals with the manner in which teaching and learning are managed in order to facilitate desired learning outcomes''
+\begin{flushright}
+\textit{If I could have one wish for education, it would be the systematic ordering of our basic knowledge in such a way that what is known and true can be acted on, while what is superstition, fad, and myth can be recognized as such and used only when there is nothing else to support us in our frustration and despair.}
+\\
+Benjamin S. Bloom \cite{Bloom72} \\
+\end{flushright}
 
+Whereas the curriculum outlines the topics that shall be introduced in a computer science curricula, an equally important (perhaps more important) aspect of the teaching of how to program is that of pedagogy.  The difference between curricula and pedagogy is well described by Pears, et al, as ``While the curriculum defines what is to be taught, pedagogy deals with the manner in which teaching and learning are managed in order to facilitate desired learning outcomes''.  More roughly speaking, the curriculum is the ``what'' and pedagogy is the ``how''.
 
+In the relatively short history of the discipline, there have been a number of approaches to how to introduce students to the world of computer programming.  One of the most hotly debated issues is that of the paradigm to use early on.  Traditionally, the Computing Curricula recommendations by the ACM and IEEE Computer Society Joint Task Force suggested a ``programming-first''\footnote{Sometimes this approach is referred to as ``procedural-first'', sometimes ``imperative-first''.} approach.  This style emphasized a procedural programming style early on, and many institutions still follow this model today.  Some of the criticisms of this approach include...  FIXME - criticisms in CC2001.  
 
-Objects-first vs Imperative/Programming first vs functional first.  Contrast with design-first.  Difficulty of OO early.  FP early discussion.
+As a result of many of these criticisms and potential shortcomings, as well as the increased prevalance of the paradigm, CC2001 suggested the incorporation of object-orientated principles into their introductory programming sequence.  This ``objects-first'' approach has been the source of much debate in acadamia since 2001 when the suggestion was made in the CC2001 guidelines, and in particular during a well documented e-mail discussion on the SIGCSE mailing list in 2004 \cite{Pausch03,Astrachan05,Hu04,Lister06}.  Some feel that the subtleties, complexites, and level of abstraction of the object-orientated paradigm represent too great an intellectual leap for introductory programming students to grasp\cite{Hu04,Lister06}.  Some believe that the CS1/CS2 curricula is already ``too full'' as it is, without the addtional complexities of the OO paradigm, and that introducing OO into the CS1/CS2 sequence will cause tradtional programming constructs to be pushed to the wayside\cite{Hu04}.  Some argue that the OO paradigm is an extension of the procedural, and thus procedural programming needs to be fully understood before objects can be discussed\cite{Lister06}.  Some of the reasons for introducing objects early include the belief that since the OO paradigm is the most dominant in the world of computing, and will continue to be so for the forseeable future, many believe that as such it is the most important for students to learn, and thus should be the first that they learn\cite{Pausch03}.  Additionally, another one of the common difficulties associated with learning the OO paradigm is that of ``paradigm shift'', and as such it has been argued that if we begin with objects early, then we avoid the paradigm shift problem\cite{Hu04,Lister06}.
 
-Support that OO first is controversial is in \cite{Astrachan05}.  More heavy criticism of OO first is in \cite{Hu04} Excellent summary of pros and cons of OO first is in \cite{Lister06}
+In parallel to the programming-first to objects-first evolutionary approach to pedagogy, some have argued for the incorporation of functional programming into early programming courses, and propose a ``functional-first'' approach.  Much of the roots of this approach come from the highly influential text ``Structure and Interpretation of Computer Programs''\cite{SICPbook}, which was a highly influential text during the 1980's\cite{Flatt04}.  SICP, as it is commonly referred to, made use of the functional programming language Scheme, and many of the exercises in the text discussed and relied on concepts from the functional paradigm (the lambda calculus, higher order functions, etc).  A well-known crticism of SICP was written by Wadler in 1987 which criticzed the use of Scheme as the language, but argued in favour of retaining the functional focus of the text\cite{Wadler87}.  There has also been research done which would indicate that perhaps beginning in the object-orientated paradigm is a less desirable choice than beginning in the functional paradigm\cite{Flatt04,Huch05}.  This has significant repercussions in terms of language choice, as (for example) Java is a heavily object-orientated language, and as such it has been argued is not the ideal choice for a first year course\cite{Bos98,Huch05}.  The TeachScheme/ReachJava project shows that ``functional first'' does not imply that object-orientation must be avoided in the first year of study \cite{Bloch08,teachScheme,Felleisen04}.  Concerns with ``functional first'' include the notion that sometimes concepts that are more difficult to express in the functional paradigm are sometimes given diminished importance (I/O being the most prominent example), concerns about introducing recursion early, and the notion that functional programming is not ``mainstream'' (thus raising the ``this isn't really used out in the real world'' criticism)\cite{Chakravarty04}.
 
-There has been a move toward a ``design-first'' instructional style for the introductory course.  Traditionally introductory programming courses are taught by example.  The instructor introduces a new syntactic construct from the language being used, shows a number of examples using this construct, then exercises or assignments are given where students have to take the given code from the instructor and modify it to a new problem.  Some people feel that this approach emphasizes the language more than design, and given that the specific language in use is not the primary goal of the course, it has been argued that this creates courses whereby students walk away feeling as though programming is all about learning syntax, and not about designing creative solutions to interesting problems.  The consequence of this approach is that it makes the teaching of syntax explicit and the teaching of design implicit, potentially causing courses to create students who can take existing code in Java or C++ (whichever language is used) and modify it to a new problem, but cannot design a solution to a problem from scratch.  \cite{Flatt04} outlines a course whereby design is made much more explicit to students, and has reported success in their approach.
-
-There has also been research done which would indicate that perhaps beginning in the object-orientated paradigm is a less desirable choice than beginning in the functional paradigm\cite{Flatt04,Huch05}.  This has significant repercussions in terms of language choice, as (for example) Java is a heavily object-orientated language, and as such it has been argued is not the ideal choice for a first year course\cite{Bos98,Huch05}.  The TeachScheme/ReachJava project shows that ``functional first'' does not imply that object-orientation must be avoided in the first year of study \cite{Bloch08,teachScheme,Felleisen04}.
-
+In any case, all of these approaches (programming-first, objects-first, and functional-first) share a common characteristic -- they are all based upon the notion that we should structure our approach to teaching introductory programming around a particular programming paradigm.  Some however feel that this is inappropriate, that rather than focusing on a particular programming style, we should be focused on more general concepts and ideas irregardless of the paradigm.   Most notably, there has been a move toward a ``design-first'' instructional style for the introductory course.  Traditionally introductory programming courses are taught by example.  The instructor introduces a new syntactic construct from the language being used, shows a number of examples using this construct, then exercises or assignments are given where students have to take the given code from the instructor and modify it to a new problem.  Some people feel that this approach emphasizes the language more than design, and given that the specific language in use is not the primary goal of the course, it has been argued that this creates courses whereby students walk away feeling as though programming is all about learning syntax, and not about designing creative solutions to interesting problems.  The consequence of this approach is that it makes the teaching of syntax explicit and the teaching of design implicit, potentially causing courses to create students who can take existing code in Java or C++ (whichever language is used) and modify it to a new problem, but cannot design a solution to a problem from scratch.  \cite{Flatt04} outlines a course whereby design is made much more explicit to students, and has reported success in their approach.  What is interesting about this approach and others which claim to put general issues such as design the focus, is that they are almost exclusively rooted in the functional paradigm.
 
 \subsection{Language Choice}
 
