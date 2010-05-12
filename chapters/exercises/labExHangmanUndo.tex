@@ -1,0 +1,71 @@
+\section{Implementing Undo In Hangman}
+
+	\subsection*{Learning Objectives}
+
+	By the end of this lesson, participants will be able to:
+
+		\begin{itemize}
+			\item Demonstrate an understanding of conditional statements
+			\item Decompose compound data structures (lists and tuples) into subsequent parts, and construct compound data structures from more atomic parts
+			\item Construct a reasonably complicated gem which makes use of a variety of sub-gems
+		\end{itemize}
+
+	\subsection*{Task Type (Self-Directed or Guided)}
+	Self-Directed
+
+	\subsection*{Pre-Requisite Knowledge/Skills Needed}
+
+	Participants must already know/be able to:
+
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Know the difference between various primitive data types (specifically Int's, Char's, and String's)
+			\item Understand what a list is, and how to work with them
+			\item Understand what tuples are and how to create them using the tupleXX gems.
+		\end{itemize}
+
+	\subsection*{Extra Environment Assumptions}
+		\begin{itemize}
+			\item Must have the Word Game Framework available within the Gem Cutter
+			\item Must have the hangMan gem available within Gem Cutter under the GemCutterSaveModule module
+			\item Must have the partially-completed hangmanUndo gem available within Gem Cutter under the GemCutterSaveModule module
+			\item Must have the isCharInString gem available available within Gem Cutter under the GemCutterSaveModule module, or optionally can ask students to create it as part of the assignment (it is a simple application of String.stringToList and List.isElem)
+		\end{itemize}
+
+
+\subsection*{Material To Supply To The Student}
+
+Your assignment is to complete the implementation of the ``undo'' feature of the Hangman game.  As it currently stands, the command ``undo'' entered in the Hangman game will have no effect.
+
+Your task is to try and modify the hangmanUndo gem to implement the undo functionality so that the undo command ``undoes'' the last guess made.  
+
+The hangmanUndo gem currently takes one single argument -- the current state of the game.  This is a tuple consisting of three parts: the word being guessed (a String), the number of guesses remaining (an Int), and a list of characters that are the previously made guesses in the order they were made (from most recent to least recent).
+
+The hangmanUndo gem currently breaks the passed in "state" argument into the three separate parts for you (this is the field1, field2, and field3 gems).
+
+There are three possible return values for the hangmanUndo gem, depending on the current state of the game:
+
+\paragraph*{Possibility \#1 - no guesses have yet been made}
+
+If a player has not yet made a guess, then the third field of the state will be an empty list.  If this is the case, then we simply return the state of the game unchanged (there is nothing to undo).
+
+\paragraph*{Possibility \#2 - the guess to undo is a letter that was in the word to be guessed}
+
+If a player makes an correct guess in that he/she guesses a letter that is in the word being guessed, then we just need to return a new state with the word to be guessed, the same number of guesses, and the same list of guesses with the correct guess removed.
+
+\paragraph*{Possibility \#3 - the guess to undo is not a letter that was in the word to be guessed}
+
+If a player makes an incorrect guess in that he/she guesses a letter that is not in the word being guessed, then we have to remove the guessed letter as in the last case, but we also need to increase the number of remaining guesses by 1, due to the fact that when the player makes an incorrect guess, this number is decreased by 1 (this is how the player loses -- when the number of remaining guesses becomes zero).
+
+For possibilities 2 and 3, we need to break the list of guesses into two parts: the most recent guess (which is the one we need to undo), and the remaining previously made guesses (which we need to return).  The most recent guess (that is, the one we are to undo) will be the first element (or head) of the list of guesses, and additionally the remaining guesses will be the remainder of the list of guesses.  That is, the guess to undo is the head of the list, and the remaining guesses is the tail of the list.  
+
+Some hints:
+
+\begin{itemize}
+	\item You will likely find the following gems useful: 
+	\begin{itemize}
+		\item The Nil, equals, add, tuple3, and iff gems in the Prelude module
+		\item The head, and tail gems in the List module
+		\item The isCharInString gem in the GemCutterSaveModule
+	\end{itemize}
+\end{itemize}

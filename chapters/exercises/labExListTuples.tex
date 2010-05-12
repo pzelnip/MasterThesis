@@ -1,0 +1,57 @@
+
+\labExer{Lists and Tuples}
+	{
+		\begin{itemize}
+			\item Decompose tuples into more primitive parts and work with each member separately
+			\item Decompose lists into head and tail parts, and operate on each
+			\item Solve a problem which requires a recursive solution
+			\item Construct simple gems which take lists as parameters and recursively operate on them
+		\end{itemize}
+	}
+	{Guided}
+	{
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Understand what value gems are and how to use them
+			\item Have a basic understanding of the various primitive data types in Gem Cutter
+		\end{itemize}
+	}
+	{
+		\begin{itemize}
+			\item Access to overhead/whiteboard
+			\item Optionally, one can previously create the partially completed gem from Part 1 to save some time.
+		\end{itemize}
+	}
+	{
+		\paragraph{Part 1}
+		
+		\begin{itemize}
+			\item Begin with a motivational discussion about how we oftentimes want to work with \emph{collections} of values, rather than just individual data items.
+			\item Use the example of a person, where you will want to know a few pieces of information about the person.  To encourage participation, ask the participants what pieces of information we might want to keep track of about a person (common answers may include: name, height, sex, weight, date of birth, age, etc).  As participants offer characteristics of a person, write them on the board in a tabular fashion.
+			\item After obtaining a few characteristics (say 3 or 4), for each of them ask participants what the data type of each would be (for example, name would like be a String, age an Int, etc).  
+			\item Now in the Gem Cutter have them add the tuple3 gem (or tuple4 depending on how many characteristics you have) to the tabletop.  Explain to them that a \emph{tuple} is a \emph{composite} data type that consists of a set number of data items which you can treat as a single data item.
+			\item Note to them the output type of the tuple3 gem is \code{(a,b,c)} meaning that it consists of three separate data items which are of any type.
+			\item Create value gems for each of the characteristics, and put your name into the first (which can be the ``name'') field.  Have them do the same with their own names.
+			\item Connect this ``name'' value gem to the topmost input of the tuple3 gem, and ask them how the output type of the tuple3 gem has changed (it is now \code{String, a, b}).
+			\item Complete the other value gems with appropriate values and have them do the same to complete the tuple3 gem.  Run it to see the output which consists of the three characteristics contained into a single output.
+			\item Add a collector gem to the tabletop and have them connect the output of the tuple3 gem to it (if you desire, you can also have them rename it to something meaningful like ``myInfo'' or something similar).  Add a corresponding emitter gem to the tabletop.
+			\item Explain to them how now we will see how to do the reverse procedure - how to separate a tuple into separate parts.  Add the field1 gem from the Prelude module to the tabletop, and connect the emitter gem to it.  Ask them what this will produce, then have them run the gem to find out.  Have them do the same procedure with the field2 and field3 gems.
+		\end{itemize}
+		
+		\paragraph{Part 2}
+		\begin{itemize}
+			\item Start a new gem (they don't need to save the old gem layout).  Explain that while sometimes we want to have a set number of data items which describe a single thing (like the person tuple example), we also oftentimes want a collection of many things of the same type.  For example, we may want to have a collection of people, but we don't know in advance necessarily how many we will have.
+			\item Explain how this is done with \emph{lists} in Gem Cutter, which divide into two parts - a first or ``head'' element, and the rest of the list.
+			\item Add a value gem to the table top.  Demonstrate to them that picking the \code{[a]} type for this gem indicates that this is a list.
+			\item Click on the value editor button again, and note to them how a different window pops up, and demonstrate to them how to add items.  Create a list of Ints (add say 5 or so numbers to the list).
+
+			\item FIXME - finish		
+		\end{itemize}
+		
+		Just jump in:
+		\begin{itemize}
+			\item Drag the listOfPeople gem from the (FIXME - module name) module to the tabletop.  Have participants run the gem.
+			\item Point out how this is a list of people with a few pieces of information associated with them (name, gender, and height in inches)
+			\item Propose the problem to them: ``given the name of a person to find, how would we find that person's gender?'' (\ie dfakfjdsafa)
+		\end{itemize}
+	}	

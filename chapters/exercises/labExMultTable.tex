@@ -1,0 +1,68 @@
+
+\labExerWithStudent{Building A Multiplication Table}
+	{
+		\begin{itemize}
+			\item Construct a relatively sophisticated gem which makes use of one of the most common higher order functions common to most functional languages: \code{map()}
+			\item Decompose lists into head and tail parts, and operate on each
+			\item Solve a problem which requires a recursive solution
+			\item Construct simple gems which take lists as parameters and recursively operate on them
+		\end{itemize}
+	}
+	{Self-Directed}
+	{
+		\begin{itemize}
+			\item Have intermediate knowledge of the Gem Cutter environment (be familiar with all the basic gem types, understand how to compose them together, etc)
+		\end{itemize}
+	}
+	{
+		\begin{itemize}
+			\item None
+		\end{itemize}
+	}
+	{
+		\begin{itemize}
+			\item
+		\end{itemize}
+	}	
+	{
+		Your task for this assignment is to implement a general multiplication table gem.  Recall from your elementary school days a multiplication table is one which looks something like:
+		\begin{center}
+		\begin{tabular}{c|cccccccccc}
+			\ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\\hline
+			1 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+			2 & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 \\
+			3 & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 \\
+			4 & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 \\
+			5 & 5 & 10 & 15 & 20 & 25 & 30 & 35 & 40 & 45 & 50 \\
+			6 & 6 & 12 & 18 & 24 & 30 & 36 & 42 & 48 & 54 & 60 \\
+			7 & 7 & 14 & 21 & 28 & 35 & 42 & 49 & 56 & 63 & 70 \\
+			8 & 8 & 16 & 24 & 32 & 40 & 48 & 56 & 64 & 72 & 80 \\
+			9 & 9 & 18 & 27 & 36 & 45 & 54 & 63 & 72 & 81 & 90 \\
+			10 & 10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90 & 100 \\
+		\end{tabular}
+		\end{center}
+		
+		That is, a multiplication table is a table for which the \((i,j)\) entry is equal to i times j, or more formally:
+		
+$$
+multTableEntry\left(i,j\right) = i \cdot j.
+$$
+
+		For our purposes we will leave out the header row and column from the resulting table.  We can model a table as being a list of lists of integers, or in Quark terminology the table will be of type \code{[[Int]]}.  Thus, we can generate a table by first constructing a gem which generates a row of the table, and then mapping this function to a list of integers.
+		
+		Put another way, we want to generate expressions of the form (where $n$ is how many numbers we want in a row of the table):
+		
+% FIXME table of form 
+%   1 cdot [1,2,3,4, ... n] 
+%   2 cdot [1,2,3,4, ... n] 
+%   ....
+%   n cdot [1,2,3,4, ... n] 
+		
+		Note:
+		
+		\begin{itemize}
+			\item You are to create a gem called \code{generateTable} which given a function which is of type \code{Int -> Int -> a}
+			\item You must make use of the map gem which appears in the List module.  You will have to construct the function which gets passed to this gem as well as the initial input to map.
+			\item Name the function which is passed to map \code{tableRow}, and this function should produce a single row of the table, given 
+		\end{itemize}
+	}

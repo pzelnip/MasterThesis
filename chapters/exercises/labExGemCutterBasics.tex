@@ -1,0 +1,47 @@
+\labExer{Gem Cutter Basics}
+	{
+		\begin{itemize}
+			\item Construct and develop gems (functions) using the Gem Cutter environment, including those that make use of collector/emitter gems, value gems, and the result target gem.
+			\item Execute and evaluate designed gems with various arguments
+		\end{itemize}
+	}
+	{Guided}
+	{
+		\begin{itemize}
+			\item Some basic high school mathematics (knowledge of functions)
+		\end{itemize}
+	} % pre-reqs
+	{
+		\begin{itemize}
+			\item Access to overhead/whiteboard
+		\end{itemize}
+	} % env assumptions
+	{
+		\begin{itemize}
+			\item Give outline of the gem metaphor, how ``gem'' means ``function''
+			\item Write on board some common mathematical functions and expressions they may have seen, such as: \(cos(0) = 1\) and \(f(x) = x + 3\), as well as \(f(8)\), and its result.
+			\item Draw an analogy between the mathematical world and the computer: how a computer can process information by applying functions to given input data
+			\item Explain how in the Gem Cutter we do this by creating ``gems'' which are just friendly names for ``functions''
+			\item Show this by dragging the cos gem from the Math module to the tabletop, and then have them run the gem with a few values (in particular the value 0 to tie to the example written on the board)
+			\item Now, walk through the process of creating the \(f(x) = x + 3\) gem.
+			\item Create a collector gem to ``name'' the x argument to the function. Stress this is one way we can provide names for the arguments to our gems.
+			\item Create an emitter gem for the x within the function definition, and note to them how it has a single arrow pointing out of it to indicate it ``outputs'' or ``emits'' the value of x
+			\item It might be desirable to draw a correlation between the symbol x appearing twice in the mathematical definition of \(f()\) written on the board, and the fact there are two ``x'' gems on the tabletop (one to name a parameter, and one to represent its use within the function's definition).
+			\item Add the ``add'' gem from the Prelude module to the tabletop.  This gives one a chance to outline how related gems can be grouped together into collections called ``modules'', and how the ``Prelude'' module is one such collection.
+			\item Note to them how the add gem has two inputs and a single output, or mathematically speaking it is a function with two arguments.
+			\item Connect the emitter gem for x into one of the inputs of the add gem.
+			\item Ask them what should go into the other input of the add gem.  It is likely that they will say ``3'' or something similar to indicate that the other argument to the add gem should be the constant value 3
+			\item Add a value gem to the tabletop, and explain how value gems are like emitters in that they produce or output a value, but they differ from emitter gems in that value gems will always produce the same value.
+			\item Explain that to input a value into a value gem we must first indicate what kind of value to emit.  This leads to a distinction between data types.  One can motivate this by saying that for example numbers are different than words, and 3 is an example of a numeric value.  Thus, we need to indicate that this value gem contains a numeric value.  Then show how to specify a Double type for the gem (this choice is made for a reason - if we chose a type like ``Int'' they may later try to input non-whole numbers and become confused).
+			\item Connect the value gem to the add gem.
+			\item Then show how to ``run'' the gem by right-clicking on the add gem and picking ``Run Gem''.  Note to them how the system will prompt them for a value for x, due to the fact it is a variable that can change.  That is, it does not know what value to associate with x, so it prompts the user to supply one (just like the mathematical function, \(f(x)\) is meaningless until we supply a value for x).
+			\item Have them run the gem a few times with different values to see the results.
+			\item Now note to them that we have not ``named'' this function.  Explain how the specially coloured result target gem in the corner is used to indicate what the result of the function should be as well as where we name the function.
+			\item Right click on the result target gem and pick ``rename'', then name the gem ``f''
+			\item Now connect the output of the add gem to result target gem
+			\item Have them save the gem, with public access
+			\item Now point out to them the GemCutterSaveModule module, and how there is now a gem called f there.
+			\item Start a new gem layout, and have them drag their f gem onto the tabletop, and try running it.
+			\item Emphasize how this now means we can create even more complex gems which make use of our f gem, just like we made use of the more primitive add gem while creating f.
+		\end{itemize}
+	}

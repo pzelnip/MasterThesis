@@ -1,0 +1,64 @@
+\section{Scoring Hangman}
+\label{sec:scoringHangman}
+
+	\subsection*{Learning Objectives}
+
+	By the end of this lesson, participants will be able to:
+
+		\begin{itemize}
+			\item Decompose compound data structures (lists and tuples) into subsequent parts
+			\item Perform a simple mathematical calculation using gems
+			\item Construct a reasonably complicated gem which makes use of a variety of sub-gems
+		\end{itemize}
+
+	\subsection*{Task Type (Self-Directed or Guided)}
+	Self-Directed
+
+	\subsection*{Pre-Requisite Knowledge/Skills Needed}
+
+	Participants must already know/be able to:
+
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Know the difference between various primitive data types (specifically Int's, Char's, and String's)
+			\item Understand what a list is
+			\item Understand what tuples are and how to decompose them using the fieldXX gems.
+		\end{itemize}
+
+	\subsection*{Extra Environment Assumptions}
+		\begin{itemize}
+			\item Must have the Word Game Framework available within the Gem Cutter
+			\item Must have the hangMan gem available within Gem Cutter under the GemCutterSaveModule module
+		\end{itemize}
+
+
+\subsection*{Material To Supply To The Student}
+
+As it currently stands you can play the Hangman game, but there is no mechanism for indicating whether a player has played well or poorly.  That is, there is no ``score'' assigned to a player when they play a game.  Your assignment is to create a gem which ``scores'' a given game of Hangman.
+
+The output of the Hangman gem is a tuple consisting of three items: the word being guessed, the number of guesses remaining at the end of the game (which will always be 0), and the list of all characters that were guessed by the player.
+
+We will calculate a score of Hangman by giving the player 20 points for each correctly guessed letter, and subtract 10 points for each incorrect guess.  Or put another way:
+
+\begin{equation}
+score = numberOfCorrectGuesses \cdot 20 - numberOfIncorrectGuesses \cdot 10
+\end{equation}
+
+The question then becomes how does one determine the number of correct and incorrect guesses.  To keep things simple, we will assume that the player always correctly guesses the word (that is, that they did not run out of guesses).  Thus, one simple (but not entirely accurate) way would be to determine the number of correct guesses to be the length of the word being guessed, and the number of incorrect guesses to be equal to the length of the list of guesses.  This is slightly inaccurate in that correct guesses will also be given a penalty of 10 points, but is good enough for our purposes.
+
+Thus, your task is to create a gem called \code{scoreHangman} which accepts the output tuple of the Hangman gem and calculates a score based upon the output of the Hangman gem.  That is, you should be able to use your gem in the manner displayed in \fref{hangManScore}
+
+\insertFigure{2.5}{hangManScore}{Using the hangManScore Gem}
+
+The result returned by your \code{scoreHangman} gem should be an Int which is the final score as calculated.
+
+Some hints:
+
+\begin{itemize}
+	\item You will likely find the following gems useful: 
+	\begin{itemize}
+		\item The field1, field2, field3, subtract, and multiply gems in the Prelude module
+		\item The length gem in the List module
+		\item The length gem in the String module
+	\end{itemize}
+\end{itemize}

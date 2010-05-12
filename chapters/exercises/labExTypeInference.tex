@@ -1,0 +1,55 @@
+
+\labExer{Type Inference}
+	{
+		\begin{itemize}
+			\item demonstrate an understanding of data types in an environment which makes use of a type inference engine by answering a series of questions
+			\item demonstrate a basic understanding of how type inference works by predicting the outcome of an action which involves the use of polymorphic types
+			\item verify their understanding by experimentation
+		\end{itemize}
+	}
+	{Guided}
+	{
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Understand what value gems are and how to use them
+			\item Know the difference between various primitive data types (specifically Int's, Double's, and String's)
+			\item Understand what a list is, and the type notation used to denote them (ex - \([String]\) is a list of Strings)
+			\item Understand what tuples are (or at least 2-tuples) and the type notation used to denote them (ex - \((Int, String)\) is a pair consisting of an Int and a String)
+		\end{itemize}
+	}
+	{
+		\begin{itemize}
+			\item Optionally one can pre-create the gem used in task 2 to save the time of having participants create the value gem which contains a list of Strings.
+		\end{itemize}
+	}
+	{
+		\paragraph{Part 1}
+		
+		\begin{itemize}
+			\item Have participants place the Add gem from the Prelude module onto the tabletop
+			\item Note to them how both inputs and the output share the same colour
+			\item Demonstrate to them that if you hover the mouse over the inputs or the output that the type of that connection is displayed (in this case it is ``\(Num\: a => a\)'', which indicates this is a numeric type)
+			\item Have them add a value gem which contains the Int value 1 to the tabletop.  Ask them to note the colour of the output of the value gem.
+			\item Connect this value gem to one of the inputs of the Add gem.
+			\item Ask participants if they noticed any changes to the Add gem.  They might have noticed:
+			\begin{itemize}
+				\item the colour of the unconnected inputs and output of the Add gem changed to the colour of the value gem's output
+				\item that the type of the inputs and outputs are now ``\(Int\)'' instead of ``\(Num\:a => a\)''
+			\end{itemize}
+			\item At this point, one can give a series of questions or start a discussion how the Gem Cutter deduced the type of the other input and the output of the Add gem (type inference).  If time is short, an explanation to the effect that ``add takes two arguments of the same type, and since we fixed the type of one of the inputs to be Int, it \emph{knows} that the other must also be of type Int'' is sufficient for the remainder of this lesson.
+			\item Have them add a value gem which contains the Double value 3.14159 to the tabletop.  Again, have them note the colour of the output the value gem (it should be different than the colour of the previous value gem's output due to the different types).
+			\item Ask them try to connect this value gem to the other input of the Add gem.  They will not be able to (Int and Double are not the same type), so propose the question to them why they could not do this.
+			\item You can additionally have them correct the problem by changing the Int value gem to become a Double and then have them run the Gem (producing the sum 4.14159).
+		\end{itemize}
+		
+		\paragraph{Part 2}
+		
+		\begin{itemize}
+			\item Have participants place the zip gem from the List module onto the tabletop, and to take note of the types of inputs and outputs (two inputs, one of type \([a]\) and one of type \([b]\), and a single output of type \([(a,b)])\)
+			\item Have participants create a value gem of type \([String]\), and to enter a few names into this gem.  Alternatively one could previously create this gem and supply it to participants.
+			\item Pose the question to participants: ``If we connect the value gem to the first input of the zip gem, what will the type of the remaining inputs and outputs of the zip gem become?''  The correct answer is that the other input will be unchanged (or changed from \([a]\) to \([b]\) which is equivalent), and the output will be changed to \([(String, a)]\) -- a list of pairs containing strings and some other type)
+			\item Have them try connecting the value gem to the zip gem, and see if they were right/wrong (that is, have them verify their hypothesis by experimentation)
+		\end{itemize}
+	}	
+	
+	

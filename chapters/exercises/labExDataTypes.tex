@@ -1,0 +1,69 @@
+
+\labExer{Data Types And Basic Control Flow}
+	{
+		\begin{itemize}
+			\item Demonstrate an understanding of the different primitive data types in the Gem Cutter environment by constructing a few simple expressions.
+			\item Develop hypotheses in regards to when gems can be connected together, then verify their claims by experimentation.
+			\item Create a simple gem which makes use of branching control flow constructs.
+		\end{itemize}
+	}
+	{Guided}
+	{
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Understand what value gems are and how to use them
+		\end{itemize}
+	}
+	{
+		\begin{itemize}
+			\item Access to overhead/whiteboard
+			\item Optionally, one can previously create the partially completed gem from Part 1 to save some time.
+		\end{itemize}
+	}
+	{
+		\paragraph{Part 1}
+		
+		\begin{itemize}
+			\item Begin with a discussion of some simple mathematical expressions.  Write the expression \(3 + 5 - 2\) on the board.  Point out how this expression makes sense due to the fact that we associate certain operations or rules that we can apply to numbers (namely addition and subtraction).  Then ask them for the answer to this expression (the number 6).
+			\item Now change the middle operand to the string ``hello''.  You should now have \(3 + ``hello'' - 2\) on the board.  Now pose the question to them ``Does this expression make sense and why?''
+			\item Outline to them how things like words are different than numbers, yet both are data.  This leads to a distinction of \emph{types} of data and how different types of data support different operations, and in particular how some operations will only be valid on certain types of data (for example addition is only valid with numbers).
+			\item Write on the board the table outlined in \tref{calPrimitiveTypes}
+			
+\begin{table}
+  \centering
+  \begin{tabular}{c|c|c}
+    \hline
+    Data Type & Description & Examples\\ \hline
+    Int & Whole (non-decimal) numbers & 3, 5, -2\\
+    Double & Fractional numbers & 3.0, 2.1411, -3.14159\\
+    Char & A single character/letter & c, a, A, -\\
+    String & A series of characters & ``Adam'', ``hello'', ``how are you?''\\
+    Boolean & A value which can be either true or false & true, false\\ 
+    \hline
+  \end{tabular}
+  \caption{Some primitive data types in CAL}
+  \label{calPrimitiveTypes}
+\end{table}
+			
+			\item Explain how in Gem Cutter gem connections are tied to specific types, and outputs of one gem can only be connected to the input of another if the types are \emph{compatible}, that is only when the two are the same exact type, or an equivalent type as was the case with type variables (of course this is not exactly correct when type classes enter the picture, but is sufficient for our purposes).
+			\item Now turn to the Gem Cutter and add two value gems to the tabletop.  Point out that at this point the data type of these two gems are unknown so we must specify the type.  Tell them that we want to put the sentance ``They are the same!'' into one, and the sentance ``They are different!'' into the other.  Then pose the question ``What data type should these two value gems be?'' (the answer is String)
+			\item Then proceed to set the types of the two gems to String, and enter the two sentances into the gems.
+			\item Now have them drag the iff and equals gems from the Prelude module onto the tabletop.  Point out that to find out the type of a connection on a gem (input or output) we can hover the mouse above it and a tooltip will display the type of that connection.  Pose to them the question ``What is the type of the topmost input to iff?'' (the answer is Boolean)
+			\item Now ask them ``What is the type of the output of equals?'' (the answer is Boolean)
+			\item Now point out to them that since the two types are the same, we should be able to connect the output of the equals gem to the top input of the iff gem.  Then do so.
+			\item Now break the connection between the iff and equals gems.  Then pose the question to them ``Can we connect the first value gem to the top input of iff?''  The correct answer is no, but have them guess if it is or is not possible.  Then tell them to try it (it will not work since Strings and Booleans are not type compatible).  As them to explain why the connection could not be made.
+			\item Now ask what the type of the other inputs to iff are (they are \code{a}, meaning that they are \emph{type variables}).  Explain to them that a single lower-case letter as a data type is a \emph{type variable} which means an arbitrary type.  That is, the variable \code{a} can be replaced with any specific data type, however all occurrences of \code{a} must be replaced with the same type.
+			\item Now ask them if they can connect one of the value gems to the other inputs of iff.  After they do so, ask what is the type of the other input to iff (it should now be string, since the type variable was bound to the String type).
+		\end{itemize}
+
+		\paragraph{Part 2}
+		
+		\begin{itemize}
+			\item Explain to them that we want to create a simple gem which displays the message ``They are the same'' if two given numbers are the same, and ``they are different!'' otherwise.  Or more formally:
+$$
+areSame\left(x,y\right) = \left\{ \begin{array}{cc}They\:are\:the\:same,&\mbox{ if } x=y\\They\:are\:different,&\mbox{ if } x \neq y\end{array}\right.
+$$
+			\item Ask them how would they construct the gem given all that is currently on the tabletop.  If it seems like they will be able to do so, give them a couple minutes to do so, otherwise walk them through the procedure of linking the gems together.
+			\item Have them save their gems with the name ``areSame'', and test it out with a few values.
+		\end{itemize}
+	}	

@@ -1,0 +1,70 @@
+\section{Scoring Hangman Accurately With Higher Order Functions}
+
+	\subsection*{Learning Objectives}
+
+	By the end of this lesson, participants will be able to:
+
+		\begin{itemize}
+			\item Decompose compound data structures (lists and tuples) into subsequent parts
+			\item Perform a simple mathematical calculation using gems
+			\item Perform relatively sophisticated operations relating lists and strings
+			\item Construct a reasonably complicated gem which makes use of a variety of sub-gems
+		\end{itemize}
+
+	\subsection*{Task Type (Self-Directed or Guided)}
+	Self-Directed
+
+	\subsection*{Pre-Requisite Knowledge/Skills Needed}
+
+	Participants must already know/be able to:
+
+		\begin{itemize}
+			\item Have basic knowledge of the Gem Cutter environment (how to arrange gems on the tabletop, link gems together, find gems in the Gem Browser, etc)
+			\item Know the difference between various primitive data types (specifically Int's, Char's, and String's)
+			\item Understand what a list is and how to decompose them
+			\item Understand what tuples are and how to decompose them using the fieldXX gems.
+			\item Understand how to make use of higher order functions (specifically creating a predicate for the \code{filter} function)
+			\item Have attempted the previous \code{hangManScore} gem seen in \sref{sec:scoringHangman}
+		\end{itemize}
+
+	\subsection*{Extra Environment Assumptions}
+		\begin{itemize}
+			\item Must have the Word Game Framework available within the Gem Cutter
+			\item Must have the hangMan gem available within Gem Cutter under the GemCutterSaveModule module
+			\item Must have the isCharInString gem available available within Gem Cutter under the GemCutterSaveModule module, or optionally can ask students to create it as part of the assignment (it is a simple application of String.stringToList and List.isElem)
+		\end{itemize}
+
+\subsection*{Material To Supply To The Student}
+
+As seen in the previous exercise we created a rather simplistic \code{scoreHangMan} gem.  This gave a score which was not particularly accurate because:
+
+\begin{itemize}
+	\item It assumed the player had won, when in fact he/she may not have
+	\item It inaccurately calculated the number of correct guesses as being the length of the word, which would artificially inflate the score when a letter appears more than once in the word (they would recieve points for each occurrence of the letter, even though only all occurrences would be associated with a single guess)
+	\item It penalized correct guesses.
+\end{itemize}
+
+For this task we will create a gem called \code{scoreHangmanAccurate} which more accurately assesses the number of correct and incorrect guesses, and uses these numbers to calculate the final score.  Again, as in the last case, the score will be calculated as:
+
+\begin{equation}
+score = numberOfCorrectGuesses \cdot 20 - numberOfIncorrectGuesses \cdot 10
+\end{equation}
+
+The difference is that the ``numberOfCorrectGuesses'' and ''numberOfIncorrectGuesses'' will be calculated accurately.  You are free to do this however you wish, however a hint would be to use the \code{filter} gem in the List module to determine how many correct guesses were made.  Once you have the number of correct guesses, the number of incorrect guesses would simply be the total number of guesses minus the number of correct guesses.
+
+Thus, your task is to create a gem called \code{scoreHangmanAccurate} which accepts the output tuple of the Hangman gem and calculates an accurate score based upon the output of the Hangman gem.  That is, you should be able to use your gem in the manner displayed in \fref{hangManScoreAccurate}
+
+\insertFigure{2.5}{hangManScoreAccurate}{Using the hangManScoreAccurate Gem}
+
+The result returned by your \code{scoreHangmanAccurate} gem should be an Int which is the final score as calculated.
+
+Some hints:
+
+\begin{itemize}
+	\item You will likely find the following gems useful: 
+	\begin{itemize}
+		\item The field1, field2, field3, subtract, and multiply gems in the Prelude module
+		\item The isCharInString gem in the GemCutterSaveModule
+		\item The length and filter gems in the List module
+	\end{itemize}
+\end{itemize}
