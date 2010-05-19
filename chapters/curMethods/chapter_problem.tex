@@ -143,6 +143,12 @@ One of the major difficulties associated with learning to program is the issue o
 ...[VPE's] use graphical or physical objects to represent elements of a program such as commands, control structures, or variables. These objects can be moved around and combined in different ways to form programs. Novice programmers need only to recognize the names of commands and the syntax of the statements is encoded in the shapes of the objects, preventing them from creating syntactically incorrect statements\cite{Kelleher05}.
 \end{quotation}
 
+\subsection{Criticisms of Visual Programming Environments}
+
+There are two common criticisms of VPE's that have somewhat slowed their adoption: the scaling-up problem, and concerns about transfer of training.  The scaling-up problem refers to the programmer's ability to apply VPE's in larger programs.  That is, questions have been raised about whether or not the visual representation used in VPE's ultimately are too unwieldy to produce programs of moderate complexity\cite{Burnett94}.  Transfer of training concerns whether or not skills and knowledge acquired in a VPE can be transferred to a traditional text-based environment in the future.  Some support for the claim that a visual environment can provide positive ``transfer of training'' to a textual environment can be found in \cite{Hundhausen09}.
+
+\subsection{Examples of Visual Programming Environments}
+
 There have been a number of VPE's proposed, we shall focus on a few environments which have proven to be of great influence particularly in regards to the educational side of Computer Science.  A more thorough discussion of other VPE's can be found in \cite{Kelso02} and \cite{Kelleher05}.
 
 An early VPE system that has proven to be quite influential is Prograph, a visual object-orientated dataflow language.  Objects in Prograph are modeled as on-screen hexagons, with one half of the hexagon representing the data attributes of the object, and the other half the methods.  By double-clicking on a part of the object a user can explore further the various methods and attributes of the object.  Methods are contained in ``frames'', which are represented as directed graphs.  Nodes in the graph are icons representing various constructs (objects, methods, conditionals, etc) and are connected together.  Flow of data proceeds from the top of the digraph, passing through the various instructions, down to the bottom of the digraph, and outward (if the method has output).  One of the major influences of Prograph was this ``box and wire'' representation, as it was one of the earlier systems to make use of it, and many VPE's have also made use of this metaphor.  As well, Prograph has become something of a benchmark system in evaluating VPE's\footnote{Green uses Prograph and Labview as the two model systems which he applies his Cognitive Dimensions Framework to}.  It would appear however, that active development on Prograph ceased in the early 1990's.
@@ -163,7 +169,6 @@ Neither of the above two environments are based upon the functional paradigm how
 
 Alice, Scratch, Gamemaker, VFPE, Prograph
 
-\cite{Hundhausen09} shows some support for the claim that a visual environment (or direct manipulation as he puts it) can provide positive ``transfer of training'' to a textual environment.  Draws a distinction between making programming easier to learn in a general sense and being able to transfer knowledge and understanding to a textual environment.
 
 Use of Game Maker in educational setting at UVic can be found in \cite{Gooch08}.
 
@@ -246,7 +251,7 @@ Below is a recap of the listing of the thirteen dimensions of the Cognitive Dime
 	\item Premature Commitment - Do programmers have to make decisions before they have the information they need?
 	\item Progressive Evaluation - Can a partially-complete program be executed to obtain feedback on ``How am I doing?''
 	\item Role-expressiveness - Can the reader see how each component of a program relates to the whole?
-	\item Secondary notation - Can programmers use layout, colour, or other cues to convey extra meaning, above and beyond the 'official' semantics of the language?
+	\item Secondary notation - Can programmers use layout, colour, or other cues to convey extra meaning, above and beyond the `official' semantics of the language?
 	\item Viscosity - How much effort is required to perform a single change?
 	\item Visibility - Is every part of the code simultaneously visible (assuming a large enough display), or is it possible to juxtapose any two parts side-by-side at will?
 \end{itemize}
@@ -342,7 +347,7 @@ Traditionally functional languages have been quite terse, and scored well in tha
 Measuring diffuseness/terseness is done by counting the number of syntactic lexemes that comprise a program.  To give a meaningful comparison, Green uses a sample yardstick problem taken from \cite{curtis89} that he calls the ``rocket trajectory problem'' which he summarizes as:
 
 \begin{quotation}
-The rocket program computes the vertical and horizontal trajectory of a rocket on which the only forces acting are its thrust and gravity.  At time zero the rocket stands stationary and vertical on level ground, with a mass of $10^4$ pounds.  Its engine develops a thrust of $4\cdot10^5$ foot-pounds, using up a mass of 50 pounds of fuel per second, until the fuel is exhausted after 100 seconds.  It rises vertically for 10 seconds after which it adopts and retains an angle of 0.3941 radians (22.5 degrees) to the vertical.  The downwards acceleration of gravity is $32 feet/sec^2$.\cite{green96}
+The rocket program computes the vertical and horizontal trajectory of a rocket on which the only forces acting are its thrust and gravity.  At time zero the rocket stands stationary and vertical on level ground, with a mass of $10^4$ pounds.  Its engine develops a thrust of $4\cdot10^5$ foot-pounds, using up a mass of 50 pounds of fuel per second, until the fuel is exhausted after 100 seconds.  It rises vertically for 10 seconds after which it adopts and retains an angle of 0.3941 radians (22.5 degrees) to the vertical.  The downwards acceleration of gravity is $32 feet/sec^2$.\cite{green96}\label{rocketproblem}
 \end{quotation}
 
 %in \fref{fig:rocketTrajectoryProblem}.  
@@ -460,22 +465,73 @@ This dimension is of particular importance to students new to programming, as it
 \subsubsection{Role-Expressiveness}
 \label{roleexpressivenessoutline}
 
+Role-expressiveness concerns the environments support to answer a user's query of ``what is this bit for?''.  That is, how easy is it for a user to see how various component parts of the program relate to the program as a whole.  Green identifies four specific items which relate to role-expressiveness:
 
+\begin{itemize}
+	\item meaningful identifiers
+	\item well-structured modularity
+	\item use of secondary notation (see below) to signal functionally-related groupings
+	\item ``beacons'' which signify highly diagnostic code structures
+\end{itemize}
+
+For example, LabView does not support identifiers of any kind, thereby increasing the difficulty of comprehending a given LabView program.  Different languages have different levels of support for modularity as well.  For example, Java allows one to break up a program into classes, each of which contains methods.  This modularity improves the ability for one to understand (particularly larger) programs.  Code ``beacons'' are defined by Wiedenbeck as ``key features [in a program] which indicate the presence of a particular structure or operation'' and are identified as ``idiomatic or stereotypical elements in program code'' \cite{Wiedenbeck91}.  As an example, in looking at a sorting routine one typically expects to find some code which is responsible for swapping two elements that are incorrect order.  The ``swap'' beacon helps programmers to understand the sorting program as a whole.  It has been shown that recognition of beacons in code is strongly correlated to programmer experience.  A study done by Wiedenbeck found that while 79\% of experienced programmers recalled significantly more of the beacon lines in a program, only 14\% of novices could do the same \cite{Wiedenbeck91}.  Related to role-expressiveness, some languages encourage certain beacons to appear and some do not.  Using the same sorting example, the code in \pref{prog:haskellqs} shows the Quicksort routine written in the Haskell programming language.  Note that there is no ``swap'' beacon in this code.
+
+\begin{program}
+\begin{verbatim}
+qsort []     = []
+qsort (x:xs) = qsort (filter (< x) xs) ++ [x] ++ 
+               qsort (filter (>= x) xs)
+\end{verbatim}
+\caption{Quicksort in the Haskell Programming Language\cite{haskellIntro}}
+\label{prog:haskellqs}
+\end{program}
+
+Green also notes that role-expressiveness is one of the most difficult dimensions to clarify, largely due to a lack of ``studies on comparative comprehension of equivalent programs expressed in different notations'' \cite{green96}.
 
 \subsubsection{Secondary Notation}
 \label{secondarynotationoutline}
 
-Talk about Secondary Notation.
+The dimension of secondary notation concerns how much extra information beyond the official syntax of a notation can be conveyed.  The classic example of secondary notation from the world of textual programming is the comment.  Comments have no bearing on the final program\footnote{And are often removed completely during the compilation process}, and are present solely for the purpose of providing extra information to other programmers examining the code.  Other examples include indentation, naming conventions, and grouping of related statements.
+
+In the visual world, the analogues include things such as layout of graphical entities, the use of colour and/or shapes, or other cues to convey extra meaning.  For example, perhaps one construct may uniformly always be coloured a particular way.  For example, the Alice VPE makes extensive use of colour to convey extra information to the user.  In \fref{fig:aliceComp-a} we see that properties of an object\footnote{The object in question is the ``IceSkater'' object from the default Alice tutorial} are listed in rectangular boxes that are coloured yellow, whereas in \fref{fig:aliceComp-b} we see that methods of the same object are coloured a beige colour, and finally in \fref{fig:aliceComp-c} we see functions are coloured a violet colour. 
+
+\begin{figure}[htp]
+  \begin{center}
+    \subfloat[Properties of an Object in Alice]{\label{fig:aliceComp-a}\includegraphics[scale=0.3]{Figures/aliceProp}} \quad
+    \subfloat[Methods of an Object in Alice]{\label{fig:aliceComp-b}\includegraphics[scale=0.3]{Figures/aliceMeth}} \quad
+    \subfloat[Functions of an Object in Alice]{\label{fig:aliceComp-c}\includegraphics[scale=0.3]{Figures/aliceFunc}}
+  \end{center}
+  \caption{Components of the Alice Interface}
+  \label{fig:aliceComp}
+\end{figure}
+
+Secondary notation can be related to visibility (see below), in that a secondary notation may be present, but if it is not readily apparent then its usefulness is somewhat diminished.  As well viscosity (see below) can impact secondary notation, as if a system is very viscous then changing the layout may be artificially difficult causing an aversion to changing the layout of a program after it has been initially constructed.  As well, if the structure is changed, then the secondary notation can go out of date and become a detriment to aiding understanding of a program.  Green also acknowledges that perhaps novices may benefit from a more constrained system in which secondary notation is minimized, but admits that this is pure conjecture and that more research needs to be done to confirm or deny this hypothesis \cite{green96}.
 
 \subsubsection{Viscosity}
 \label{viscosityoutline}
 
-Talk about Viscosity.
+Viscosity measures resistance to change.  A system which is highly viscous is one where seemingly small changes require a relatively large amount of effort to undertake.  This can of course be dependent upon the specific change in question, but certainly some environments make changes more difficult than others.  Green identifies two particular types of viscosity:
+
+\begin{itemize}
+	\item Repetition viscosity, where one change implies that the same change will have to be made elsewhere a number of times
+	\item Knock-on viscosity, where one change implies many other changes to the whole to restore consistency
+\end{itemize}
+
+An example of repetition viscosity would be changing the name of an identifier in a textual language as each use of the identifier will have to be changed to the new name.  An example of knock-on viscosity is changing the return type of a function, as this will require one to change all code which makes use of the return value of the function to make the program syntactically correct again.
+
+Given how many software systems evolve over time viscosity is a rather important dimension.  Additionally from the perspective of students learning to program, oftentimes students will make mistakes early on and correct them after the fact.  If the system is highly viscous this can be problematic, as the effort to correct mistakes can become a deterring factor in a students motivation to produce a high quality solution rather than one that is ``good enough''.
+
+Kelso notes that oftentimes VPE's suffer from viscosity problems due to the overhead of managing layout.  There is an overhead associated with laying out and rearranging components in a way that conveys extra meaning (aiding secondary notation), and without making the layout seem ``cluttered''.  He argues that this is an inherent problem in any VPE which requires manual layout and formation of links between components \cite{Kelso02}.  Additionally, an editor which enforces program correctness\footnote{Which many VPE's do given that one of the goals of a VPE is the removal of syntax errors} imposes an impediment on changing or rearranging components.
+
+Viscosity can be related to premature commitment, as if one has to make a design decision too early it is probable that that choice will need to be revised.  If the system is highly viscous then those changes will be difficult to incorporate, whereas if it has low viscosity then the changes should be easy to implement.  That is, ideally a system which suffers from premature commitment should have low viscosity otherwise the problems related to premature commitment are amplified.
+
+Given that the amount of time and effort to incorporate a change is dependent not only on the notation but also the specific change in question, viscosity has oftentimes been measured by implementing a small change to the rocket trajectory program\footnote{Described on page \pageref{rocketproblem}} to take account of air resistance, by exerting a drag proportional to the square of the velocity, and measuring the amount of time it takes to implement this change.
 
 \subsubsection{Visibility}
 \label{visibilityoutline}
 
-Talk about Visibility.
+Visibility concerns ``whether required material is accessible without cognitive work; whether it is or can readily be made visible, whether it can readily be accessed in order to make it visible, or whether it can readily be identified in order to be accessed'' \cite{green96}.  Related to visibility is juxtaposability, the ability to view two or more components side-by-side.
+
 
 \subsection{Application of the Cognitive Dimensions Framework to Other Environments}
 
