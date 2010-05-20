@@ -11,6 +11,31 @@ Douglas Adams \cite{Adams84} \\
 
 Apply cg framework to Gem Cutter....
 
+\subsection{Hidden Dependencies}
+
+\subsubsection{Discussion of Dimension}
+
+As decribed in \sref{cgframeoutline} the dimension of Hidden Dependencies tries to answer the question ``Is every dependency overtly indicated in both directions? Is the indication perceptual or only symbolic?''.
+
+In regards to the Gem Cutter, there are a few points where the software very much aids this dimension.  One example is the use of diamond and line connections between gems.  This visual representation of the dependency between two gems \emph{within a single design} is made explicit via the notation.  Put another way, the added visual cues to the notation which makes the dependency explicit improves this dimension of the Gem Cutter.  This is very similar to the findings by Green in regards to LabView and (on a local level) Prograph as discussed in \sref{sec:prevAppCG}, where the ``linking wires'' of LabView served a similar purpose.
+
+The use of visual cues to indicate types also aids this dimension.  For example, there is a dependency between collector gems (which collect a value) and emitter gems (which emit the value collected).  The fact that both collector and emitter gems are annotated and labeled provide a visual cue that there is a dependency between the collector and emitter.
+
+A problem with regards to hidden depenencies within Gem Cutter is the issue of type dependencies between separate gem designs discussed in \sref{sec:gemCutterShortcomings}.  There is no mechanism within Gem Cutter to see what gems a particular gem is dependent upon short of examining the gem design.  Even if there were, the fact that the dependency relationship is transitive would require such a facility to be able to discover dependency relationships mulitple levels deep.  For example, if \code{a()} calls \code{b()} which calls \code{c()}, it is not enough to know that \code{c()} is dependent upon \code{b()}, but \code{a()} as well.  There is the facility for determining what gems depend upon a given gem (that is, ``what gems depend upon this gem?''), but not the other way around (that is, ``what gems does this gem depend upon?'').  To use the language of the cognitive dimensions framework: not every dependency is overtly indicated in \emph{both} directions.
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+Green suggests three possible remedies to the Hidden Dependencies dimension: 
+\begin{inparaenum}[(a)]
+	\item adding cues to the notation;
+	\item highlighting different information; and 
+	\item providing extra tools.
+\end{inparaenum}
+
+In regards to the type dependency issue it is difficult to envision what possible additional cues could be added to the interface without ``cluttering'' the interface.  The possibility of an extra tool which allows for one to see a tree-like structure of all gems which a given gem depends upon could help.
+
+\subsection{notes}
+
 languages which do not require variables to be declared before they are used.  For example in fixme reference, we three implementations of the well known quadratic equation, one in Java, one in Python, and the last in Gem Cutter.  The two textual versions contain the same error in both: the identifier ``disc'' is misspelled on its second use, and thus does not refer to the value desired (the discriminant).  However, in SML, because identifiers must be declared via a val-binding before they are used this error is caught at compile time, whereas in Python (which does not require variables be declared before use), this results in a runtime error the programmer must debug.  Thus one could argue that SML is less error-prone than Python.  However, the Gem Cutter version completely avoids the possibility of the error, as one cannot add an emitter gem unless there is already a corresponding collector gem on the tabletop.
 
 
