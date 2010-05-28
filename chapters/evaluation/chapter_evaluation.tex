@@ -11,17 +11,32 @@ Douglas Adams \cite{Adams84} \\
 
 Apply cg framework to Gem Cutter....
 
+\subsection{Abstraction Gradient}
+
+\subsubsection{Discussion of Dimension}
+
+As described in \sref{cgframeoutline} the Abstraction Gradient dimension tries to measure how much needs to be constructed
+and learned in order to begin making the programming environment perform a task, and additionally how easy is it to add new abstractions to the environment.
+
+In regards to the Gem Cutter, much like the VFPE, as a functional language there is a relatively small set of constructs to master before making the environment perform a task.  As a base minimum, one only needs to be familiar with the notion of a function, and how a gem is a visual representation of that concept, along with the mechanics of how to connect gems together on the tabletop.  As one wishes to do more sophisticated tasks, introduction of the additional gem types\footnote{Such as collector/emitter pairs, value gems, code gems, and record gems} will be required, however, this is still a relatively low minimum level of abstraction.  This is a great strength of the Gem Cutter, particularly from the perspective of a student learning to program, as little needs to be learned and mastered before beginning to make the environment perform basic tasks.
+
+The Gem Cutter like most programming languages, would be an example of an abstraction-tolerant language, though only barely.  The only mechanism for introducing new abstractions is the ability to define new gems and use those gems in other gem designs.  Aside from this basic abstraction mechanic there is little or no support for introducing new abstractions.  In particular the lack of ability to introduce new types as discussed in \sref{sec:gemCutterShortcomings} greatly hinders ones ability to introduce new abstractions to reduce the complexity of larger problems.  This is mitigated somewhat by the introduction of code gems which allow one to introduce CAL code snippets at any point into a gem design.  Since CAL is very much an abstraction-tolerant language fully supporting the ability to introduce and define new types, this allows a ``loophole'' where one can bring all the expressive power of CAL to the Gem Cutter.  However, code gems will only be useful to those who already understand the CAL language.  This would be roughly analogous to requiring users of Alice to write Java code to create new object types to use in their Alice programs, which would seem rather cumbersome.
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+Green suggests that a possible remedy for problems related to the abstraction gradient of an environment is to introduce incremental abstractions.  This would be where the environment has a low starting abstraction barrier (ie - start with a low minimum level of abstraction where little needs to be learned to begin working with the environment), and to allow the introduction of new abstractions that will aid users later.  To a certain degree the Gem Cutter does this already, as there is a relatively low minimum level of abstraction as mentioned above, and one can learn about the other gem types as they progress with the environment.  What is missing are enhanced facilities for newer abstractions, most notably in regards to types.  The introduction of a mechanism for defining a new type in a visual way would help to alleviate this aspect much more than the current ``workaround'' of using code gems.
+
 \subsection{Hidden Dependencies}
 
 \subsubsection{Discussion of Dimension}
 
-As decribed in \sref{cgframeoutline} the dimension of Hidden Dependencies tries to answer the question ``Is every dependency overtly indicated in both directions? Is the indication perceptual or only symbolic?''.
+As described in \sref{cgframeoutline} the dimension of Hidden Dependencies tries to answer the question ``Is every dependency overtly indicated in both directions? Is the indication perceptual or only symbolic?''.
 
 In regards to the Gem Cutter, there are a few points where the software very much aids this dimension.  One example is the use of diamond and line connections between gems.  This visual representation of the dependency between two gems \emph{within a single design} is made explicit via the notation.  Put another way, the added visual cues to the notation which makes the dependency explicit improves this dimension of the Gem Cutter.  This is very similar to the findings by Green in regards to LabView and (on a local level) Prograph as discussed in \sref{sec:prevAppCG}, where the ``linking wires'' of LabView served a similar purpose.
 
 The use of visual cues to indicate types also aids this dimension.  For example, there is a dependency between collector gems (which collect a value) and emitter gems (which emit the value collected).  The fact that both collector and emitter gems are annotated and labeled provide a visual cue that there is a dependency between the collector and emitter.
 
-A problem with regards to hidden depenencies within Gem Cutter is the issue of type dependencies between separate gem designs discussed in \sref{sec:gemCutterShortcomings}.  There is no mechanism within Gem Cutter to see what gems a particular gem is dependent upon short of examining the gem design.  Even if there were, the fact that the dependency relationship is transitive would require such a facility to be able to discover dependency relationships mulitple levels deep.  For example, if \code{a()} calls \code{b()} which calls \code{c()}, it is not enough to know that \code{c()} is dependent upon \code{b()}, but \code{a()} as well.  There is the facility for determining what gems depend upon a given gem (that is, ``what gems depend upon this gem?''), but not the other way around (that is, ``what gems does this gem depend upon?'').  To use the language of the cognitive dimensions framework: not every dependency is overtly indicated in \emph{both} directions.
+A problem with regards to hidden dependencies within Gem Cutter is the issue of type dependencies between separate gem designs discussed in \sref{sec:gemCutterShortcomings}.  There is no mechanism within Gem Cutter to see what gems a particular gem is dependent upon short of examining the gem design.  Even if there were, the fact that the dependency relationship is transitive would require such a facility to be able to discover dependency relationships multiple levels deep.  For example, if \code{a()} calls \code{b()} which calls \code{c()}, it is not enough to know that \code{c()} is dependent upon \code{b()}, but \code{a()} as well.  There is the facility for determining what gems depend upon a given gem (that is, ``what gems depend upon this gem?''), but not the other way around (that is, ``what gems does this gem depend upon?'').  To use the language of the cognitive dimensions framework: not every dependency is overtly indicated in \emph{both} directions.
 
 \subsubsection{Remedies, Workarounds, And Trade-offs}
 
@@ -33,6 +48,7 @@ Green suggests three possible remedies to the Hidden Dependencies dimension:
 \end{inparaenum}
 
 In regards to the type dependency issue it is difficult to envision what possible additional cues could be added to the interface without ``cluttering'' the interface.  The possibility of an extra tool which allows for one to see a tree-like structure of all gems which a given gem depends upon could help.
+
 
 \subsection{notes}
 
