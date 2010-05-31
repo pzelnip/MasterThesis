@@ -525,17 +525,63 @@ Kelso notes that oftentimes VPE's suffer from viscosity problems due to the over
 
 Viscosity can be related to premature commitment, as if one has to make a design decision too early it is probable that that choice will need to be revised.  If the system is highly viscous then those changes will be difficult to incorporate, whereas if it has low viscosity then the changes should be easy to implement.  That is, ideally a system which suffers from premature commitment should have low viscosity otherwise the problems related to premature commitment are amplified.
 
-Given that the amount of time and effort to incorporate a change is dependent not only on the notation but also the specific change in question, viscosity has oftentimes been measured by implementing a small change to the rocket trajectory program\footnote{Described on page \pageref{rocketproblem}} to take account of air resistance, by exerting a drag proportional to the square of the velocity, and measuring the amount of time it takes to implement this change.
+Given that the amount of time and effort to incorporate a change is dependent not only on the notation but also the specific change in question, viscosity has oftentimes been measured by implementing a small change to the rocket trajectory program\footnote{Described on page \pageref{rocketproblem}} to take account of air resistance, by exerting a drag proportional to the square of the velocity, and measuring the amount of time it takes to implement this change.  Because the goal of this test is to measure editing time and not the time taken to solve the problem, the test is conducted in two stages.  First a solution to the new problem is created, a screen capture of the new solution is taken, and then the original rocket program along with the screen capture of the extended version is provided and the time measured is that of how long it takes to turn the original into the new modified version.
 
 \subsubsection{Visibility}
 \label{visibilityoutline}
 
-Visibility concerns ``whether required material is accessible without cognitive work; whether it is or can readily be made visible, whether it can readily be accessed in order to make it visible, or whether it can readily be identified in order to be accessed'' \cite{green96}.  Related to visibility is juxtaposability, the ability to view two or more components side-by-side.
+Visibility concerns ``whether required material is accessible without cognitive work; whether it is or can readily be made visible, whether it can readily be accessed in order to make it visible, or whether it can readily be identified in order to be accessed'' \cite{green96}.  Related to visibility is juxtaposability, the ability to view two or more components side-by-side.  For example, can a user display two subroutine designs simultaneously so as to be able to compare and contrast them?
+
+Visibility is in some senses similar to hidden dependencies, but while hidden dependencies measure whether relationships are manifest whereas visibility is concerned with the number of steps needed to make a given item visible.
+
+In general VPE's tend to suffer from visibility problem insomuch as there is only a limited amount of screen space available to display constructs, and typically a graphical notation tends to take up more visual space than a textual one.  While graphical displays have increased in size and resolution over time, this can still remain a problem inherent to visual representations.
 
 \subsection{Application of the Cognitive Dimensions Framework to Other Environments}
 \label{sec:prevAppCG}
 
-In this section we will briefly recap the application of the Cognitive Dimensions framework to three different visual programming environments: Prograph, LabView, and the VFPE.
+In this section we will briefly recap the application of the Cognitive Dimensions framework to three different visual programming environments: Prograph, LabView, and the VFPE from \cite{green96,green98,Green00,Kelso02}.
+
+In terms of abstraction gradient, both Prograph and the VFPE were found to be abstraction tolerant.  Both allowed the introduction of new abstractions, however it was argued that the VFPE had a lower minimum level of abstraction as little needs to be learned to begin working with the environment.  Labview however was found to be an abstraction hating language, as it provides no way of adding new abstractions past the ``bundle of wires'' construct.
+
+As a domain specific language, Labview has excellent closeness of mapping for problems in the electronics simulation domain, but outside of that domain there were difficulties expressed due to the fact common constructs required extra ``administrative stuff'' (such as looping requiring knowledge of the shift register to transfer values from the end of one iteration to the next).  The library support in Labview reflected the domain specific nature of the language as well, limiting the positive closeness of mapping largely to the domain of electronics simulation and circuit design.  The VFPE and Prograph as general programming environments do not suffer from the same limitation.  In particular the libarary support of the VFPE was found to be somewhat weak compared to other environments used in industy, and as such more code was required to achieve similar results, thereby hurting the closeness of mapping from problem to program domain.  
+
+VPE's in general have been found to score well in regards to consistency due to the simpler syntax.  No specific problems related to consistency were noted about LabView, Prograph, or the VFPE.  Additionally, the VFPE standard library is based upon the Haskell standard library which when possible keeps argument naming and order consistent, thereby also improving this dimension in that environment.
+ 
+In terms of diffuseness or terseness, VPE's have traditionally suffered due to the fact that graphical entities tend to consume more screen real estate than textual lexemes.  The sample rocket program mentioned on page \pageref{rocketproblem} was implemented in all three environments to measure this dimension.  The Labview implementation consisted of 45 icons and 59 wires for a total of 104 graphical entities and fit easily onto a ``medium sized screen'' \cite{green96}.  The Prograph implementation occupied 11 windows, with a total of 52 icons and 79 connectors to give a total of 131 graphic entities, and would not fit onto a single screen.  Being a functional language, it is not particularly surprising that the VFPE was found to be quite terse and the sample implementation of the rocket program consisted of 98 graphic entities.  The counts for the VFPE did not include node-joining lines as they are semantically redundant and drawn by the environment, not the user.
+
+In terms of error-proneness, most VPE's essentially eliminate typographical and syntax errors due to the constrained interface and all three environments were found to share this property.
+
+Hard mental operations were discovered in Labview and Prograph.  The difficulties in Labview seemed to mostly arise due to the use of logic gates in conditionals, as users tried to ``trace'' through the connections between the gates.  This was somewhat surprising as the notation for logic gates is very well known.  Green speculated that perhaps this difficulty may be due to the fact that the notation evolved from a paper-based notation, where users can pencil in intermediate results as they trace through the various connections between gates.  Since Labview does not provide a facility for this, users have to keep in their head the intermediate results of conditional expressions.  Difficulties in Prograph were noted surrounding control of loops.  In terms of the VFPE no specific hard mental operations were identified, however it is not clear if this is an indication of the absence of hard mental operations, or simply that none were noted. 
+
+The box-and-wire representation used in many VPE's greatly help to avoid hidden dependencies at the local level, as it makes the dependency between components visually explicit.  All three environments displayed this.  Past a local level however, Prograph in particular greatly suffers from issues related to hidden dependencies due to deep nesting and no overview of the nesting structure.  One can navigate down a call graph by clicking methods to open up a window for that method, but the reverse is not true.
+
+In regards to premature committment, it was also noted that VPE's using the box-and-wire representation tended to allow fewer constraints on the order of creation of code.  Put another way, VPE's such as 
+
+
+
+- Kelso notes that any syntax-directed editor such as the VFPE will always suffer from problems related to premature construction committment problems unless it allows easy relocation of code into temporary ``meaningless'' locations.
+- The VFPE is very strong in terms of premature committment when considering committment to layout and committment to connections, as the environment automatically lays out every component for the programmer.  The drawback to this is that secondary notation is negatively affected as layout cannot be used to convey extra meaning as would be the case in a more freeform layout scheme.
+
 
 \subsubsection{Prograph}
+- Prograph has strong support for progressive evaluation as it allows program fragments to be executed which can even contain unfinished structures (the interpreter will execute up to the point where there is unfinished code).
+- Secondary notation is partially aided by the ability to control layout of components, however, this turns out to be diminished by the need to minimize wire crossings (which had a negative impact on viscosity).
+- The ``straw test'' of making the small change to the rocket program was done with Prograph and took 193.6 seconds, much better than Labview, but somewhat worse than the VFPE.
 
+
+\subsubsection{LabView}
+
+
+- LabView suffers from problems related to progressive evaluation as a complete program must be constructed before any execution can take place.
+- LabView suffers from problems related to role expressiveness due to the absence of identifiers and ``beacons'' of code.
+- Secondary notation is aided by the extensive control over program layout as well as the ability to add comments to components and wires\footnote{But not groups of components}.  Viscosity is hurt by this however, as the overhead of rearranging components made small changes more costly.
+- The ``straw test'' of making the small change to the rocket program was done with Labview and took 508.3 seconds, far and away the worst among the three environments.  
+
+\subsubsection{VFPE}
+
+- Progressive evaluation is very strong in the VFPE as any expression can be evaluated so long as it is complete.
+- Support for role-expressiveness is aided by the ability to add as many or as few identifiers as one wishes in the VFPE.  Kelso also identifed some common ``beacon'' strucutures that tended to arise in the VFPE such as compositional pipelines appearing as a vertical string of beads, and arithmetic expressions tending to form into pyramids.
+- There was little support for secondary notation identified in the VFPE, short of the ability to add comments to any node (sub-expression).  However, even this is hurt by the lack of a visual indication of the presence of a comment.
+- The automatic layout of components was found to aid viscosity as it was identified that the freedom to arrange components imposed an overhead on any change to the program as one would have to rearrange the components.
+- The ``straw test'' of making the small change to the rocket program was done with the VFPE and took on the order of 105 seconds, slightly better than Prograph and dramatically better than LabView.
+- Visibility and juxtaposibility is hurt in the VFPE with patterns in expressionss.  With patterns in the VFPE, only one ``case'' can be displayed at any given time, there is no way to simultaneously display all cases of a pattern.  As well, oftentimes more complex expressions can be automatically laid out in a way that is impossible to view on a single screen, thereby making it impossible to juxtapose distant parts of the same expression.
