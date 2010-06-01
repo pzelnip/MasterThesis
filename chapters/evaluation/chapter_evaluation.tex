@@ -13,10 +13,10 @@ Apply cg framework to Gem Cutter....
 
 \subsection{Abstraction Gradient}
 
-\subsubsection{Discussion of Dimension}
-
 As described in \sref{cgframeoutline} the Abstraction Gradient dimension tries to measure how much needs to be constructed
 and learned in order to begin making the programming environment perform a task, and additionally how easy is it to add new abstractions to the environment.
+
+\subsubsection{Discussion of Dimension}
 
 In regards to the Gem Cutter, much like the VFPE, as a functional language there is a relatively small set of constructs to master before making the environment perform a task.  As a base minimum, one only needs to be familiar with the notion of a function, and how a gem is a visual representation of that concept, along with the mechanics of how to connect gems together on the tabletop.  As one wishes to do more sophisticated tasks, introduction of the additional gem types\footnote{Such as collector/emitter pairs, value gems, code gems, and record gems} will be required, however, this is still a relatively low minimum level of abstraction.  This is a great strength of the Gem Cutter, particularly from the perspective of a student learning to program, as little needs to be learned and mastered before beginning to make the environment perform basic tasks.
 
@@ -26,11 +26,138 @@ The Gem Cutter like most programming languages, would be an example of an abstra
 
 Green suggests that a possible remedy for problems related to the abstraction gradient of an environment is to introduce incremental abstractions.  This would be where the environment has a low starting abstraction barrier (ie - start with a low minimum level of abstraction where little needs to be learned to begin working with the environment), and to allow the introduction of new abstractions that will aid users later.  To a certain degree the Gem Cutter does this already, as there is a relatively low minimum level of abstraction as mentioned above, and one can learn about the other gem types as they progress with the environment.  What is missing are enhanced facilities for newer abstractions, most notably in regards to types.  The introduction of a mechanism for defining a new type in a visual way would help to alleviate this aspect much more than the current ``workaround'' of using code gems.
 
-\subsection{Hidden Dependencies}
+%------------------------------------------------------------------------------------------------
+
+\subsection{Closeness of Mapping}
+
+As described in \sref{cgframeoutline} the dimension of Closeness of Mapping tries to measure the gap between the problem domain and the program domain. 
 
 \subsubsection{Discussion of Dimension}
 
+In terms of ``programming games'', the Gem Cutter imposes relatively few upon the user.  As a visual functional language, the notation of the Gem Cutter is rather concise.  Sometimes gem designs can become ``cluttered'' with an excessive number of visual entities, but this is more of an issue related to Diffuseness than of Closeness of Mapping.
+
+Additionally, there are two other issues to consider from the perspective of Closeness of Mapping.  The first is the issue of the language's standard library support, and the second is what constructs the language allows to be built to improve the Closeness of Mapping.
+
+With respect to the Gem Cutter, there is an extensive set of predefined gems provided to the user.  In particular, there is a great deal of library support in the Quark framework, CAL and the Gem Cutter for working with relational databases.  The DatabaseMetadata, Sql, SqlBuilder, and SqlParser modules are all imported by default into the Gem Cutter, and provide extensive support to close the gap between a problem in the domain of relational databases and the Gem Cutter environment itself.  In addition to these modules, the CAL language itself has a significant collection of modules for working in a variety of domains, any of which can be imported into the Gem Cutter.  The libarary support in the OpenQuark framework is not as robust as some more ``industry-proven'' languags (such as Sun's Java API), but is much more comprehensive and varied than the Prograph or VFPE environments.  
+
+In terms of constructs to improve the Closeness of Mapping, much like the VFPE, the Gem Cutter can use higher-order functions to enable various programming ``idioms'' which can help greatly with changing the mapping from problem to program domain.
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+There are no specific issues identified with the Gem Cutter with respect to Closness of Mapping.  Short of additional library support, there is little that can be introduced to the Gem Cutter to improve this dimension.
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Consistency}
+
+As described in \sref{cgframeoutline} the dimension of Consistency tries to address how easy is it to infer the remaining parts of the language, once one has learned part of the language.
+
+\subsubsection{Discussion of Dimension}
+
+As noted in \sref{sec:prevAppCG}, visual languages tend to be very consistent due to the much simpler syntax.  The Gem Cutter is no different in this respect.  In particular, once one masters the metaphor of ``gem as function'' with inputs connecting to the left side of the gem, and the single output leaving the right side, the rest of the environment becomes very easy to learn as all gems follow this pattern.
+
+Additionally, another issue related to consistency is library regularity.  Much like the Haskell language which inspired it, CAL (and as a result the Gem Cutter) keeps argument ordering very consistent.  For example, if a gem takes two arguments, one a function and the other a primitive type (such as an Integer), then the function argument will be the first (top-most) argument in the gem display.  This follows the common functional programming convention of having higher order functions come before primitive types in argument lists.  However, one very interesting thing to note however is that while this convention is followed, there is no restriction in the Gem Cutter in terms of in what order arguments are bound.  For example, consider the \code{map()} function common to virtually all functional programming languages.  The \code{map()} function is a function which takes two arguments, a function \code{f()}, and a list of items (\(x,x_0,x_1,...,x_n\)).  The result returned is the list with the function applied to each element or the list (\(f(x),f(x_0),f(x_1),...,f(x_n)\)).
+
+In traditional textual functional languages such as Haskell or SML, one must bind the function argument before one binds the list argument.  The consequence of this is that we can use \code{map()} to create new functions of one argument -- a list.  We cannot however use \code{map()} to create a new function of a single list argument.  In the Gem Cutter, because we can bind arguments in any order, we do not have this limitation.  This would seem to be the best of both worlds, we have the flexibility and freedom to bind arguments in whichever order (thus allowing us greater expressivity), but we also have the consistency of argument ordering (though top down instead of left to right).
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+The Gem Cutter is remarkably consistent, and as such there are no specific issues or ways that this dimension could be improved.
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Diffuseness}
+
+As described in \sref{cgframeoutline} the dimension of Diffuseness (or terseness) tries to measure how many symbols are required to express a given meaning in the notation being examined.
+
+\subsubsection{Discussion of Dimension}
+
+With respect to the Gem Cutter, it is worth noting that the sample implementation by Green of the rocket trajectory program written in BASIC (seen in \pref{prog:basicRocket1}) was done in an iterative style, and since the Gem Cutter is a functional language there are no mechanisms for iteration instead requiring recursion to be used.  Thus while the implementation in Gem Cutter of the rocket trajectory program is based upon the BASIC version it is structured significantly differently.  Instead of having a single routine that ecompasses the entire problem, we created a gem called \code{rocket1()} which given the current state of the rocket\footnote{The vertical distance, vertical velocity, horizontal distance, horizontal velocity, and current mass} at time $t$, calculates the new state of the rocket at time $t + 1$ and returns this as a 6-tuple.  In some respects, this is a solution to the rocket trajectory problem by itself.  However, to more closely match the semantics of the BASIC version, a second gem was created called \code{rocketTester()} which generates the state of the rocket from time 0 to whatever time the rocket's vertical distance becomes negative.  Presumably, Kelso had to do something similar for the implementation in the VFPE of the rocket trajectory problem, however, the layout of his implementation was not supplied so we do not know how closely his approach matched that of the Gem Cutter implementation.
+
+\begin{program}
+\begin{verbatim}
+Mass = 10000
+Fuel = 50
+Force = 400000
+Gravity = 32
+WHILE Vdist >= 0
+      IF Tim = 11 THEN Angle = .3941
+      IF Tim > 100 THEN Force = 0 ELSE Mass = Mass - Fuel
+      Vaccel = Force*COS(Angle)/Mass ñ Gravity
+      Vveloc = Vveloc + Vaccel
+      Vdist = Vdist + Vveloc
+      Haccel = Force*SIN(Angle)/Mass
+      Hveloc = Hveloc + Haccel
+      Hdist = Hdist + Hveloc
+      PRINT Tim, Vdist, Hdist
+      Tim = Tim + 1
+WEND
+STOP
+\end{verbatim}
+\caption{The Implementation of the Rocket Trajectory Problem in BASIC\cite{green96}}
+\label{prog:basicRocket1}
+\end{program}
+
+The breakdown of graphic entities in the two gems can be seen in \tref{tab:GCrocket1}.  The complete solution of both gems for the rocket trajectory problem required 161 different graphic entities, far more than the 131 for Prograph, 104 for Labview, and 98 for the VFPE.  Note that connector lines were included in the totals for the Gem Cutter implementation.  This was different than the totals for the VFPE where connectors were not included in the total due to the fact that connection lines were not established by the user.  Connection lines were included in the total for Prograph, however, this was due to the fact that when one wishes to move a component in a Prograph layout, they also need to manually adjust the connections.  In Gem Cutter, while the connections between gems need to be established by the user, once they are established movement of gems around the tabletop does will cause the connections to be redrawn automatically.  If we leave out the connections, then the total for the Gem Cutter implementation falls to 88 graphic entities, easily the most terse of the four considered.
+
+\begin{table}
+	\caption{The Breakdown of Graphic Entities in the Gem Cutter Solution to the Rocket Trajectory Problem}
+\begin{tabular}{|l|m{2.5cm}|m{3.5cm}||m{3cm}|}
+\hline
+\textbf{Gem Type} & \textbf{\code{rocket1()} Count} & \textbf{\code{rocketTester()} Count} & \textbf{Total For Both} \\
+\hline
+Connectors & 59 & 14 & 73 \\
+Emitter Gems & 27 & 1 & 28 \\
+Function Gems & 19 & 5 & 24 \\
+Value Gems & 9 & 7 & 16 \\
+Collector Gems & 12 & 1 & 13 \\
+Record Selection Gems & 6 & 1 & 7 \\
+\hline \hline
+\textbf{Totals} & 132 & 29 & \underline{161} \\
+\hline
+\end{tabular}
+	\label{tab:GCrocket1}
+\end{table}
+
+Also note that the single target gem was not counted in these numbers as it is a graphic entity that always appears in any gem design (it is not added by the user).  Given that there is only a single target gem for any gem design, the inclusion or exclusion of this entity will not sigificantly alter the graphic count either way.
+
+The use of record selection gems to parse a tuple into subsequent parts incurs a significant number of entities as well.  While the count in \tref{tab:GCrocket1} does not seem to indicate this (as there are only 7 record selection gems), what is missing from this total is the fact that connected to the record selection gems are two connectors, and a collector and emitter pair for each (an emitter for the tuple being parsed, and a collector to ``name'' the parsed value).  Thus breaking the 6-tuple rocket state into six separate values in \code{rocket1()} adds a total of 30 entities (including connectors, 18 if we omit connectors).
+
+In terms of screen space, the implementation of the \code{rocket1()} gem would not fit on a single 1280x960 resolution screen, instead scrolling roughly halfway past the end of the screen.  The \code{rocketTester()} gem however fit easily on a single screen, and can be seen in \fref{gcRocketTester1}.
+
+\insertFigure{4}{gcRocketTester1}{The \code{rocketTester()} Gem}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Error-Proneness}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Hard Mental Operations}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Hidden Dependencies}
+
 As described in \sref{cgframeoutline} the dimension of Hidden Dependencies tries to answer the question ``Is every dependency overtly indicated in both directions? Is the indication perceptual or only symbolic?''.
+
+\subsubsection{Discussion of Dimension}
 
 In regards to the Gem Cutter, there are a few points where the software very much aids this dimension.  One example is the use of diamond and line connections between gems.  This visual representation of the dependency between two gems \emph{within a single design} is made explicit via the notation.  Put another way, the added visual cues to the notation which makes the dependency explicit improves this dimension of the Gem Cutter.  This is very similar to the findings by Green in regards to LabView and (on a local level) Prograph as discussed in \sref{sec:prevAppCG}, where the ``linking wires'' of LabView served a similar purpose.
 
@@ -48,6 +175,66 @@ Green suggests three possible remedies to the Hidden Dependencies dimension:
 \end{inparaenum}
 
 In regards to the type dependency issue it is difficult to envision what possible additional cues could be added to the interface without ``cluttering'' the interface.  The possibility of an extra tool which allows for one to see a tree-like structure of all gems which a given gem depends upon could help.
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Premature Commitment}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Progressive Evaluation}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Role-Expressiveness}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Secondary Notation}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Viscosity}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
+
+%------------------------------------------------------------------------------------------------
+
+\subsection{Visibility}
+
+As described in \sref{cgframeoutline} the dimension of  ....
+
+\subsubsection{Discussion of Dimension}
+
+\subsubsection{Remedies, Workarounds, And Trade-offs}
 
 
 \subsection{notes}
@@ -69,6 +256,13 @@ viscosity - can't open a new gem design until the current is finished
 visibility - can't juxtapose two gem designs simultaneously.
 
 viscosity - layout problems addressed by automatically rearranging items
+
+
+diffuseness - record selection adds many graphical entities, if/else blocking with multiple assignment statements in each block
+
+secondary notation - limited commenting ability. Can describe a gem as a whole, but not subparts of the gem (for example annotating constant value gems would be nice, this can be done by using collector/emitter pairs to name them, but this negatively impacts diffuseness)
+
+\begin{comment}
 
 \section{Outline Of An Experiment For Evaluating The Effectiveness Of The Gem Cutter}
 
@@ -120,3 +314,5 @@ criterion problem - you want to ``know what each group learned that the other di
 \section{Misc Notes}
 
 \cite{Bayliss09} in 3.7 talks about important points in assessing the use of games, which may be relevant to this experiment.
+
+\end{comment}
