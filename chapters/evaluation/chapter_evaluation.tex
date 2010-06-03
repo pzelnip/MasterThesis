@@ -309,17 +309,23 @@ It is also worth noting that Secondary Notation often trades off against Viscosi
 
 \subsection{Viscosity}
 
-As described in \sref{cgframeoutline} the dimension of Viscosity tries to measure an environments resistance to change.
+As described in \sref{cgframeoutline} the dimension of Viscosity tries to measure an environment's resistance to change.
 
 \subsubsection{Discussion of Dimension}
 
-viscosity - can't open a new gem design until the current is finished
-viscosity - layout problems addressed by automatically rearranging items
-viscosity - difficult to change type signature of gems.
+The biggest issue in terms of Viscosity in the Gem Cutter is the type dependency issue between gems described in \sref{sec:gemCutterShortcomings}.  This imposes a serious impediment on a user to refactor existsing gem designs.
 
-Straw test: around 2:50 in Gem Cutter.
+The manual layout problem described by Kelso in \cite{Kelso02} is somewhat mitigated by the ability in Gem Cutter to instruct the environment to automatically rearrange all items on the tabletop\footnote{Via the ``Tidy Tabletop'' menu command}.  There is still overhead associated with making changes to expressions due to the having to make and break connections between gems, and move them around to make room for whatever changes need to be made.  This became particularly evident while performing the ``straw-test'' of making the small change to account for air resistance to the rocket trajectory problem, as a significant time consuming aspect of the change in the Gem Cutter version of this problem was breaking the connection between the calculation of the new horizontal and vertical velocities and the collector gem which collected these values, and inserting the gems to incorporate the change to air resistance.  In terms of time taken, incorporating the air resistance change into the Gem Cutter version of the problem was done three times, each application of the change was timed, and took 172 seconds on average to complete.  This is dramatically better than the LabVIEW (508.3 seconds) and somewhat better than the Prograph (193.6 seconds) results, but worse than the VFPE (105 seconds).
+
+One thing worth noting is that the change for air resistance was confined only to the \code{rocket1()} gem, and not the \code{rocketTester()} gem.  Thus the type dependency issue was not encountered in this test.  If \code{rocketTester()} did have to be changed due to the changes in \code{rocket1()} the amount of time taken likely would have been dramatically higher.
 
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+Green notes than an important point to consider about Viscosity is that it is not always harmful\cite{green98}.  High viscosity may encourage users to reflect more about the problem before ``diving in'' (though this would be an example of negatively impacting Premature Commitment).  Low Viscosity may encourage users to make changes more often than need be, and as a result increase the Error-Proneness of the system.
+
+The main workaround for extremely viscous environments is to detach from the environment itself.  That is, to use a different environment with very low viscosity to plan out a solution to the problem, then to translate the solution in the low viscosity environment to the high viscosity environment.  For example, one may use pen and paper to sketch out a gem design, changing as problems are encountered, and then recreate the design in Gem Cutter.  This negatively impacts Premature Evaluation as one cannot ``execute'' a drawing on paper.  Alternatively, a possible workaround used at times by the author of this thesis was to write a solution in a textual language that was less viscous, and then traslate that text-based solution to the Gem Cutter.  However, this would seem counterintutitive to the motivation behind using the Gem Cutter in the first place.
+
+With respect to the rearranging the layout problem, a possible workaround is to heavily decompose the problem into very small functions.  Making a change to the internal structure of a gem is easy when the gem is small.  Counterbalancing this is the type dependency issue -- if another gem depends on the one being worked on then changing the type signature of the function is problematic, and the more gems there are, the greater the likihood there will be a type dependency issue between them.
 
 %------------------------------------------------------------------------------------------------
 
