@@ -1,4 +1,4 @@
-\startchapter{Conclusion}
+\startchapter{Conclusion And Future Work}
 \label{concl}
 
 \begin{flushright}
@@ -7,18 +7,41 @@
 Alan Turing \cite{Turing50} \\
 \end{flushright}
 
+This thesis explored and examined a visual programming environment called the Gem Cutter from a pedagogical viewpoint.  
+
+To accomplish this, a qualitative evaluation of the environment was performed using the Cognitive Dimensions framework, as well as a general discussion of the strengths and weaknessess of the environment.  We showed how potential improvements to the environment could possibly be incorporated to improve the Gem Cutter for use in learning environments. 
+
+In addition, a framework developed in the environment for producing turn-based word games was produced along with some sample exercises for the purpose of helping instructors of introductory programming courses evaluate whether or not the Gem Cutter suits their needs.
 
 \section{Future Work}
 
-Here's where I talk about all the stuff I should have done but didn't do. 
+This thesis identified a number of areas for future research, many of which will involve a more quantitative evaluation of the Gem Cutter, the Word Game Framework, and their usefulness in learning environments.
 
-\begin{itemize}
-\item Larger, more comprehensive user studies, or user studies which focus on different FP concepts
-\item Other HCI based evaluation strategies other than the cognitive dimensions framework.  Green talks about how others can be complementary to his CD framework.
-\item An evaluation of whether or not people who start with Gem Cutter have difficulty transitioning to a textual language
-\item \cite{brown08} talks about how an inherent flaw in Alice is that Alice has very visual abstractions and objects, and 
-when students jump to Java they struggle with now having to make those abstractions work in their heads.  An interesting question
-would be to explore if Gem Cutter has the same drawback given that unlike Alice where it is purely used for creating visual
-``stories'', it is a full programming environment, and while abstractions have a visual representation (all functions are 
-triangular gems on a tabletop), it is much more abstract than seeing a bunny hop across the screen
-\end{itemize} 
+\subsection{User Studies}
+
+Kelso outlined an experiment involving user studies for his VFPE in which he outlined two possible avenues of for empirical evaluation of the VFPE in \cite{Kelso02}:
+
+\begin{enumerate}
+	\item Evaluating the general adequacy of the environment
+	\item Investigating Visual Programming proper
+\end{enumerate}
+
+The first is focused on conducting experiments to evaluate the general adequacy of the programming environment.  Such experiments would focus on showing quantitatively that for programmers experienced with textual languages, that the visual environment is not significantly worse than the textual alternative.  That is, that the environment is ``feature-equivalent'' to a given textual environment.
+
+The second is for the purpose of exploring the textual/visual division.  That is, experiments designed here would be for the purpose of identifying differences that are due solely to the respective modes of display and the programming environment tools.  This requires a textual environment which is roughly equivalent to the VFPE.  Given that the Gem Cutter truly is the visual representation of CAL code, it would seem that an experiment of this form with the Gem Cutter and CAL would be very telling of the differences between the visual and the textual representations of a program.
+
+In addition to these, we can foresee other avenues for empirical evaluation of the Gem Cutter, most notably that of functional versus object-orientated programming.  Many studies which have explored the differences between the two paradigms have largely been based in the textual world.  Similar experiments using the Gem Cutter (a visual environment rooted in the functional paradigm) and one of the common object-orientated environments (such as Prograph, Alice, or Scratch) would be an interesting addition to the work exploring the difference between the two paradigms.
+
+For our purposes as educators however, an open question is how effective the Gem Cutter can be as a learning tool for students.  We have shown in the exercises making use of the Word Game Framework that the Gem Cutter can be used to design exercises for students new to programming, however two open questions are how effective these exercises are, and if the skills learned in doing the exercises in the Gem Cutter can be transferred to other (particularly textual) programming environments.
+
+\subsection{HCI Based Evaluation Strategies}
+
+The Cognitive Dimensions framework was chosen for this thesis for two primary reasons: 
+\begin{inparaenum}[(i)]
+	\item it is accessible to non-HCI specialists
+	\item it explores issues that lie at the notational level, rather than the interface level
+\end{inparaenum}.  However, a rigorous HCI-style evaluation of the Gem Cutter would be of great use to identify improvements to the interface of the environment.  Green suggests using the Cognitive Dimensions framework as a ``broad-brush'' overview of the environment, then following this up with a programming walkthrough, followed by a GOMS analysis.  This thesis has done the first step of that approach, the programming walkthrough and GOMS analysis remain as future research.
+
+\subsection{Abstractions and Metaphors}
+
+In \cite{brown08}, Brown discusses how an inherent flaw in the Alice programming environment is that Alice has very visual abstractions and objects.  For example, when the program involves making an ice skater do a flip, the user sees a visual represntation of that ice skater on the screen.  As such, he found that when students made the jump from Alice to Java they struggle with now having to make those abstractions work in their heads.  The Gem Cutter has no such visual abstractions, while a gem is a visual metaphor for a function, it is still just as abstract as if one was writing it in a textual language.  A useful question to answer would be to explore if Gem Cutter has the same drawback as Alice in regards to students becoming reliant upon visual ``entities''.

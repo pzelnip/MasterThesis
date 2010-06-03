@@ -67,6 +67,7 @@ The Gem Cutter is remarkably consistent, and as such there are no specific issue
 %------------------------------------------------------------------------------------------------
 
 \subsection{Diffuseness}
+\label{sec:eval:diffuseness}
 
 As described in \sref{cgframeoutline} the dimension of Diffuseness (or terseness) tries to measure how many symbols are required to express a given meaning in the notation being examined.
 
@@ -127,29 +128,72 @@ In terms of screen space, the implementation of the \code{rocket1()} gem would n
 
 \insertFigure{4}{gcRocketTester1}{The \code{rocketTester()} Gem}
 
+Additionally, simple mathematical expressions tend to take up a disproportionate amount of space on the screen.  It is a much more compact repesentation to have a single character such as `*' to denote multiplication, than a full gem with the word ``multiply'' written on it.  One can alleviate this with code gems, however the use of code gems are not in the ``spirit'' of the visual paradigm.
+
+Conditionals can also introduce seemingly redundant entities.  Consider the if/else statement in \pref{prog:javaIf} written in Java.  This fragment contains a single if statement, and assigns values to two different variables depending on the value of someBooleanExpression.  This same fragment translated into Gem Cutter would be what we see in \fref{gcIfStatement}.  Note that there are now two if statements, one to determine the value of \code{var1}, and another to determine the value of \code{var2}.  As there is no mechanism for ``blocks'' of code in the Gem Cutter, one has to separate the two collections of statements into separate if statements.
+
+\begin{program}
+\begin{verbatim}
+if (someBooleanExpression)
+{
+	var1 = 10;
+	var2 = 20;
+}
+else
+{
+	var1 = 20;
+	var2 = 10;
+}
+\end{verbatim}
+\caption{A Hypothetical if Statement in Java}
+\label{prog:javaIf}
+\end{program}
+
+\insertFigure{4}{gcIfStatement}{A Hypothetical if Statement in Gem Cutter}
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
 
+Specifically, the biggest issue identified with respect to Diffuseness in the Gem Cutter is in regards to working with composite data types such as lists and tuples.  As mentioned in the rocket program, the parsing of a tuple into separate values is cumbersome as it requires the use of a record selection gem for each value in the tuple, along with an emitter (to identify which tuple to draw from) and a collector to name the decomposed value\footnote{Strictly speaking the collector is optional, however, if the value is going to be used more than once, having a collector will reduce the overall number of gems required}.  
 
+Lists are somewhat better, in that there is a single gem for getting the head of a list.  However if one needs a specific number of items from a list, doing so in the Gem Cutter becomes quite verbose, as it requires multiple collector/emitter pairs, as well as use of the head and tail gems to decompose the list.
+
+Many textual functional languages have support for patterns, which would help to alleviate the verbosity of decomposing composite data types.  The VFPE supports a very compact pattern mechanism, where multiple patterns to decompose a composite value can be specfied in one single graphic entity. The tradeoff here is visibility, as in the VFPE there is no way to view all patterns simultaneously.  Perhaps in the Gem Cutter a ``tuple decomposition'' gem could be added to the notation where a single tuple is input to the gem, and the gem would then have multiple outputs (one for each part of the tuple).  The tradeoff with this approach however is Consistency, given that as it currently stands \emph{all} gem types in the Gem Cutter have exactly one single output.
+
+Conditionals are a tougher problem, due to the fact there can be only a single output from an \code{iff()} gem.  If \code{iff()} gems were modified to allow for multiple outputs, Consistency would again suffer as a result as all other gems have a single output.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Error-Proneness}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Error-Proneness tries to measure if the notation itself induces or encourages careless mistakes.
 
 \subsubsection{Discussion of Dimension}
 
+As a visual environment, the Gem Cutter dramatically reduces the number of possible errors that can occur due to user error.  Syntax errors are virtually removed, and the constrained nature of the environment where gems can only be connected when they are type compatible greatly help to avoid errors related to data type.
+
+The biggest shortcoming with the Gem Cutter in regards to this dimension is the issue of type compatibility being broken by indirect modification to other gems.  As mentioned in \sref{sec:gemCutterShortcomings}, if we have one gem \code{a()} which calls gem \code{b()}, then a change to \code{b()}'s type signature will break the design of \code{a()}.
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+Aside from the type compatibility issue, there are no significant issues in regards to Error-Proneness with the Gem Cutter.  To address the type compatibility issue, there needs to be some sort of mechanism in place that checks to see if changing the type signature of a gem will violate any type constraints in other gems, and to prevent the user from saving the new type signature until that dependency is broken.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Hard Mental Operations}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Hard Mental Operations tries to identify operations within the environment which are difficult to express due to defeciencies in the notation.
 
 \subsubsection{Discussion of Dimension}
 
+Remarkably, perhaps due to the relatively simple syntax, there are very few hard mental operations we identified in the Gem Cutter.  Using the ``two-step'' test for a Hard Mental Operation, we could not identify any specific issues in the Gem Cutter which met the criteria for a hard mental operation.  
+
+The ``box-and-wire'' model can become difficult for a user to mentally ``trace'' execution, but only if the design of a gem becomes quite large.  And given that like the VFPE, the Gem Cutter allows for the ability to introduce collections of named expressions anywhere in a gem design, or to decompose a problem into smaller parts and save them as separate gems, much of this difficulty is minimized/eliminated.
+
+It is interesting to note that both functional VPE's discussed in this thesis (the Gem Cutter and the VFPE) had no identified Hard Mental Operations.  An interestion question would be to explore if this is a consequence of the functional paradigm, or just properties of these two specific environments.
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+No specific difficulties were identified with regards to this dimension, and as such there are no specific issues or ways that this dimension could be improved.
 
 %------------------------------------------------------------------------------------------------
 
@@ -161,7 +205,7 @@ As described in \sref{cgframeoutline} the dimension of Hidden Dependencies tries
 
 In regards to the Gem Cutter, there are a few points where the software very much aids this dimension.  One example is the use of diamond and line connections between gems.  This visual representation of the dependency between two gems \emph{within a single design} is made explicit via the notation.  Put another way, the added visual cues to the notation which makes the dependency explicit improves this dimension of the Gem Cutter.  This is very similar to the findings by Green in regards to LabVIEW and (on a local level) Prograph as discussed in \sref{sec:prevAppCG}, where the ``linking wires'' of LabVIEW served a similar purpose.
 
-The use of visual cues to indicate types also aids this dimension.  For example, there is a dependency between collector gems (which collect a value) and emitter gems (which emit the value collected).  The fact that both collector and emitter gems are annotated and labeled provide a visual cue that there is a dependency between the collector and emitter.
+The use of visual cues to indicate types also aids this dimension.  For example, there is a dependency between collector gems (which collect a value) and emitter gems (which emit the value collected).  The fact that both collector and emitter gems are annotated and labeled provide a visual cue that there is a dependency between the collector and emitter.  Additionally, collector and emitter gems share the same shape (though a different colour), further conveying the message that there is a dependency between them.
 
 A problem with regards to hidden dependencies within Gem Cutter is the issue of type dependencies between separate gem designs discussed in \sref{sec:gemCutterShortcomings}.  There is no mechanism within Gem Cutter to see what gems a particular gem is dependent upon short of examining the gem design.  Even if there were, the fact that the dependency relationship is transitive would require such a facility to be able to discover dependency relationships multiple levels deep.  For example, if \code{a()} calls \code{b()} which calls \code{c()}, it is not enough to know that \code{c()} is dependent upon \code{b()}, but \code{a()} as well.  There is the facility for determining what gems depend upon a given gem (that is, ``what gems depend upon this gem?''), but not the other way around (that is, ``what gems does this gem depend upon?'').  To use the language of the cognitive dimensions framework: not every dependency is overtly indicated in \emph{both} directions.
 
@@ -180,49 +224,100 @@ In regards to the type dependency issue it is difficult to envision what possibl
 
 \subsection{Premature Commitment}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Premature Commitment addresses if users of the environment are forced to make decisions before they have all the information they need.
 
 \subsubsection{Discussion of Dimension}
 
+There is no restriction in terms of commitment to layout or commitment to connections, as the Gem Cutter is completely ``freeform'', allowing users to arrange gems on the tabletop as they see fit, and connections maintain a consistent ordering.  Minimizing wire crossings is simple due to the fact that all gems have a single output on the right hand side.  That is, the fact that a gem graph is a tree and not a general directed graph (like in Prograph) eliminates any issues with regard to commitment to connection.  The ``Tidy Tabletop'' option under the View menu in Gem Cutter will allow one at any time to instantly, automatically arrange all gems in a manner which eliminates wire crossings (though it might not make the best use of screen real estate).
+
+In terms of commitment to construct, if one decides at any time that a particular gem is the incorrect gem to use then so long as the new gem to use is type compatible with the old it is a simple matter of deleting the original, replacing it with the new gem, and restoring the connections.  If the type of the new gem is not compatible with the old, then one may need to introduce extra gems to convert the inputs and outputs of the gem to the newer types, but this is still a relatively simple process.
+
+From the perspective of commitment to order of creation, the Gem Cutter allows one to create parts of gems in any order.  The only restriction imposed upon the user is that a gem must be defined before it can be used.  Like like most programming environments, if we have a function called \code{a()} which calls \code{b()}, then \code{b()} must be created before \code{a()} can be.  Oftentimes in the textual domain, users will create ``stub functions'' (functions which have the correct type signature and resturn statement, but no body) for this purpose, and this is possible in the Gem Cutter as well.  Before an emitter gem can be used, the corresponding collector gem must be defined.  Aside from these relatively minor restrictions, the Gem Cutter allows a great deal of freedom with respect to order of creation within a single gem.  The only sigificant problem with respect to order of creation arises \emph{between gems}.  As mentioned in \sref{sec:gemCutterShortcomings}, the issue of type dependency between gems can cause significant problems when one realizes that a design mistake has been made, essentially forcing the user to go back, and break any dependency between the various gems before making the necessary new change.
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+The main remedies for issues related to premature commitment that Green suggests are \begin{inparaenum}[(a)]
+\item to allow one to decouple the portion being worked on from the rest of the problem,
+\item to reduce viscosity, and
+\item to reduce or remove constraints on the order of actions.
+\end{inparaenum} 
+
+With respect to the issue of type dependencies between gems, currently it is \emph{possible} to decouple the portion being worked on, but it is rather difficult to do so as it requires modifying any gems which depend on the gem being modified.  That is, the high viscosity of Gem Cutter amplifies the problems related to commitment to order of creation.  This is not surprising, as Premature Commitment most directly trades off against Viscosity, as if a system has low viscosity (that is, changes are relatively easy to make) then the impact of Premature Commitment problems can be mitigated.  It is difficult to envision a solution to this problem without sacrificing type safety.  If the Gem Cutter were to allow one to modify an existing gem to have a different type signature, then gems which rely on the gem that was changed will no longer be syntactically correct.  At the very least however, it would be helpful to have the Gem Cutter indiciate which gems are dependent upon the current gem, so at least we can more easily identify which gems we need to decouple the current gem from if we wish to change it.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Progressive Evaluation}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Progressive Evaluation examines the environments facilities for allowing one to execute a partially completed solution.
 
 \subsubsection{Discussion of Dimension}
 
+This dimension is one of the strongest of Gem Cutter, particularly in regards to students learning to program with it.  The Gem Cutter allows one to evaluate any program fragment at any time by right-clicking the gem fragment and choosing ``Run Gem''.  As mentioned in \sref{cgframeoutline}, this ability to evaluate small fragments of code rather than having to create an entire program is extremely useful to students learning to program as they need to evaluate their progress frequently to assess if the code that they have written does what they think it should do.
+
+The only small limitation to the ability to run gems in this fashion is in regard to infinite lists.  As a lazy (non-strict) language, CAL (and as a result the Gem Cutter) allows one to create lists of infinite length\footnote{Of course, this the lists are infinite from an abstract viewpoint, in reality there is a finite amount of memory in any machine}.  In \fref{fig:gcInfList-a} we see a design for a gem called \code{infList()} which given a function \code{f()}which generates the n\textsuperscript{th} term of a series, will generate the infinite list (\(f(0),f(1),f(2),...\)).  If in the design of \code{infList()} we pick ``Run Gem'' on the target gem, the gem will be run, and the Gem Cutter will continue to evaluate \code{infList()} until memory has been exhausted.  If we wish to see if the gem is correct, we must create a new gem, and combine the \code{infList()} gem with the \code{take()} gem from \code{List} module and run that subexpression, as seen in \fref{fig:gcInfList-b}\footnote{In this example we are using the \code{infList()} gem to generate the first 15 Fibonacci numbers}.
+
+Also note in \fref{fig:gcInfList-b} that when a user selects ``Run Gem'', the environment will prompt the user for any incomplete or unbound arguments.  This is even better than in Prograph where once an unspecified argument was found execution was terminated.
+
+\begin{figure}[htp]
+  \begin{center}
+    \subfloat[The InfList() Gem Definition]{\label{fig:gcInfList-a}\includegraphics[scale=0.4]{Figures/gcInfList}} \quad
+    \subfloat[Using the InfList() Gem To Generate Fibonacci Numbers]{\label{fig:gcInfList-b}\includegraphics[scale=0.4]{Figures/gcInfListRun}}
+  \end{center}
+  \caption{Using The InfList() Gem}
+  \label{fig:gcInfList}
+\end{figure}
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+The support for Progressive Evaluation in the Gem Cutter is quite strong.  The infinite list issue is relatively minor, only requiring one to create a new subexpression that makes use of the gem which generates the infinite list.  Perhaps a small improvement would be if the user tries to run a gem which generates an infinite list directly, to have the Gem Cutter display the evaluated results rather than just a ``out of memory'' error message.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Role-Expressiveness}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Role Expressiveness tries to evaluate the environment's support for answering the user's question of ``what is this bit for?''.
 
 \subsubsection{Discussion of Dimension}
 
+The Gem Cutter has a number of aspects to support Role Expressiveness.  For example, all gems have meaningful identifiers attached to them (the name of the function, etc).  Modularity is supported through the use of modules and gems (functions), though while all gems from the standard libraries are organized into modules, all user-created gems go into the same module (the ``GemCutterSaveModule'' module) and creating new modules to use in the Gem Cutter is a nontrivial task (as mentioned in \sref{sec:gemCutterShortcomings}).  In terms of code ``beacons'', we found the same structures identified by Kelso in the VFPE, though rotated 90 degrees as the Gem Cutter arranges items from left to right as opposed to top down (as in the VFPE).  For example, compositional pipelines took the form of a ``vertical string of beads''\cite{Kelso02} in the VFPE, where in the Gem Cutter they became a horizontal string of Gems, etc.  In some ways, list processing created a ``staircase'' of gems, as most of the standard list processing gems (\code{map()}, \code{filter()}, \code{zip()}, etc) have two inputs, the top being a function and the bottom being a list.  A common programming idiom in the functional world is to have the output of list processing functions fed into other list processing functions, which in the case of Gem Cutter results in this left to right, rising ``staircase'' of gems.
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+The only additional support needed for modularity in regards to the Gem Cutter is the ability for one to more easily create their own modules.  As it stands, one has to resort to writing CAL code by hand, then modifying the Gem Cutter environment to import the modules into the current workspace.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Secondary Notation}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Secondary Notation explores what support the environment has for conveying extra information to users beyond the official syntax of a notation.
 
 \subsubsection{Discussion of Dimension}
 
+Layout in the Gem Cutter is freeform, and as such can be used to convey meaning to users.  This is very much like Prograph where layout was also freeform, and unlike the VFPE where layout was completely controlled by the environment.  Colour and visual cues are used to convey extra meaning, function gems are coloured red, user-created local functions are coloured a yellow colour, record selection gems a violet colour, and collector gems are black, and emitters are coloured white.  As well, the target gem that represents the gem's return value is coloured as a ``bullseye'' to convey the meaning that it is the overall ``target'' of the current gem.
+
+Commenting is supported through the properties window of any collector gem or the target gem.  The Properties window for the \code{rocket1()} gem described in \sref{sec:eval:diffuseness} is shown in \fref{gcRocketProps}.  In the properties window one can describe and annotate various aspects of the gem in question.  As mentioned the same set of documentation can be done for any collector gem within a gem, thus allowing the ability to comment groups of gems.  However, individual gems other than collector gems cannot be annotated with comments.  In the case of value gems it is possible to ``name'' them by feeding a value gem into a collector gem and then naming the collector gem, however this increases the number of graphic entities on screen thereby negatively impacting Diffuseness.  Additionally, though comments are supported through the properties window of a gem, like the VFPE there is no visual cue that such a comment exists.
+
+\insertFigure{4.5}{gcRocketProps}{The \code{rocket1()} Gem's Properties Window}
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
+
+The main remedy to problems associated with Secondary Notation that Green describes is to ``provide tools in the system to allow components to be labelled and described and their relationships made explicit''\cite{green98}.  The Gem Cutter does this to a certain degree with the Properties window, but it is very coarse grained -- there is not enough support in the form of tools to allow sub-parts of gems to be documented and described.
+
+It is also worth noting that Secondary Notation often trades off against Viscosity, as if the structure is changed, then the secondary notation becomes obsolete and also needs to be changed.  In the case of the Gem Cutter when the arguments and return types of a gem change, the properties are automatically updated, which helps to mitigate this concern.  Specifically, if arguments are removed from the gem definition, then they are also automatically removed from the properties window.  If arguments are added then an entry for the argument will be added automatically to the properties of the gem, however a meaningful description still needs to manually be added by the user.  Other metadata stored in the properties window such as author name, description of the gem, etc, will also have to be maintained manually by the user.
 
 %------------------------------------------------------------------------------------------------
 
 \subsection{Viscosity}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Viscosity tries to measure an environments resistance to change.
 
 \subsubsection{Discussion of Dimension}
+
+viscosity - can't open a new gem design until the current is finished
+viscosity - layout problems addressed by automatically rearranging items
+viscosity - difficult to change type signature of gems.
+
+Straw test: around 2:50 in Gem Cutter.
 
 \subsubsection{Remedies, Workarounds, And Trade-offs}
 
@@ -230,37 +325,23 @@ As described in \sref{cgframeoutline} the dimension of  ....
 
 \subsection{Visibility}
 
-As described in \sref{cgframeoutline} the dimension of  ....
+As described in \sref{cgframeoutline} the dimension of Visibility is concerned with the environments support for making required materials easily accessible.
 
 \subsubsection{Discussion of Dimension}
 
+In terms of Visibility, navigational visibility is generally strong in the Gem Cutter, as the number of actions needed to find a particular gem in a gem design is usually very small, at most being a simple scrolling of the window to find what one is looking for.  If a gem's design becomes overly ``messy'' or ``cluttered'', a user can select the ``Tidy Tabletop'' option on the view menu to have the environment automatically arrange gem groupings in a top-down manner.  Alternatively, the Scope Window in the top left corner (seen in \fref{gcScopeWindow}) of the Gem Cutter interface, gives a heirarchical, tree-like listing of all components currently on the tabletop.  Clicking any item in this list will immediately center the tabletop on that item.  So in the worst case finding any item in a gem design is a matter of one or two clicks.  Note that as well, any subexpression in the Scope Window can be collapsed to allow one to focus on other parts of the gem design.  In \fref{gcScopeWindow} is seen with the ``hdist'', ``hveloc'', and ``mass'' collector gem expressions being collapsed, and all others being expanded.  
+
+\insertFigure{2}{gcScopeWindow}{The Scope Window For The \code{rocket1()} Gem}
+
+Predefined functions from the standard libraries are organized into modules, and are easy to find via the Gem Browser.  As well, as mentioned in \sref{sec:gemCutterUsefulApps} the Gem Browser also allows one to do a textual search for gems with particular names, input types, return types, or number of arguments.
+
+A significant problem related to Juxtaposability in that at any given time only a single gem design can be open.  This makes working on multiple gems at the same time artificially difficult, as to open up another gem's design one has to save the current gem, then open the design of the other gem.
+
 \subsubsection{Remedies, Workarounds, And Trade-offs}
 
+The obvious solution to the juxtaposibility problem would be to allow multiple gems to be open at once.  Since the tabletop is a sub-window of the main Gem Cutter window, it would seem that there is no reason why this cannot take place as it would just mean allowing a second sub-window to be open.  This would allow one to switch back and forth between multiple gem designs easily.  However, given the fact that gem designs often take up a considerable amount of screen space, even if multiple gems could be open at the same time, it might be difficult or impossible to view them side-by-side.  Short of being able to ``zoom-out'' on a gem design to make it take less space (which would make seeing the individual components more difficult) it would seem that there is no solution to this problem.
 
-\subsection{notes}
-
-languages which do not require variables to be declared before they are used.  For example in fixme reference, we three implementations of the well known quadratic equation, one in Java, one in Python, and the last in Gem Cutter.  The two textual versions contain the same error in both: the identifier ``disc'' is misspelled on its second use, and thus does not refer to the value desired (the discriminant).  However, in SML, because identifiers must be declared via a val-binding before they are used this error is caught at compile time, whereas in Python (which does not require variables be declared before use), this results in a runtime error the programmer must debug.  Thus one could argue that SML is less error-prone than Python.  However, the Gem Cutter version completely avoids the possibility of the error, as one cannot add an emitter gem unless there is already a corresponding collector gem on the tabletop.
-
-
-Role expressiveness:
-It has been shown that recognition of beacons in code is strongly correlated to programmer experience.  A study done by Wiedenbeck found that while 79\% of experienced programmers recalled significantly more of the beacon lines in a program, only 14\% of novices could do the same \cite{Wiedenbeck91}.  As the focus of this thesis is on the teaching of introductory programming concepts to students new to computer programming, ``beacons'' will be of less importance in our analysis.
-
-
-Hidden dependencies -- gem A depends on gem B, so changes to B can break A.
-Hidden dependencies -- diamond and line makes connections between gems much more visually apparent.
-Premature Commitment -- problem of not being able to save an incomplete gem (commitment to order of creation)
-Progressive Evaluation -- ability to evaluate any subexpression at any time by right-clicking and choosing ``run gem''
-
-viscosity - can't open a new gem design until the current is finished
-
-visibility - can't juxtapose two gem designs simultaneously.
-
-viscosity - layout problems addressed by automatically rearranging items
-
-
-diffuseness - record selection adds many graphical entities, if/else blocking with multiple assignment statements in each block
-
-secondary notation - limited commenting ability. Can describe a gem as a whole, but not subparts of the gem (for example annotating constant value gems would be nice, this can be done by using collector/emitter pairs to name them, but this negatively impacts diffuseness)
+As it stands, the only workaround for users to the juxtaposibility problem is to take a screenshot of a gem's design from a separate program, and then refer back to the screenshot as needed\footnote{This is what was done when doing the viscosity ``straw-test'' of making the small change to the rocket trajectory program}.  A significant limitation of this is that it is not uncommon for gem designs to scroll off the screen, making taking a screenshot of an entire gem's design difficult or impossible.
 
 \begin{comment}
 
