@@ -9,13 +9,13 @@ It embodies a non-strict (lazy), strongly-typed functional language and runtime 
 	\item The Gem Cutter - a visual programming environment based upon the CAL language
 \end{itemize}
 
-This thesis focuses on the latter of those two, the visual programming environment known as the Gem Cutter, however a cursory understanding of CAL will be helpful in understanding how the Gem Cutter works.  A brief overview of both follows, readers more interested in the details of Quark, CAL, and the Gem Cutter are referred to \cite{evans06, evans07}.
+This thesis focuses on the latter of those two, the visual programming environment known as the Gem Cutter, however a cursory understanding of CAL will be helpful in understanding how the Gem Cutter works.  A brief overview of both follows, readers more interested in the details of Quark, CAL, and the Gem Cutter are referred to \cite{evans07,evans06}.
 
 \section{CAL}
 
 CAL is a non-strict (lazy), strongly-typed functional language, which targets the Java runtime.  That is, CAL source is compiled down to Java bytecode, and is it is thus possible to intermix components developed in CAL with components developed in Java proper.  In this sense it is very similar to the Scala programming language \cite{scala}.  It is even possible to call Java methods directly within CAL \cite{javaMeetsQuark}, however, obviously if one imports a functionally impure (ie - not referentially transparent) Java method, this compromises the purity of CAL as a whole (though in a very controlled way).  
 
-Syntactically, CAL is very similar (and heavily inspired by) the Haskell programming language.  Like Haskell it makes full use of a Hindley-Milner type inference scheme, and implements essentially all the non-syntactic sugar features of Haskell 98. \cite{evans07, Ilic07}.  An example of some CAL source can be seen in \pref{prog:calmap} which shows the implementation of the functional programming staple function commonly called \code{map()} which given a function and a list of items, applies that function to each item in the list, returning the transformed list as a result.  
+Syntactically, CAL is very similar (and heavily inspired by) the Haskell programming language.  Like Haskell it makes full use of a Hindley-Milner type inference scheme, and implements essentially all the non-syntactic sugar features of Haskell 98 \cite{evans07, Ilic07}.  An example of some CAL source can be seen in \pref{prog:calmap} which shows the implementation of the functional programming staple function commonly called \code{map()} which given a function and a list of items, applies that function to each item in the list, returning the transformed list as a result.  
 
 %That is, given a function \code{f()}, and a list L with items numbered from 0 through n, \code{map()} returns \code{f(L_0), f(L_1), ..., f(L_n)}.
 
@@ -79,7 +79,7 @@ Oftentimes instructors in first year programming classes have difficulty conveyi
 
 It is not uncommon for someone designing a learning exercise in the functional paradigm to reach a point where they require a function that has a particular type signature.  The Gem Cutter provides two main mechanisms for finding functions of a particular type: \emph{Intellicut} and \emph{The Gem Browser}.  
 
-With Intellicut (seen in \fref{fig:intellicut}), when one hovers the mouse over a particular connection on a gem a small popup window will appear listing possible type-safe gems which can be linked to this connector.  Furthermore, there are three views in this popup, as one can select to see all valid gems, only the ``best'' gems, or a ``likely'' subset of gems.  This feature can oftentimes allow one to ``accidentally'' discover that perfect function to be used with many higher order functions such as \code{map()}.  From a learner's perspective, Intellicut provides a support mechanism which can help ``guide'' students to correct solutions without sacrificing learning objectives.  Intellicut is in many ways similar to syntax-directed editing, or code completion, where the goal is to simplify the development process by alleviating some of the cognitive load that programming entails.
+With Intellicut (seen in \fref{fig:intellicut}), when one hovers the mouse over a particular connection on a gem a small pop up window will appear listing possible type-safe gems which can be linked to this connector.  Furthermore, there are three views in this pop up, as one can select to see all valid gems, only the ``best'' gems, or a ``likely'' subset of gems.  This feature can oftentimes allow one to ``accidentally'' discover that perfect function to be used with many higher order functions such as \code{map()}.  From a learner's perspective, Intellicut provides a support mechanism which can help ``guide'' students to correct solutions without sacrificing learning objectives.  Intellicut is in many ways similar to syntax-directed editing, or code completion, where the goal is to simplify the development process by alleviating some of the cognitive load that programming entails.
 
 %\insertFigureLoc{p}{6}{intellicut}{Intellicut showing the best 204 gems (left) and all 1,113 gems (right) for Map.find}
 
@@ -226,6 +226,6 @@ In CAL, tuples are treated as records with the first field named \code{\#1}, the
 
 \verb!(a\#1, a\#2) => {a |#1 :: Int, #2 :: String}!
 
-However, this looks quite different than \code{(Int, String)}, even though the two types are equivalent.  This can be a source of confusion for students not well-versed in various compound type schemes.  An example of this is seen in \fref{tuplevsrecord} where we have a \code{tuple2()} gem and a \code{field1()} gem.  The output of \code{tuple2()} is completely type equivalent to the input of \code{field1()}, even thogh the type identifiers look quite different (particularly to the untrained eye).
+However, this looks quite different than \code{(Int, String)}, even though the two types are equivalent.  This can be a source of confusion for students not well-versed in various compound type schemes.  An example of this is seen in \fref{tuplevsrecord} where we have a \code{tuple2()} gem and a \code{field1()} gem.  The output of \code{tuple2()} is completely type equivalent to the input of \code{field1()}, even though the type identifiers look quite different (particularly to the untrained eye).
 
 \insertFigure{3}{tuplevsrecord}{The tuple2 and field1 gems}

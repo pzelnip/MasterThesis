@@ -56,7 +56,7 @@ Each parameter of the \(game()\) function is outlined in detail below:
 	\item \code{userPrompt :: String} - the string to use as a prompt to the player (for example, ``Enter your choice:'')
 	\item \code{title :: String} - the string to use as the title of the game.  This is displayed to the player once when the game begins.
 	\item \code{gameOverTest :: (String, State) -> Boolean} - a predicate function which given the last displayed message to the player and a current game state, returns true if the game is now over (for example if the player has won).
-	\item \code{stateToString :: State -> String} - a function which given a game state, returns a string represenation of that state to be displayed to the player.
+	\item \code{stateToString :: State -> String} - a function which given a game state, returns a string representation of that state to be displayed to the player.
 \end{itemize}
 
 A screenshot of the implementation of \(game()\) is shown in \fref{gameImplementation}.
