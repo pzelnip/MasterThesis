@@ -1,19 +1,42 @@
 \startchapter{The Quark Framework}
 \label{chapter:quark}
 
-The Quark framework, also known as Open Quark, is a framework developed originally in the late 1990's at Business Objects.
-It embodies a non-strict (lazy), strongly-typed functional language and runtime for the Java platform.  The main motivation behind the design of Quark was to create a system which allowed dual language development in which a functional language could be used to define declarative business models and these models could then be assembled by Java client programs responsible for user interfaces, communications protocols, interfacing to databases, security, legacy applications, and other applications for which Java proper was well-suited.  Thus it would allow a sort of ``meta-programming'', in a sense combining the best of both worlds (functional and object orientated) \cite{evans07}.  Quark itself consists of two main components:
+The OpenQuark framework is a framework developed originally at the Business Objects Research Group.  It embodies a non-strict (lazy), strongly-typed functional language and runtime for the Java platform.  In this chapter we will outline some of the motivation and historical context behind the creation of the OpenQuark framework, as well as give an overview of the two main components of Quark (CAL, and the Gem Cutter), readers more interested in the details of Quark, CAL, and the Gem Cutter are referred to \cite{evans07,evans06}.
+
+\section{History of OpenQuark}
+
+Development on the OpenQuark project began in the late 1990's with most development work occurring between 2000 and 2007 at the research group of Business Objects.  
+
+Business Objects as a company specialises in business intelligence (BI) software which commonly needs to manipulate data and metadata in well-defined ways.  As a result, it was desirable to have a framework which would allow data behavior to be able to be ``expressed in a formal manner as components that specific applications can load and compose together into the actual data processes they require''\cite{aboutOpenQuark}.
+
+Thus a primary development goal of the OpenQuark framework was that it would allow data behavior to be declaratively expressed and composable.  These assembled declarative models would then be validated statically and then could be executed by the underlying framework which would be able to intermix with Java-based client programs which would handle the responsibility for UI, communications protocols, interfacing to databases, security, legacy applications, etc.  Thus it would allow a sort of functional language based meta-programming.
+
+The framework itself was developed to support a functional-based language called CAL, which featured strong syntactic similarities and features of the Haskell programming language such as modules, type definitions, type class definitions as well as various type-checking operations such as unification and pattern matching \cite{evans07}.  More detail about CAL is given in \sref{section:CAL}.  The other primary component of the OpenQuark framework is the Gem Cutter visual programming environment. The Gem Cutter VPE itself is a Java Swing application written using the Quark Framework’s Java API, and was developed with the initial motivation being a proof-of-concept that this meta-programming was in fact possible.  It was identified as having various other benefits not initially envisioned such as:
 
 \begin{itemize}
-	\item CAL - a text-based functional language very much like Haskell
-	\item The Gem Cutter - a visual programming environment based upon the CAL language
+\item being very effective for exploring and testing the functionality of CAL modules
+\item prototyping
+\item a ``functional laboratory to explore new ideas with the considerable help of compiler
+feedback (e.g. type inference) and its interactive, assistive features.''\cite{evans07}
+\item a tool that can help people new to the functional paradigm to visualize and learn some of the characteristics of the paradigm
 \end{itemize}
 
-This thesis focuses on the latter of those two, the visual programming environment known as the Gem Cutter, however a cursory understanding of CAL will be helpful in understanding how the Gem Cutter works.  A brief overview of both follows, readers more interested in the details of Quark, CAL, and the Gem Cutter are referred to \cite{evans07,evans06}.
+A more thorough examination of the Gem Cutter is given in \sref{section:GC}.
+
+The OpenQuark framework was released under a BSD-style open source license in 2006, and now consists of:
+
+\begin{itemize}
+	\item the framework itself (i.e. - all the libraries and API's needed to embed lazy functional semantics into a Java program)
+	\item the CAL language and an interactive interpreter for it (known as ICE), giving the ability to run standalone CAL programs
+	\item the CAL Eclipse plug-in allowing one to write CAL code in Eclipse
+	\item documentation
+	\item the Gem Cutter VPE
+\end{itemize}
 
 \section{CAL}
+\label{section:CAL}
 
-CAL is a non-strict (lazy), strongly-typed functional language, which targets the Java runtime.  That is, CAL source is compiled down to Java bytecode, and is it is thus possible to intermix components developed in CAL with components developed in Java proper.  In this sense it is very similar to the Scala programming language \cite{scala}.  It is even possible to call Java methods directly within CAL \cite{javaMeetsQuark}, however, obviously if one imports a functionally impure (ie - not referentially transparent) Java method, this compromises the purity of CAL as a whole (though in a very controlled way).  
+CAL is a non-strict (lazy), strongly-typed functional language, which targets the Java runtime.  That is, CAL source is compiled down to Java bytecode, and is it is thus possible to intermix components developed in CAL with components developed in Java.  In this sense it is very similar to the Scala programming language \cite{scala}.  It is even possible to call Java methods directly within CAL \cite{javaMeetsQuark}, however, obviously if one imports a functionally impure (ie - not referentially transparent) Java method, this compromises the purity of CAL as a whole (though in a very controlled way).  
 
 Syntactically, CAL is very similar (and heavily inspired by) the Haskell programming language.  Like Haskell it makes full use of a Hindley-Milner type inference scheme, and implements essentially all the non-syntactic sugar features of Haskell 98 \cite{evans07, Ilic07}.  An example of some CAL source can be seen in \pref{prog:calmap} which shows the implementation of the functional programming staple function commonly called \code{map()} which given a function and a list of items, applies that function to each item in the list, returning the transformed list as a result.  
 
@@ -34,6 +57,7 @@ public map mapFunction !list =
 \end{program}
 
 \section{The Gem Cutter}
+\label{section:GC}
 
 \begin{flushright}
 \textit{Full many a gem of purest ray serene\\
@@ -46,7 +70,7 @@ Thomas Gray \cite{Gray51} \\
 
 In this section we shall introduce the Gem Cutter, and its interface, focusing on concepts that are directly related to exploring the environment from a pedagogical standpoint.  A full detailed technical description of the Gem Cutter can be found in \cite{evans07}, the ``official'' manual for the environment can be found at \cite{evans06}, and a simple tutorial on using the Gem Cutter designed for students in a third year software engineering course at the University of Victoria can be found at \cite{parkin08}.
 
-The Gem Cutter is a visual interface to CAL code.  The interface allows one to create CAL functions called ``Gems'', which are directly translated into CAL source code, which is then in turn compiled and executed.  Thus, the Gem Cutter provides an environment in which one can explore the capabilities of CAL \emph{without writing a single textual line of code}.  This direct relationship between the visual representation in Gem Cutter and the textual in CAL, and the teaching benefits that arise from this is one of the primary motivations behind this thesis.
+The Gem Cutter is a visual interface to CAL code.  The interface allows one to create CAL functions called ``Gems'', which are directly translated into CAL source code, which is then in turn compiled and executed\footnote{It is worth mentioning that the ``gems'' in Gem Cutter have no direct relation to Ruby Gems, or the RubyGems project}.  Thus, the Gem Cutter provides an environment in which one can explore the capabilities of CAL \emph{without writing a single textual line of code}.  This direct relationship between the visual representation in Gem Cutter and the textual in CAL, and the teaching benefits that arise from this is one of the primary motivations behind this thesis.
 
 The Gem Cutter starts up in a particular CAL workspace, where a workspace is a collection of CAL modules which form the initial environment for the Gem Cutter.  This start up window can be found in \fref{gemCutterMain}.  The main interface of the Gem Cutter is made up of three components: the Scope Window which provides a tree-like overview of the gem currently being constructed, the Gem Browser which provides a list of all imported CAL modules for the current workspace, and the tabletop which is the area one composes (or ``cuts'') a new gem.
 
